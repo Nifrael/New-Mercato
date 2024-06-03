@@ -10,31 +10,5 @@
 @import "user_dashboard";
 @import "dashboard_bar";
 @import "button_anchor";
-@import "tiles";
 @import "loading_spinner";
-
-
-body  {
-  margin: 0 0 0 0; // margin bottom give the space to the navbar
-  padding: 0 0 0 0; // padding bottom to give the space to the footer
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  line-height: 1;
-  vertical-align: baseline;
-  -webkit-text-size-adjust: none;
-  background: #ffffff;
-  color: #585858;
-  font-family: "Source Sans Pro", Helvetica, sans-serif;
-  font-size: 16pt;
-  font-weight: 300;
-
-  .content {
-    position: relative;
-    z-index: 999; /* Lower than navbar */
-    /* Add more styles as needed */
-    flex: 1;
-    display: block;
-    padding: 100px 0 0 0;
-  }
-}
+@import "players_index";

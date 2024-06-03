@@ -1,17 +1,13 @@
 <%= link_to "Retour", :back, class: "btn" %>
-  <div class="dashboard-bar mb-4">
-    <h1>Bienvenue, <%= @current_user.first_name %> !</h1>
-  </div>
-
+<div class="dashboard-bar mb-4">
+  <h1>Bienvenue, <%= @current_user.first_name %> !</h1>
+</div>
 <div  data-controller="tabs" data-tabs-default-value="user">
-
-    <div class="btn-list mb-3">
-      <button class="btn" data-tabs-target="btn" data-action="click->tabs#open" data-id="user">Mes infos</button>
-      <button class="btn" data-tabs-target="btn" data-action="click->tabs#open" data-id="players">Mes joueurs</button>
-      <button class="btn" data-tabs-target="btn" data-action="click->tabs#open" data-id="bookings">Mes Réservations</button>
-    </div>
-
-
+  <div class="btn-list mb-3">
+    <button class="btn" data-tabs-target="btn" data-action="click->tabs#open" data-id="user">Mes infos</button>
+    <button class="btn" data-tabs-target="btn" data-action="click->tabs#open" data-id="players">Mes joueurs</button>
+    <button class="btn" data-tabs-target="btn" data-action="click->tabs#open" data-id="bookings">Mes Réservations</button>
+  </div>
   <div data-tabs-target="tab" data-tabs-type-value="user">
     <div class="user-container">
       <div class="text-user">
@@ -35,8 +31,6 @@
       </div>
     </div>
   </div>
-
-
   <div data-tabs-target="tab" data-tabs-type-value="players" >
     <div class="players-container" data-controller="menu-filters" data-menu-filters-default-value="players">
       <div class="menus">
@@ -51,22 +45,22 @@
       <div class="rows" data-menu-filters-target="tab" data-menu-filters-type-value="players">
         <% @players.each do |player| %>
           <div class="row-player">
-          <%= link_to player_path(id: player.id) do %>
-            <%= player.img.present? ? image_tag(player.img) : cl_image_tag(player.photo.key) %>
+            <%= link_to player_path(id: player.id) do %>
+              <%= player.img.present? ? image_tag(player.img) : cl_image_tag(player.photo.key) %>
             <% end %>
             <p><%= player.name %></p>
             <p><%= player.position.capitalize %></p>
             <p><%= number_with_delimiter(player.market_value, delimiter: ' ') %> €</p>
             <p><%= player.age %> ans</p>
             <div class="row-action">
-            <%= link_to edit_player_path(id: player.id) do %>
-              <i class="fa-solid fa-pencil"></i>
-            <% end %>
+              <%= link_to edit_player_path(id: player.id) do %>
+                <i class="fa-solid fa-pencil"></i>
+              <% end %>
             </div>
           </div>
         <% end %>
       </div>
-          <div class="rows hidden" data-menu-filters-target="tab" data-menu-filters-type-value="gardiens">
+      <div class="rows hidden" data-menu-filters-target="tab" data-menu-filters-type-value="gardiens">
         <% @gardiens.each do |player| %>
           <div class="row-player">
             <%= link_to player_path(id: player.id) do %>
@@ -78,13 +72,13 @@
             <p><%= player.age %> ans</p>
             <div class="row-action">
               <%= link_to edit_player_path(id: player.id) do %>
-              <i class="fa-solid fa-pencil"></i>
-            <% end %>
+                <i class="fa-solid fa-pencil"></i>
+              <% end %>
             </div>
           </div>
         <% end %>
       </div>
-          <div class="rows hidden" data-menu-filters-target="tab" data-menu-filters-type-value="defenseurs">
+      <div class="rows hidden" data-menu-filters-target="tab" data-menu-filters-type-value="defenseurs">
         <% @defenseurs.each do |player| %>
           <div class="row-player">
             <%= link_to player_path(id: player.id) do %>
@@ -95,14 +89,14 @@
             <p><%= number_with_delimiter(player.market_value, delimiter: ' ') %> €</p>
             <p><%= player.age %> ans</p>
             <div class="row-action">
-            <%= link_to edit_player_path(id: player.id) do %>
-              <i class="fa-solid fa-pencil"></i>
-            <% end %>
+              <%= link_to edit_player_path(id: player.id) do %>
+                <i class="fa-solid fa-pencil"></i>
+              <% end %>
             </div>
           </div>
         <% end %>
       </div>
-          <div class="rows hidden" data-menu-filters-target="tab" data-menu-filters-type-value="milieux">
+      <div class="rows hidden" data-menu-filters-target="tab" data-menu-filters-type-value="milieux">
         <% @milieux.each do |player| %>
           <div class="row-player">
             <%= link_to player_path(id: player.id) do %>
@@ -113,14 +107,14 @@
             <p><%= number_with_delimiter(player.market_value, delimiter: ' ') %> €</p>
             <p><%= player.age %> ans</p>
             <div class="row-action">
-                          <%= link_to edit_player_path(id: player.id) do %>
-              <i class="fa-solid fa-pencil"></i>
-            <% end %>
+              <%= link_to edit_player_path(id: player.id) do %>
+                <i class="fa-solid fa-pencil"></i>
+              <% end %>
             </div>
           </div>
         <% end %>
       </div>
-          <div class="rows hidden" data-menu-filters-target="tab" data-menu-filters-type-value="attaquants">
+      <div class="rows hidden" data-menu-filters-target="tab" data-menu-filters-type-value="attaquants">
         <% @attaquants.each do |player| %>
           <div class="row-player">
             <%= link_to player_path(id: player.id) do %>
@@ -132,29 +126,28 @@
             <p><%= player.age %> ans</p>
             <div class="row-action">
               <%= link_to edit_player_path(id: player.id) do %>
-              <i class="fa-solid fa-pencil"></i>
-            <% end %>
+                <i class="fa-solid fa-pencil"></i>
+              <% end %>
             </div>
           </div>
         <% end %>
       </div>
     </div>
   </div>
-
   <div data-tabs-target="tab" data-tabs-type-value="bookings">
     <div class="players-container" data-controller="menu-filters" data-menu-filters-default-value="players">
       <div class="rows-bookings" data-menu-filters-target="tab" data-menu-filters-type-value="players">
         <% @bookings.each do |booking| %>
           <% player = Player.find_by(id: booking.player_id) %>
           <%= link_to player_booking_path(player_id: booking.player.id, id: booking.id) do %>
-          <div class="row-booking">
-            <%= player.img.present? ? image_tag(player.img) : cl_image_tag(player.photo.key) %>
-            <p><%= player.name %></p>
-            <p><%= player.position.capitalize %></p>
-            <p><%= booking.start_date <= @today ? "#{(booking.end_date - booking.start_date).to_i} jours restants" : "Arrive dans #{(booking.start_date - Date.today).to_i} jours" %></p>
-            <p><%= number_with_delimiter(booking.total_price, delimiter: ' ') %> €</p>
-            <p><%= player.age %> ans</p>
-          </div>
+            <div class="row-booking">
+              <%= player.img.present? ? image_tag(player.img) : cl_image_tag(player.photo.key) %>
+              <p><%= player.name %></p>
+              <p><%= player.position.capitalize %></p>
+              <p><%= booking.start_date <= @today ? "#{(booking.end_date - booking.start_date).to_i} jours restants" : "Arrive dans #{(booking.start_date - Date.today).to_i} jours" %></p>
+              <p><%= number_with_delimiter(booking.total_price, delimiter: ' ') %> €</p>
+              <p><%= player.age %> ans</p>
+            </div>
           <% end %>
         <% end %>
       </div>

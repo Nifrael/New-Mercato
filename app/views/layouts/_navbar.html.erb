@@ -1,0 +1,40 @@
+<div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
+  <div class="container-fluid">
+    <%= link_to players_path, class: "navbar-brand" do %>
+      <%= image_tag('LogoAirBNB.jpg') %>
+    <% end %>
+    <div class="navbar-logo">
+      <% if current_page?(root_path) %>
+        <% "" %>
+      <% else %>
+        <%= image_tag('LogoAirBNB.jpg') %>
+      <% end %>
+    </div>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item active">
+          <%= link_to "Accueil", root_path, class: "nav-link", style:" line-height: 40px;" %>
+        </li>
+        <li class="nav-item dropdown" style="margin-right50px">
+          <% if user_signed_in? %>
+            <img class="avatar dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" src="<%= current_user.avatar %>" />
+          <% else %>
+            <%= link_to "Connexion", new_user_session_path, class: "nav-link", style:" line-height: 40px;" %>
+          <% end %>
+          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+            <% if user_signed_in? %>
+              <%= link_to "Tableau de bord", dashboards_path, class: "dropdown-item" %>
+              <%= link_to "Ajouter nouveau joueur", new_player_path, class: "dropdown-item"%>
+              <%= link_to "Déconnexion", destroy_user_session_path, data:{turbo_method: :delete}, class: "dropdown-item" %>
+            <% else %>
+              <%= link_to "Connexion", new_user_session_path, class: "dropdown-item" %>
+            <% end %>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

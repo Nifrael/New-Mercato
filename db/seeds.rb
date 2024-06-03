@@ -13,7 +13,6 @@ require 'json'
 require "open-uri"
 require "nokogiri"
 
-
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36"
 
 Booking.destroy_all
@@ -60,34 +59,27 @@ puts "----------------------------------------------------------------"
 puts "Creating players..."
 puts "----------------------------------------------------------------"
 
-#The code below is used to later change the nationality result in a compatible string format
-# string = "[\"Brazil\", \"Argentina\"]"
-# countries = JSON.parse(string).join(', ')
-# Player.all.each do |player|
-#   player.nationality = JSON.parse(player.nationality).join(', ')
-# end
-
 puts "----------------------------------------------------------------"
 puts "Creating players of liverpool"
 puts "----------------------------------------------------------------"
 
 position_mapping = {
-  "Centre-Forward" => "attaquant",
-  "Goalkeeper" => "gardien",
-  "Centre-Back" => "défenseur",
-  "Left Winger" => "attaquant",
-  "Second Striker" => "attaquant",
-  "Right-Back" => "défenseur",
-  "Defensive Midfield" => "milieu",
-  "Central Midfield" => "milieu",
-  "Attacking Midfield" => "milieu",
-  "Right Winger" => "attaquant",
-  "Left-Back" => "défenseur",
-  "Right Midfield" => "milieu",
-  "Left Midfield" => "milieu"
+  "Centre-Forward" => "Attaquant",
+  "Goalkeeper" => "Gardien",
+  "Centre-Back" => "Défenseur",
+  "Left Winger" => "Attaquant",
+  "Second Striker" => "Attaquant",
+  "Right-Back" => "Défenseur",
+  "Defensive Midfield" => "Milieu",
+  "Central Midfield" => "Milieu",
+  "Attacking Midfield" => "Milieu",
+  "Right Winger" => "Attaquant",
+  "Left-Back" => "Défenseur",
+  "Right Midfield" => "Milieu",
+  "Left Midfield" => "Milieu"
 }
 
-url_liverpool = 'https://transfermarkt-api.vercel.app/clubs/31/players'
+url_liverpool = 'https://transfermarkt-api.fly.dev/clubs/31/players'
 uri = URI(url_liverpool)
 response = Net::HTTP.get(uri)
 data = JSON.parse(response)
@@ -131,7 +123,7 @@ puts "----------------------------------------------------------------"
 puts "Creating players of lisboa"
 puts "----------------------------------------------------------------"
 
-url_lisboa = 'https://transfermarkt-api.vercel.app/clubs/294/players'
+url_lisboa = 'https://transfermarkt-api.fly.dev/clubs/294/players'
 uri = URI(url_lisboa)
 response = Net::HTTP.get(uri)
 data = JSON.parse(response)
@@ -175,7 +167,7 @@ puts "----------------------------------------------------------------"
 puts "Creating players of juventus"
 puts "----------------------------------------------------------------"
 
-url_juventus = 'https://transfermarkt-api.vercel.app/clubs/506/players'
+url_juventus = 'https://transfermarkt-api.fly.dev/clubs/506/players'
 uri = URI(url_juventus)
 response = Net::HTTP.get(uri)
 data = JSON.parse(response)
