@@ -11,12 +11,12 @@
     <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/confetti.css">
   </head>
   <body>
-    <%= render "layouts/new_navbar" %>
-    <div class="container">
-      <div class="content">
-        <%= yield %>
-      </div>
-    </div>
-    <%= render "layouts/footer" %>
+    <% unless current_page?(root_path) %>
+      <%= render "layouts/new_navbar" %>
+    <% end %>
+    <%= yield %>
+    <% unless current_page?(root_path) %>
+      <%= render "layouts/footer" %>
+    <% end %>
   </body>
 </html>
