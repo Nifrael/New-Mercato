@@ -11,15 +11,21 @@
 @import "components/index";
 @import "pages/index";
 
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
 body {
-  background-image: image-url('stade.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: bottom;
-  background-attachment: fixed;
-  height: 100vh;
-  width: 100%;
+  // background-image: image-url("stade.jpg");
+  // background-size: cover;
+  // background-repeat: no-repeat;
+  // background-position: bottom;
+  // background-attachment: fixed;
+  // height: 100vh;
+  // width: 100%;
   background-color: #f1f1f1d0;
   background-blend-mode: overlay;
   color: #212930;
-  }
+}
