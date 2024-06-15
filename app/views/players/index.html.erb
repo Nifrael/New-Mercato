@@ -3,29 +3,15 @@
   <%= render "players/search" %>
 </div>
 <div class="container mt-5">
-  <div class="players">
+  <div class="grid-players">
     <% @players.each do |player| %>
       <%= link_to player_path(player) do %>
-        <div class="player">
-          <div class="card-player">
-            <% if player.img.present? %>
-              <div class="image-player">
-                <%= image_tag(player.img) %>
-              </div>
-            <% else %>
-              <div class="image-player">
-                <%= cl_image_tag player.photo.key %>
-              </div>
-            <% end %>
-          </div>
-          <div class="card-infos">
-            <p><%= player.name %></p>
-            <p>Pied <%= player.foot.capitalize %></p>
-            <div class="infos">
-              <p><%= player.price_per_day%> €</p>
-              <p><%= player.position.capitalize %></p>
-            </div>
-          </div>
+        <div class="grid-player">
+          <%= image_tag(player.img) %>
+          <p><%= player.name %></p>
+          <p><%= player.position.capitalize %></p>
+          <p>Pied <%= player.foot.capitalize %></p>
+          <p><%= player.price_per_day%> €</p>
         </div>
       <% end %>
     <% end %>
