@@ -14,7 +14,7 @@
 *,
 *:before,
 *:after {
-  box-sizing: inherit;
+  box-sizing: border-box;
 }
 
 body {
@@ -26,6 +26,6 @@ body {
   // height: 100vh;
   // width: 100%;
   background-color: #f1f1f1d0;
-  background-blend-mode: overlay;
+  // background-blend-mode: overlay;
   color: #212930;
 }

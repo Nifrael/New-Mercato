@@ -1,0 +1,41 @@
+.home {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.red-triangle,
+.white-triangle {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+}
+
+.red-triangle {
+  left: 0;
+  clip-path: polygon(0% 0%, 0% 100%, 100% 0%);
+  background-color: $red-triangle;
+}
+
+.white-triangle {
+  right: 0;
+  clip-path: polygon(100% 0%, 100% 100%, 0% 100%);
+  background-color: $white-triangle;
+}
+
+.start-button {
+  position: absolute;
+  top: 48%;
+  left: 44%;
+  z-index: 1;
+  background-color: $white-triangle;
+  border: 3px solid $red-triangle;
+
+  &:hover {
+    background-color: opacify($color: $red-triangle, $amount: 1);
+    color: $white-triangle;
+    border: 3px solid $white-triangle;
+  }
+}
