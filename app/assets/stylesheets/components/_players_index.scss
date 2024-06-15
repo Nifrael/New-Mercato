@@ -1,4 +1,37 @@
-.players {
+.grid-players {
+  width: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
+  gap: 2rem;
+}
+
+.grid-player {
+  width: 100%;
+  background-color: $white-triangle;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 0.5fr;
+  padding: 0.5rem;
+  border-radius: 10px;
+  box-shadow: 1px 1px 10px rgb(189, 189, 189);
+  img {
+    grid-column: 1/2;
+    grid-row: 1/4;
+    width: 170px;
+    height: 220px;
+    border-radius: 10px;
+  }
+  p:first-of-type {
+    grid-column: 1/3;
+    grid-row: 4/5;
+    margin: 1rem auto;
+  }
+  p {
+    color: $red-triangle;
+    grid-column: 2/3;
+    margin: auto;
+    font-weight: 600;
+    font-size: 20px;
+  }
 }
