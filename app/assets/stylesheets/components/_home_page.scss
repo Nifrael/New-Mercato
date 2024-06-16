@@ -28,14 +28,16 @@
 .start-button {
   position: absolute;
   top: 48%;
-  left: 44%;
+  left: 40%;
   z-index: 1;
   background-color: $white-triangle;
-  border: 3px solid $red-triangle;
+  border: inherit;
+  // border: 3px solid $red-triangle;
 
   &:hover {
     background-color: $red-triangle;
     color: $white-triangle;
-    border: 3px solid $white-triangle;
+    // border: 3px solid $white-triangle;
+    border: inherit;
   }
 }
