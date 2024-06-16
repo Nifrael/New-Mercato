@@ -34,7 +34,7 @@
   border: 3px solid $red-triangle;
 
   &:hover {
-    background-color: opacify($color: $red-triangle, $amount: 1);
+    background-color: $red-triangle;
     color: $white-triangle;
     border: 3px solid $white-triangle;
   }
