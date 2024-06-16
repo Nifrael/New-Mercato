@@ -26,12 +26,20 @@
     grid-column: 1/3;
     grid-row: 4/5;
     margin: 1rem auto;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    font-weight: bolder;
+    font-family: $players-name-font;
+    color: $red-triangle;
   }
   p {
-    color: $red-triangle;
+    color: $gray;
     grid-column: 2/3;
     margin: auto;
     font-weight: 600;
     font-size: 20px;
+  }
+  p:last-of-type > span {
+    font-weight: bolder;
   }
 }
