@@ -30,14 +30,14 @@
   top: 48%;
   left: 40%;
   z-index: 1;
+  padding: 0.5rem 1rem 0.5rem 1rem;
   background-color: $white-triangle;
   border: inherit;
-  // border: 3px solid $red-triangle;
+  font-size: 20px;
 
   &:hover {
     background-color: $red-triangle;
     color: $white-triangle;
-    // border: 3px solid $white-triangle;
     border: inherit;
   }
 }
