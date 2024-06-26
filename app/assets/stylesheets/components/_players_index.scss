@@ -8,14 +8,16 @@
 
 .grid-player {
   width: 100%;
-  background-color: $white-triangle;
+  // background: linear-gradient(140deg, $red-triangle 20%, $white-triangle 80%);
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 0.5fr;
   padding: 0.5rem;
   border-radius: 10px;
   box-shadow: 1px 1px 10px rgb(189, 189, 189);
-  transition: all 0.3s ease-in-out;
+  &:hover {
+    animation: grow-circle 0.5s infinite;
+  }
   img {
     grid-column: 1/2;
     grid-row: 1/4;
@@ -43,7 +45,21 @@
   p:last-of-type > span {
     font-weight: bolder;
   }
-  &:hover {
-    scale: 1.1;
+}
+@keyframes grow-circle {
+  0% {
+    background: linear-gradient(140deg, $red-triangle 20%, $white-triangle 80%);
+  }
+  25% {
+    background: linear-gradient(140deg, $red-triangle 35%, $white-triangle 65%);
+  }
+  50% {
+    background: linear-gradient(140deg, $red-triangle 50%, $white-triangle 50%);
+  }
+  75% {
+    background: linear-gradient(140deg, $red-triangle 65%, $white-triangle 45%);
+  }
+  100% {
+    background: linear-gradient(140deg, $red-triangle 80%, $white-triangle 20%);
   }
 }
