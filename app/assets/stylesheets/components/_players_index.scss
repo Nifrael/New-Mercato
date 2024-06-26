@@ -15,8 +15,12 @@
   padding: 0.5rem;
   border-radius: 10px;
   box-shadow: 1px 1px 10px rgb(189, 189, 189);
+  transition: all 0.5s ease-in-out;
   &:hover {
-    animation: grow-circle 0.5s infinite;
+    background-color: rgba(255, 108, 108, 0.6);
+  }
+  &:hover p {
+    color: $white-triangle;
   }
   img {
     grid-column: 1/2;
@@ -46,20 +50,21 @@
     font-weight: bolder;
   }
 }
+
 @keyframes grow-circle {
   0% {
-    background: linear-gradient(140deg, $red-triangle 20%, $white-triangle 80%);
+    background-color: opacify($color: $red-triangle, $amount: 0);
   }
   25% {
-    background: linear-gradient(140deg, $red-triangle 35%, $white-triangle 65%);
+    background-color: opacify($color: $red-triangle, $amount: 0.1);
   }
   50% {
-    background: linear-gradient(140deg, $red-triangle 50%, $white-triangle 50%);
+    background-color: opacify($color: $red-triangle, $amount: 0.2);
   }
   75% {
-    background: linear-gradient(140deg, $red-triangle 65%, $white-triangle 45%);
+    background-color: opacify($color: $red-triangle, $amount: 0.3);
   }
   100% {
-    background: linear-gradient(140deg, $red-triangle 80%, $white-triangle 20%);
+    background-color: opacify($color: $red-triangle, $amount: 0.4);
   }
 }

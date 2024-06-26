@@ -46,10 +46,11 @@
   background-color: white;
   margin: 5px 0;
   border-radius: 10px;
-  transition: 0.5s ease;
+  transition: all 0.5s ease;
   box-shadow: 1px 1px 5px grey;
   max-height: 86px;
   &:hover {
+    background-color: rgba(255, 136, 136, 0.7);
     transform: translateX(10px);
   }
   p {
@@ -88,10 +89,11 @@
   background-color: white;
   margin: 5px 0;
   border-radius: 10px;
-  transition: 0.5s ease;
+  transition: all 0.5s ease;
   box-shadow: 1px 1px 5px grey;
   max-height: 86px;
   &:hover {
+    background-color: rgba(255, 136, 136, 0.7);
     transform: translateX(10px);
   }
   p {
