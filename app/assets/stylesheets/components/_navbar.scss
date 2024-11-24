@@ -4,7 +4,7 @@ header {
 }
 
 nav {
-  max-width: 1200px;
+  max-width: 95%;
   margin: 0 auto;
 }
 
@@ -15,17 +15,18 @@ nav ul {
   list-style-type: none;
   align-items: center;
   margin: 0 auto;
-  padding: 0;
+  padding: 0.5rem;
 
-  li:first-child {
-    padding: 0 20% 0 0;
+  .list-container:last-child {
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
   }
 
   img {
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
-    width: 280px;
-    height: 70px;
+    width: 100px;
   }
 
   li {
