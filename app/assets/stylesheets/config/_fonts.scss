@@ -13,6 +13,17 @@ $headers-font: "EB Garamond", "Helvetica", "sans-serif";
 $button-font: "Dosis", "Helvetica", "sans-serif";
 $players-name-font: "Walter Turncoat";
 
+// Font-Size
+
+$base-size: 1rem;
+$scale: 1.25;
+$h6: $base-size * $scale;
+$h5: $h6 * $scale;
+$h4: $h5 * $scale;
+$h3: $h4 * $scale;
+$h2: $h3 * $scale;
+$h1: $h2 * $scale;
+
 // To use a font file (.woff) uncomment following lines
 // @font-face {
 //   font-family: "Font Name";
