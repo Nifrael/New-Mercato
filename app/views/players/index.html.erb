@@ -1,8 +1,6 @@
 <div class="container">
   <h1>Bienvenue au Nouveau Mercato</h1>
   <%= render "players/search" %>
-</div>
-<div class="container mt-5">
   <div class="grid-players">
     <% @players.each do |player| %>
       <%= link_to player_path(player) do %>
