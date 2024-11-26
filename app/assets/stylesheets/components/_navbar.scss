@@ -4,7 +4,7 @@ header {
 }
 
 nav {
-  max-width: 95%;
+  max-width: 90%;
   margin: 0 auto;
 }
 
@@ -26,11 +26,21 @@ nav ul {
   img {
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
-    width: 120px;
+    width: 110px;
   }
 
-  li {
-    font-size: 1.1rem;
+  a:visited {
+    color: $gray;
+  }
+
+  a {
+    transition: 0.5s ease-in-out;
+    color: $gray;
+  }
+
+  a:hover {
+    color: $secondary-color;
+    transition: 0.5s ease-in-out;
   }
 }
 
@@ -45,4 +55,9 @@ nav ul {
     rgba(218, 100, 100, 0.664) 75%,
     rgb(255, 240, 240) 100%
   );
+}
+
+@media (max-width: $breakpoint-sm) {
+  header {
+  }
 }
