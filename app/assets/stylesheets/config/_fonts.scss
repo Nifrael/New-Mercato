@@ -8,10 +8,11 @@
 @import url("https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap");
 
 // Define fonts for body and headers
-$body-font: "Quicksand", "Helvetica", "sans-serif";
+$text-font: "Quicksand", "Helvetica", "sans-serif";
 $headers-font: "EB Garamond", "Helvetica", "sans-serif";
 $button-font: "Dosis", "Helvetica", "sans-serif";
-$players-name-font: "Walter Turncoat";
+$players-name-font: "DynaPuff";
+$title-font: "EB Garamond", "Helvetica", "sans-serif";
 
 // Font-Size
 
@@ -23,6 +24,48 @@ $h4: $h5 * $scale;
 $h3: $h4 * $scale;
 $h2: $h3 * $scale;
 $h1: $h2 * $scale;
+$small-text: $base-size * 0.75;
+
+h1 {
+  font-size: $h1;
+  margin: 0;
+  font-family: $title-font;
+}
+
+h2 {
+  font-size: $h2;
+  margin: 0;
+  font-family: $title-font;
+}
+
+h3 {
+  font-size: $h3;
+  margin: 0;
+  font-family: $title-font;
+}
+
+h4 {
+  font-size: $h4;
+  margin: 0;
+  font-family: $text-font;
+}
+
+h5 {
+  font-size: $h5;
+  margin: 0;
+  font-family: $text-font;
+}
+
+h6 {
+  font-size: $h6;
+  margin: 0;
+  font-family: $text-font;
+}
+
+p {
+  font-size: $base-size;
+  font-family: $text-font;
+}
 
 // To use a font file (.woff) uncomment following lines
 // @font-face {
