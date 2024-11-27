@@ -1,13 +1,10 @@
-<div class="search-bar
-">
-  <%= form_with url: players_path, method: :get, html: { class: "flex w-full items-center flex px-4 py-3 rounded-md border-2 border-red-500 overflow-hidden max-w-md mx-auto
-" } do %>
+<div>
+  <%= form_with url: players_path, method: :get, html: { class: "search-form"} do %>
     <%= text_field_tag :query,
             params[:query],
-            class: "w-full outline-none bg-transparent text-gray-600 text-sm",
             placeholder: "Quelle poste souhaitez-vous renforcer ?"
         %>
-    <button type="submit" class="ml-2 flex items-center justify-center">
+    <button type="submit" class="search-button">
       <%= image_tag 'Search.svg' %>
     </button>
   <% end %>

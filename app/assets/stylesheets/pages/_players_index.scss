@@ -1,5 +1,17 @@
-.search-bar {
+.search-form {
   margin: 1% auto;
+  display: flex;
+  :first-child {
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+  }
+}
+
+.search-button {
+  background-color: $secondary-color;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  padding: 1%;
 }
 
 .grid-players {
