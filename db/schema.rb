@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_16_201624) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_30_184310) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension "pg_catalog.plpgsql"
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -54,6 +54,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_16_201624) do
     t.index ["user_id"], name: "index_bookings_on_user_id"
   end
 
+  create_table "clubs", force: :cascade do |t|
+    t.string "name"
+    t.string "country"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_clubs_on_user_id"
+  end
+
   create_table "players", force: :cascade do |t|
     t.string "name"
     t.string "position"
@@ -91,5 +100,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_16_201624) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "bookings", "players"
   add_foreign_key "bookings", "users"
+  add_foreign_key "clubs", "users"
   add_foreign_key "players", "users", column: "owner_id"
 end
