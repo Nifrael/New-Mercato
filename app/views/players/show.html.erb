@@ -24,21 +24,12 @@
       <h1><span data-total-price-booking-target="pricePerDay"><%= @player.price_per_day %></span> <span class="euro">€</span>
         <span class="small">par jour.</span>
       </h1>
-      <div data-controller="owner-renting" data-user-id="<%= current_user.id if user_signed_in? %>" data-owner-id="<%= @player.owner_id %>">
+      <div data-controller="owner-renting" data-user-id="<%= current_user.id if user_signed_in? %>">
         <% if user_signed_in? %>
           <%= render "bookings/form", booking: @booking %>
         <% else %>
           <%= link_to "Connexion", new_user_session_path, class:"btn" %>
         <% end %>
-      </div>
-    </div>
-    <div class="infos-card">
-      <div class="icon">
-        <h1><i class="fa-solid fa-user-tie"></i></h1>
-      </div>
-      <div class="text">
-        <h5>Propriétaire</h5>
-        <h6><%= @player.owner.first_name.capitalize %> <%= @player.owner.last_name.capitalize %></h6>
       </div>
     </div>
     <div class="infos-card">

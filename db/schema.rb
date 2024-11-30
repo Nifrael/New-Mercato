@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_30_184310) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_30_193340) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -75,7 +75,6 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_30_184310) do
     t.integer "market_value"
     t.integer "price_per_day"
     t.string "img"
-    t.integer "owner_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "availabilty", default: true
@@ -101,5 +100,4 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_30_184310) do
   add_foreign_key "bookings", "players"
   add_foreign_key "bookings", "users"
   add_foreign_key "clubs", "users"
-  add_foreign_key "players", "users", column: "owner_id"
 end
