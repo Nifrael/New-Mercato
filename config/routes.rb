@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     resources :bookings, only: %i[new create show edit update]
   end
 
+  resources :clubs, only: %i[index show]
+
   resources :dashboards, only: %i[index]
   # Defines the root path route ("/")
   # root "posts#index"
