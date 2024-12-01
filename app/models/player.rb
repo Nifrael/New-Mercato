@@ -1,5 +1,6 @@
 class Player < ApplicationRecord
   has_many :bookings
+  belongs_to :club
 
   alias_attribute :photo, :img
   has_one_attached :photo
