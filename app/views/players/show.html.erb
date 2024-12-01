@@ -5,13 +5,7 @@
     </div>
     <h1><%= @player.name %></h1>
     <div class="club-photo">
-      <% if @player.club == 'Liverpool' %>
-        <%= image_tag('Liv.png') %>
-      <% elsif @player.club == 'Benfica Lisbonne' %>
-        <%= image_tag('BL.png') %>
-      <% else %>
-        <%= image_tag('Juv.png') %>
-      <% end %>
+      <%= image_tag @player.club.photo %>
     </div>
   </div>
   <div class="container mt-4">
