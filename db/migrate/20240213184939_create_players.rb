@@ -8,11 +8,9 @@ class CreatePlayers < ActiveRecord::Migration[7.1]
       t.string :nationality
       t.string :height
       t.string :foot
-      t.string :club
       t.integer :market_value
       t.integer :price_per_day
-      t.string :photo
-      t.integer :owner_id
+      t.string :img
 
       t.timestamps
     end
