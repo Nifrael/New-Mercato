@@ -9,4 +9,8 @@
     Partie clubs
   </section>
   <div class="gradient"></div>
+  <% @clubs.each do |club| %>
+    <%= club.name %>
+    <%= image_tag club.photo %>
+  <% end %>
 </div>
