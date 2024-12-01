@@ -1,6 +1,7 @@
 class Player < ApplicationRecord
   has_many :bookings
 
+  alias_attribute :photo, :img
   has_one_attached :photo
 
   validates :name, :age, :position, :nationality, :foot, :club, :market_value, presence: true
