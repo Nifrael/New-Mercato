@@ -13,7 +13,7 @@
   </head>
   <body>
     <% unless current_page?(root_path) %>
-      <%= render "layouts/new_navbar" %>
+      <%= render "layouts/navbar" %>
     <% end %>
     <%= yield %>
     <% unless current_page?(root_path) %>
