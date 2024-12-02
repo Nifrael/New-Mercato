@@ -24,12 +24,13 @@ $h4: $h5 * $scale;
 $h3: $h4 * $scale;
 $h2: $h3 * $scale;
 $h1: $h2 * $scale;
+$title: $h1 * $scale * 1.2;
 $small-text: $base-size * 0.75;
 
 h1 {
   font-size: $h1;
   margin: 0;
-  font-family: $title-font;
+  font-family: $button-font;
 }
 
 h2 {
