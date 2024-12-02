@@ -1,14 +1,13 @@
+<div class="home-infos">
+  <%= image_tag 'Goal2.png' %>
+  <div class="text-infos">
+    <h3>Une nouvelle façon de se procurer des joueurs.</h3>
+    <h1 id="title">NEW MERCATO</h1>
+  </div>
+  <%= image_tag 'Goal1.png' %>
+</div>
+<div class="gradient"></div>
 <div class="container">
-  <h1>Bienvenue au Nouveau Mercato</h1>
-  <div class="gradient"></div>
-  <section>
-    Partie actualités
-  </section>
-  <div class="gradient"></div>
-  <section>
-    Partie clubs
-  </section>
-  <div class="gradient"></div>
   <div class="club-photo-container">
     <% @clubs.each do |club| %>
       <%= link_to club_path(club) do %>
