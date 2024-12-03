@@ -1,3 +1,13 @@
+.home-photo {
+  background-image: url(Field.jpg);
+  background-color: rgba(0, 0, 0, 0.546);
+  background-blend-mode: overlay;
+  width: 100%;
+  height: 75vh;
+  background-position: 0% 30%;
+  background-size: cover;
+}
+
 .home-infos {
   display: grid;
   grid-template-columns: 20% 60% 20%;
@@ -8,12 +18,6 @@
 
   img {
     width: 100%;
-  }
-
-  #title {
-    font-size: $title;
-    color: $light-gray;
-    font-weight: bolder;
   }
 }
 
