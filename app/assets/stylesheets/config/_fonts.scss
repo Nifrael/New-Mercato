@@ -27,10 +27,17 @@ $h1: $h2 * $scale;
 $title: $h1 * $scale * 1.2;
 $small-text: $base-size * 0.75;
 
+#title {
+  font-size: $title;
+  color: $big-title-color;
+  font-weight: bolder;
+}
+
 h1 {
   font-size: $h1;
   margin: 0;
   font-family: $button-font;
+  color: $title-color;
 }
 
 h2 {
@@ -43,6 +50,7 @@ h3 {
   font-size: $h3;
   margin: 0;
   font-family: $title-font;
+  color: $title-color;
 }
 
 h4 {
