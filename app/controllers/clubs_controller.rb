@@ -1,6 +1,6 @@
 class ClubsController < ApplicationController
   def index
-    @clubs = Club.all
+    @clubs = Club.order(:name)
   end
 
   def show
