@@ -1,18 +1,10 @@
-<div class="container mt-4">
+<div class="container">
   <div class="big-card">
-    <div class="player-photo">
-      <%= image_tag(@player.img) %>
-    </div>
+    <%= image_tag(@player.img) %>
     <h1><%= @player.name %></h1>
-    <div class="club-photo">
-      <%= image_tag @player.club.photo %>
-    </div>
+    <%= image_tag @player.club.photo %>
   </div>
-  <div class="container mt-4">
-    <%= link_to "Retour", :back, class:"btn back"%>
-  </div>
-</div>
-<main class="container mt-4">
+  <%= link_to "Retour", :back, class:"btn back"%>
   <div class="grid-infos">
     <div class="booking" data-controller="total-price-booking">
       <h1><span data-total-price-booking-target="pricePerDay"><%= @player.price_per_day %></span> <span class="euro">€</span>
@@ -28,7 +20,7 @@
     </div>
     <div class="infos-card">
       <div class="icon">
-        <h1><i class="fa-solid fa-arrows-up-down-left-right"></i></h1>
+        <i class="fa-solid fa-arrows-up-down-left-right"></i>
       </div>
       <div class="text">
         <h5>Position</h5>
@@ -37,7 +29,7 @@
     </div>
     <div class="infos-card">
       <div class="icon">
-        <h1><i class="fa-solid fa-cake-candles"></i></h1>
+        <i class="fa-solid fa-cake-candles"></i>
       </div>
       <div class="text">
         <h5>Age</h5>
@@ -46,7 +38,7 @@
     </div>
     <div class="infos-card">
       <div class="icon">
-        <h1><i class="fa-solid fa-shoe-prints"></i></h1>
+        <i class="fa-solid fa-left-right"></i>
       </div>
       <div class="text">
         <h5>Meilleur pied</h5>
@@ -55,7 +47,7 @@
     </div>
     <div class="infos-card">
       <div class="icon">
-        <h1><i class="fa-solid fa-ruler"></i></h1>
+        <i class="fa-solid fa-ruler"></i>
       </div>
       <div class="text">
         <h5>Taille</h5>
@@ -64,7 +56,7 @@
     </div>
     <div class="infos-card">
       <div class="icon">
-        <h1><i class="fa-solid fa-earth-americas"></i></h1>
+        <i class="fa-solid fa-earth-americas"></i>
       </div>
       <div class="text">
         <h5>Nationalité</h5>
@@ -72,4 +64,4 @@
       </div>
     </div>
   </div>
-</main>
+</div>
