@@ -4,6 +4,7 @@
               placeholder: "Date de début",
               as: :string,
               input_html: {
+                class: "input",
                 data: {
                   controller: "datepicker",
                   total_price_booking_target: "startDate"
@@ -14,7 +15,9 @@
               label: "",
               placeholder: "Date de fin",
               as: :string,
-              input_html: {data: {
+              input_html: {
+                class: "input",
+                data: {
                 controller: "datepicker",
                 total_price_booking_target: "endDate",
                 action: "change->total-price-booking#priceCount" } } %>

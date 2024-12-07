@@ -1,0 +1,10 @@
+.input {
+  border-radius: 15px;
+  background-color: $tertiary-color;
+  color: $primary-color;
+}
+
+.input:focus {
+  box-shadow: 0 0 2px 2px $secondary-color;
+  border: inherit;
+}
