@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
   resources :clubs, only: %i[index show]
 
-  resources :dashboards, only: %i[index]
+  resources :dashboard, only: %i[index]
   # Defines the root path route ("/")
   # root "posts#index"
 end
