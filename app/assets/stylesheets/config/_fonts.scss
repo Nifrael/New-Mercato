@@ -14,67 +14,53 @@ $button-font: "Dosis", "Helvetica", "sans-serif";
 $players-name-font: "DynaPuff";
 $title-font: "EB Garamond", "Helvetica", "sans-serif";
 
-// Font-Size
-
-$base-size: 1rem;
-$scale: 1.25;
-$h6: $base-size * $scale;
-$h5: $h6 * $scale;
-$h4: $h5 * $scale;
-$h3: $h4 * $scale;
-$h2: $h3 * $scale;
-$h1: $h2 * $scale;
-$title: $h1 * $scale * 1.2;
-$small-text: $base-size * 0.75;
+// Font-Style par défaut
 
 #title {
-  font-size: $title;
-  color: $big-title-color;
+  font-size: var(--title);
   font-weight: bolder;
+  font-family: $button-font;
 }
 
 h1 {
-  font-size: $h1;
+  font-size: var(--h1);
   margin: 0;
   font-family: $button-font;
-  color: $title-color;
 }
 
 h2 {
-  font-size: $h2;
+  font-size: var(--h2);
   margin: 0;
-  font-family: $title-font;
+  font-family: $button-font;
 }
 
 h3 {
-  font-size: $h3;
+  font-size: var(--h3);
   margin: 0;
   font-family: $title-font;
-  color: $title-color;
 }
 
 h4 {
-  font-size: $h4;
+  font-size: var(--h4);
   margin: 0;
   font-family: $text-font;
 }
 
 h5 {
-  font-size: $h5;
+  font-size: var(--h5);
   margin: 0;
   font-family: $text-font;
 }
 
 h6 {
-  font-size: $h6;
+  font-size: var(--h6);
   margin: 0;
   font-family: $text-font;
 }
 
 p {
-  font-size: $base-size;
+  font-size: var(--base-size);
   font-family: $text-font;
-  color: $secondary-color;
 }
 
 // To use a font file (.woff) uncomment following lines
