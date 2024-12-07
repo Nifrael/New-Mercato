@@ -1,35 +1,9 @@
-<div class="container mt-4">
-  <div class="dashboard-bar mb-4">
-    <h1>Bienvenue, <%= @current_user.first_name %> !</h1>
-  </div>
+<div class="container">
+  <%= render 'user_tab' %>
   <div data-controller="tabs" data-tabs-default-value="user">
     <div class="btn-list mb-3">
-      <button class="btn" data-tabs-target="btn" data-action="click->tabs#open" data-id="user">Mes infos</button>
       <button class="btn" data-tabs-target="btn" data-action="click->tabs#open" data-id="players">Mes joueurs</button>
       <button class="btn" data-tabs-target="btn" data-action="click->tabs#open" data-id="bookings">Mes Réservations</button>
-    </div>
-    <div data-tabs-target="tab" data-tabs-type-value="user">
-      <div class="user-container">
-        <div class="text-user">
-          <h1>Vos infos</h1>
-        </div>
-        <div class="card-profile">
-          <div class="profile-image">
-            <%= cl_image_tag @user.avatar, alt: @user.first_name %>
-          </div>
-          <div class="text-card">
-            <h3><%= @user.first_name %> <%= @user.last_name %></h3>
-            <p><%= @user.email %></p>
-          </div>
-          <div class="user-infos">
-            <p><b><%= @players.count %></b> Joueurs possédés</p>
-            <p><b><%= @bookings.count %></b> Joueurs empruntés</p>
-          </div>
-        </div>
-        <div class="edit-buttons">
-          <%= link_to "Modifier mon profil", edit_user_registration_path, class: "btn" %>
-        </div>
-      </div>
     </div>
     <div data-tabs-target="tab" data-tabs-type-value="players" >
       <div class="players-container" data-controller="menu-filters" data-menu-filters-default-value="players">
