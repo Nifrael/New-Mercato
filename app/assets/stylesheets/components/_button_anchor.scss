@@ -29,3 +29,25 @@
   border-bottom-right-radius: 10px;
   padding-left: 2rem;
 }
+
+.btn-home {
+  position: absolute;
+  z-index: 10;
+  padding: 15px;
+  border-radius: 15px;
+  color: $secondary-color;
+  background-color: $primary-color;
+  font-size: var(--h4);
+  font-family: $players-name-font;
+  font-weight: bolder;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: 0.5s ease-in-out;
+
+  &:hover {
+    color: $primary-color;
+    background-color: $secondary-color;
+    transition: 0.5s ease-in-out;
+  }
+}
