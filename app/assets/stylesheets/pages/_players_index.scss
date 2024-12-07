@@ -15,11 +15,15 @@
 }
 
 .grid-players {
-  width: 100%;
+  width: 95%;
   display: grid;
+  margin: 2% auto;
   grid-template-columns: 1fr 1fr 1fr;
   justify-items: center;
-  gap: 2rem;
+  gap: 2.5rem;
+  a {
+    width: 100%;
+  }
 }
 
 .grid-player {
@@ -29,38 +33,47 @@
   grid-template-rows: 1fr 1fr 1fr 0.5fr;
   padding: 0.5rem;
   border-radius: 10px;
-  box-shadow: 1px 1px 10px rgb(189, 189, 189);
-  transition: all 0.5s ease-in-out;
-  &:hover {
-    background-color: rgba(255, 108, 108, 0.6);
-  }
-  &:hover p {
-    color: $white-triangle;
-  }
+  box-shadow: 0px 0px 5px 5px $primary-color;
+  transition: 0.5s ease-in-out;
+
   img {
     grid-column: 1/2;
     grid-row: 1/4;
-    scale: 0.8;
+    scale: 0.9;
     border-radius: 10px;
   }
-  p:first-of-type {
+  h6 {
     grid-column: 1/3;
     grid-row: 4/5;
-    margin: 1rem auto;
+    margin: 0 auto;
     text-transform: uppercase;
-    letter-spacing: 0.2rem;
     font-weight: bolder;
-    font-family: $headers-font;
-    color: $red-triangle;
+    font-family: $button-font;
+    color: $primary-color;
+    transition: 0.5s ease-in-out;
   }
   p {
-    color: $gray;
+    color: $tertiary-color;
     grid-column: 2/3;
     margin: auto;
-    font-weight: 600;
-    font-size: 20px;
+    transition: 0.5s ease-in-out;
   }
   p:last-of-type > span {
     font-weight: bolder;
+    color: $primary-color;
+    transition: 0.5s ease-in-out;
+    font-size: var(--h6);
+  }
+  &:hover p:last-of-type > span {
+    color: $secondary-color;
+  }
+  &:hover {
+    background-color: $primary-color;
+  }
+  &:hover p {
+    color: $secondary-color;
+  }
+  &:hover h6 {
+    color: $secondary-color;
   }
 }

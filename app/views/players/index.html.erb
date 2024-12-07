@@ -5,7 +5,7 @@
       <%= link_to player_path(player) do %>
         <div class="grid-player">
           <%= image_tag(player.img) %>
-          <p><%= player.name %></p>
+          <h6><%= player.name %></h6>
           <p><%= player.position.capitalize %></p>
           <p>Pied <%= player.foot.capitalize %></p>
           <p><span><%= player.price_per_day%> €</span> / jour</p>
