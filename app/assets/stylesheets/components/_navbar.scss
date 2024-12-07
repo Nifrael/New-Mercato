@@ -1,6 +1,6 @@
 header {
   width: 100%;
-  background-color: $primary-background;
+  background-color: $secondary-color;
 }
 
 nav {
@@ -30,16 +30,16 @@ nav ul {
   }
 
   a:visited {
-    color: $gray;
+    color: $tertiary-color;
   }
 
   a {
     transition: 0.5s ease-in-out;
-    color: $gray;
+    color: $tertiary-color;
   }
 
   a:hover {
-    color: $secondary-color;
+    color: $primary-color;
     transition: 0.5s ease-in-out;
   }
 }
@@ -50,9 +50,9 @@ nav ul {
   background: linear-gradient(
     90deg,
     rgb(0, 0, 0) 0%,
-    rgba(0, 255, 4, 0.664) 25%,
+    rgba(0, 255, 4, 0.664) 15%,
     rgb(43, 255, 0) 50%,
-    rgba(0, 255, 4, 0.664) 75%,
+    rgba(0, 255, 4, 0.664) 85%,
     rgb(0, 0, 0) 100%
   );
 }
