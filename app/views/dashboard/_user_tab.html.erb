@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="card-profile">
+    <div class="profile-image first">
+      <%= image_tag @user.avatar, alt: @user.first_name %>
+    </div>
+    <h1><%= @user.first_name %> <%= @user.last_name %></h1>
+    <div class="user-infos">
+      <p><b><%= @players.count %></b> Joueurs possédés</p>
+      <p><b><%= @bookings.count %></b> Joueurs empruntés</p>
+    </div>
+    <div class="profile-image second">
+      <%= image_tag @user.club.photo, alt: @user.club.name %>
+    </div>
+  </div>
+  <div class="edit-buttons">
+    <%= link_to "Modifier mon profil", edit_user_registration_path, class: "btn" %>
+  </div>
+</div>
