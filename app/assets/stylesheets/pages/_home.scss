@@ -1,45 +1,25 @@
 // Specific CSS for your home-page
-body {
+.presentation {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-}
+  background-color: $primary-color;
+  height: 50vh;
+  justify-content: center;
+  padding: 2%;
 
-.home {
-  flex: 1;
-  background: url("/assets/Background-home.svg");
-  background-size: cover;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-
-  img {
-    width: 10%;
-    position: absolute;
-    top: 5%;
-    left: 3%;
-  }
-
-  h1 {
-    position: absolute;
-    right: 40%;
-    top: 30%;
+  h1,
+  h2 {
+    font-weight: bolder;
+    margin: 10px;
   }
 }
 
-.start-button {
-  position: absolute;
-  top: 70%;
-  left: 60%;
-  z-index: 1;
-  padding: 0.5rem 1rem 0.5rem 1rem;
-  background-color: $white-triangle;
-  border: inherit;
-  font-size: 20px;
+.black {
+  background-color: $secondary-color;
 
-  &:hover {
-    background-color: $red-triangle;
-    color: $white-triangle;
-    border: inherit;
+  h1,
+  h2 {
+    color: $primary-color;
+    text-align: right;
   }
 }

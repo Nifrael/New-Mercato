@@ -21,33 +21,6 @@
   }
 }
 
-.presentation {
-  display: flex;
-  flex-direction: column;
-  background-color: $primary-color;
-  height: 50vh;
-  justify-content: center;
-  padding: 3%;
-
-  h1,
-  h2,
-  h3,
-  h4 {
-    font-weight: bolder;
-    margin: 10px;
-  }
-}
-
-.black {
-  background-color: $secondary-color;
-
-  h1,
-  h2 {
-    color: $primary-color;
-    text-align: right;
-  }
-}
-
 .club-photo-container {
   display: flex;
   width: 90%;
