@@ -1,6 +1,7 @@
 <%= simple_form_for [@player, @booking], html: { class: "booking-form" } do |f| %>
   <%= f.input :start_date,
-              label: "Date de début",
+              label: "",
+              placeholder: "Date de début",
               as: :string,
               input_html: {
                 data: {
@@ -10,15 +11,15 @@
               }
   %>
   <%= f.input :end_date,
-              label: "Date de fin",
+              label: "",
+              placeholder: "Date de fin",
               as: :string,
               input_html: {data: {
                 controller: "datepicker",
                 total_price_booking_target: "endDate",
                 action: "change->total-price-booking#priceCount" } } %>
   <div class="result" data-total-price-booking-target="price">
-
   </div>
-    <%= f.submit "Réserver",
+  <%= f.submit "Réserver",
     data: { total_price_booking_target: "button", owner_renting_target: "btn"}, class: "disabled", id:"bookButton"%>
 <% end %>
