@@ -4,11 +4,12 @@
   width: 100%;
   height: 105px;
   z-index: 1000;
+  color: $tertiary-color;
   margin-top: auto;
   .footer-up {
     padding: 0px 50px;
     height: 120px;
-    background: $primary-background;
+    background: $secondary-color;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -20,7 +21,6 @@
   }
 
   .last {
-    background-color: $grey_footer;
     text-align: center;
   }
 }
