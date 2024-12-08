@@ -5,4 +5,8 @@ class Club < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
   validates :country, presence: true
+
+  def players_grouped_by_position
+    players.group_by(&:position)
+  end
 end

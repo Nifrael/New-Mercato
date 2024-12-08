@@ -10,13 +10,13 @@ class Player < ApplicationRecord
   def self.sorted_by_position
     all.sort_by do |player|
       case player.position
-      when 'gardien'
+      when 'Gardien'
         1
-      when 'défenseur'
+      when 'Défenseur'
         2
-      when 'milieu'
+      when 'Milieu'
         3
-      when 'attaquant'
+      when 'Attaquant'
         4
       end
     end
