@@ -5,7 +5,7 @@ class Player < ApplicationRecord
   alias_attribute :photo, :img
   has_one_attached :photo
 
-  enum position: { Gardien: 1, Défenseur: 2, Milieu: 3, Attaquant: 4 }
+  # enum position: { Gardien: 1, Défenseur: 2, Milieu: 3, Attaquant: 4 }
 
   validates :name, :age, :position, :nationality, :foot, :club, :market_value, presence: true
 

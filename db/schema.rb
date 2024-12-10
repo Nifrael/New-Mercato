@@ -67,7 +67,6 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_01_104337) do
 
   create_table "players", force: :cascade do |t|
     t.string "name"
-    t.string "position"
     t.integer "age"
     t.string "address"
     t.string "nationality"
@@ -81,6 +80,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_01_104337) do
     t.datetime "updated_at", null: false
     t.boolean "availabilty", default: true
     t.bigint "club_id"
+    t.string "position"
     t.index ["club_id"], name: "index_players_on_club_id"
   end
 
