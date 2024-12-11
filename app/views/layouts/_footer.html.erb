@@ -4,7 +4,9 @@
   <div class="footer-container">
     <%= image_tag 'Logo.png' %>
     <div class="text-footer">
-      <p>Joueurs</p>
+      <%= link_to players_path do %>
+        <p>Joueurs</p>
+      <% end %>
       <p>Clubs</p>
       <p>Statistiques</p>
     </div>
