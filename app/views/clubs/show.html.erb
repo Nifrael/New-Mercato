@@ -1,1 +1,16 @@
 <div class="stadium-photo"></div>
+<div class="container">
+  <div class="grid-players">
+    <% @players.each do |player| %>
+      <%= link_to player_path(player) do %>
+        <div class="grid-player">
+          <%= image_tag(player.img) %>
+          <h6><%= player.name %></h6>
+          <p><%= player.position.capitalize %></p>
+          <p>Pied <%= player.foot.capitalize %></p>
+          <p><span><%= player.price_per_day%> €</span> / jour</p>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
