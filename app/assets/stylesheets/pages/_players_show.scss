@@ -1,6 +1,6 @@
 .big-card {
   width: 90%;
-  margin: 0 auto;
+  margin: 2rem auto;
   display: flex;
   justify-content: space-between;
   background-color: $primary-color;
@@ -22,7 +22,7 @@
 }
 
 .grid-infos {
-  width: 80%;
+  width: 85%;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 6fr 2fr;
@@ -47,6 +47,7 @@
 }
 
 .booking {
+  margin-top: 1rem;
   grid-column: 2/3;
   grid-row: 1/5;
   background-color: $primary-color;
