@@ -4,11 +4,10 @@
     <h1><%= @player.name %></h1>
     <%= image_tag @player.club.photo %>
   </div>
-  <%= link_to "Retour", :back, class:"btn back"%>
   <div class="grid-infos">
     <div class="booking" data-controller="total-price-booking">
       <h1><span data-total-price-booking-target="pricePerDay"><%= @player.price_per_day %></span> <span class="euro">€</span>
-        <span class="small">par jour.</span>
+        <span class="small">/ jour</span>
       </h1>
       <div data-controller="owner-renting" data-user-id="<%= current_user.id if user_signed_in? %>">
         <% if user_signed_in? %>
@@ -64,4 +63,5 @@
       </div>
     </div>
   </div>
+  <%= link_to "Retour", :back, class:"btn opposite m-left"%>
 </div>
