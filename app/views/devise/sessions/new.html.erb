@@ -1,20 +1,31 @@
-<h1>Connexion</h1>
-
-<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name))  do |f| %>
-  <div class="form-inputs mt-3">
-    <%= f.input :email,
+<div class="form-container black">
+  <h1 id="title">SE CONNECTER</h1>
+  <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name))  do |f| %>
+    <div class="form-inputs">
+      <%= f.input :email,
+                label: false,
+                placeholder: "EMAIL",
                 required: false,
                 autofocus: true,
-                input_html: { autocomplete: "email" } %>
-    <%= f.input :password, label: "Mot de passe",
+                input_html: { autocomplete: "email", class: "form-input" },
+                label_html: { class: "form-label" } %>
+      <%= f.input :password,
+                label: false,
+                placeholder: "MOT DE PASSE",
                 required: false,
-                input_html: { autocomplete: "current-password" } %>
-    <%= f.input :remember_me, label: "Se souvenir de moi", as: :boolean if devise_mapping.rememberable? %>
-  </div>
-
-  <div class="form-actions mb-4">
-    <%= f.button :submit, "Connexion" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+                input_html: { autocomplete: "current-password", class:"form-input" },
+                label_html: { class: "form-label" } %>
+      <% if devise_mapping.rememberable? %>
+        <div class="form-check">
+          <%= f.check_box :remember_me, id:"checkbox" %>
+          <%= f.label :remember_me, label: "Se souvenir de moi" %>
+        </div>
+      <% end %>
+    </div>
+    <div class="form-actions mb-4">
+      <%= f.button :submit, "Connexion", class: "button" %>
+    </div>
+  <% end %>
+  <%= render "devise/shared/links" %>
+</div>
+<%#= f.input :remember_me, label: "Se souvenir de moi", as: :boolean if devise_mapping.rememberable? %>
