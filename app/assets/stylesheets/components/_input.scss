@@ -1,10 +1,36 @@
-.input {
-  border-radius: 15px;
-  background-color: $tertiary-color;
-  color: $primary-color;
+.form-inputs {
+  margin: 2rem auto;
 }
 
-.input:focus {
-  box-shadow: 0 0 2px 2px $secondary-color;
-  border: inherit;
+.form-input {
+  width: 45%;
+  border-radius: 10px;
+  color: $secondary-color;
+  padding: 0.2rem 0.5rem;
+  margin: 0.5rem auto;
+  border: 0.5px solid $secondary-color;
+  &:focus {
+    box-shadow: 0 0 3px 3px $secondary-color;
+    outline: none;
+    border-color: $secondary-color;
+  }
+}
+
+.form-label {
+  font-size: var(--h5);
+}
+
+.form-check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1.5rem auto;
+}
+
+#checkbox {
+  border-radius: 5px;
+  &:focus {
+    background-color: $secondary-color;
+  }
 }
