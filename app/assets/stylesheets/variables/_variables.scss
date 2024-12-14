@@ -8,3 +8,17 @@ $breakpoint-lg: 1439px;
 .m-left {
   margin-left: 5%;
 }
+
+// Couleurs de la police selon le fond d'écran
+
+.green {
+  color: $primary-color;
+}
+
+.white {
+  color: $tertiary-color;
+}
+
+.black {
+  color: $secondary-color;
+}
