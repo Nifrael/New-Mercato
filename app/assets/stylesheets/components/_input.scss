@@ -30,7 +30,14 @@
 
 #checkbox {
   border-radius: 5px;
+  border: 2px solid $secondary-color;
   &:focus {
     background-color: $secondary-color;
+  }
+  &:checked {
+    background-color: $secondary-color;
+  }
+  &:not(:checked):focus {
+    background-color: white;
   }
 }
