@@ -1,34 +1,38 @@
-<h2>Créez un nouveau compte</h2>
-
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= f.error_notification %>
-
-  <div class="form-inputs">
-    <%= f.input :first_name, label: "Prénom",
+<div class="form-container black">
+  <h1 id="title">CREER UN COMPTE</h1>
+  <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= f.error_notification %>
+    <div class="form-inputs">
+      <%= f.input :first_name,
+                label: false,
+                placeholder: "PRENOM",
                 required: true,
                 autofocus: true,
-                input_html: { autocomplete: "First name" } %>
-    <%= f.input :last_name, label: "Nom",
+                input_html: { autocomplete: "First name", class: "form-input" },
+                label_html: { class: "form-label" } %>
+      <%= f.input :last_name,
+                label: false,
+                placeholder: "NOM",
                 required: true,
                 autofocus: true,
-                input_html: { autocomplete: "Last name" } %>
-    <%= f.input :email,
+                input_html: { autocomplete: "Last name", class: "form-input" },
+                label_html: { class: "form-label" } %>
+      <%= f.input :email,
                 required: true,
                 autofocus: true,
                 input_html: { autocomplete: "email" }%>
-    <%= f.input :password, label: "Mot de passe",
+      <%= f.input :password, label: "Mot de passe",
                 required: true,
                 hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
                 input_html: { autocomplete: "new-password" } %>
-    <%= f.input :password_confirmation, label: "Confirmation mot de passe ",
+      <%= f.input :password_confirmation, label: "Confirmation mot de passe ",
                 required: true,
                 input_html: { autocomplete: "new-password" } %>
-    <%= f.input :avatar, as: :file %>
-  </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Enregistrez" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+      <%= f.input :avatar, as: :file %>
+    </div>
+    <div class="form-actions">
+      <%= f.button :submit, "Enregistrez" %>
+    </div>
+  <% end %>
+  <%= render "devise/shared/links" %>
+</div>
