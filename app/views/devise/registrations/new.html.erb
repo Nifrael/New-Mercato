@@ -18,20 +18,25 @@
                 input_html: { autocomplete: "Last name", class: "form-input" },
                 label_html: { class: "form-label" } %>
       <%= f.input :email,
+                label: false,
                 required: true,
                 autofocus: true,
-                input_html: { autocomplete: "email" }%>
-      <%= f.input :password, label: "Mot de passe",
+                placeholder: "EMAIL",
+                input_html: { autocomplete: "email", class: "form-input" }%>
+      <%= f.input :password,
+                label: false,
                 required: true,
-                hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-                input_html: { autocomplete: "new-password" } %>
-      <%= f.input :password_confirmation, label: "Confirmation mot de passe ",
+                placeholder: "MOT DE PASSE",
+                hint: ("#{@minimum_password_length} caractères minimum." if @minimum_password_length),
+                input_html: { autocomplete: "new-password", class: "form-input" } %>
+      <%= f.input :password_confirmation,
+                label: false,
                 required: true,
-                input_html: { autocomplete: "new-password" } %>
-      <%= f.input :avatar, as: :file %>
+                placeholder: "CONFIRMATION DU MOT DE PASSE",
+                input_html: { autocomplete: "new-password", class: "form-input" } %>
     </div>
     <div class="form-actions">
-      <%= f.button :submit, "Enregistrez" %>
+      <%= f.button :submit, "CRÉER UN COMPTE" %>
     </div>
   <% end %>
   <%= render "devise/shared/links" %>
