@@ -7,6 +7,8 @@ class Player < ApplicationRecord
 
   # enum position: { Gardien: 1, Défenseur: 2, Milieu: 3, Attaquant: 4 }
 
+  enum :status, { available: 0, rented: 1, unavailable: 2 }
+
   validates :name, :age, :position, :nationality, :foot, :club, :market_value, presence: true
 
   def self.sorted_by_position
