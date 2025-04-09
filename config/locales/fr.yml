@@ -1,0 +1,11 @@
+fr:
+  activerecord:
+    models:
+      player: Joueur
+    attributes:
+      player:
+        status: Statut
+        status_options:
+          available: Disponible
+          rented: Loué
+          unavailable: Indisponible
