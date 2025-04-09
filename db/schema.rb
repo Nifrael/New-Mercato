@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_01_104337) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_09_190906) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -81,7 +81,9 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_01_104337) do
     t.boolean "availabilty", default: true
     t.bigint "club_id"
     t.string "position"
+    t.integer "status", default: 2
     t.index ["club_id"], name: "index_players_on_club_id"
+    t.index ["status"], name: "index_players_on_status"
   end
 
   create_table "users", force: :cascade do |t|
