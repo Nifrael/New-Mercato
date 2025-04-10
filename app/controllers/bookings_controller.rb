@@ -16,9 +16,10 @@ class BookingsController < ApplicationController
     @booking.user_id = @user_id
     @booking.total_price = @booking.calculate_total_price(@player.price_per_day)
     if @booking.save
-      redirect_to player_booking_path(player_id: @booking.player.id, id: @booking.id)
+      redirect_to player_booking_path(player_id: @booking.player.id, id: @booking.id), notice: "Réservation effectuée avec succès."
     else
-      render :new, status: :unprocessable_entity
+      flash.now[:alert] = "La réservation n'a pas pu être effectuée car le joueur appartient déjà à votre club."
+      render "players/show", status: :unprocessable_entity
     end
   end
 
