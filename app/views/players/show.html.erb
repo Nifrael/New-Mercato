@@ -1,3 +1,8 @@
+<% if flash.now[:alert].present? %>
+  <div class="alert">
+    <h2><%= flash.now[:alert] %></h2>
+  </div>
+<% end %>
 <div class="container">
   <div class="big-card">
     <%= image_tag(@player.img) %>
@@ -9,7 +14,7 @@
       <h1><span data-total-price-booking-target="pricePerDay"><%= @player.price_per_day %></span> <span class="euro">€</span>
         <span class="small">/ jour</span>
       </h1>
-      <div data-controller="owner-renting" data-user-id="<%= current_user.id if user_signed_in? %>">
+      <div data-controller="owner-renting" data-user-club="<%= current_user.club.id if user_signed_in? %>" data-player-club="<%= @player.club.id %>">
         <% if user_signed_in? %>
           <%= render "bookings/form", booking: @booking %>
         <% else %>
