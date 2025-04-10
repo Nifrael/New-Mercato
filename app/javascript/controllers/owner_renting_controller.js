@@ -1,32 +1,18 @@
-import { Controller } from "@hotwired/stimulus"
+import { Controller } from "@hotwired/stimulus";
 
-// Connects to data-controller="owner-renting"
 export default class extends Controller {
   static targets = ["button"];
+
   connect() {
+    this.userClub = this.element.dataset.userClub;
+    this.playerClub = this.element.dataset.playerClub;
+    console.log("Club de l'utilisateur:", this.userClub);
+    console.log("Club du joueur:", this.playerClub);
 
-    // Retrieve user_id and owner_id from data attributes
-    this.userId = this.element.dataset.userId;
-    this.playerOwnerId = this.element.dataset.ownerId;
-    console.log("User ID:", this.userId);
-    console.log("Player Owner ID:", this.playerOwnerId);
-
-    // Check if the user is the owner, and disable booking if true
-    // if (this.userId === this.playerOwnerId) {
-      // Disable booking functionality here
-      // console.log("User is the owner. Booking functionality disabled.");
-      // For example, you might disable a button or hide a booking form
-    // } else {
-      // Enable booking functionality here
-      // console.log("User is not the owner. Booking functionality enabled.");
-      // For example, you might enable a button or show a booking form
+    // if (this.userClub === this.playerClub) {
+    //   const button = document.getElementById("bookButton");
+    //   button.disabled = true;
+    //   button.value = "Déjà au club";
     // }
-
-    // Check if the user is the owner, and disable booking if true
-    if (this.userId === this.playerOwnerId) {
-      const button = document.getElementById("bookButton");
-      button.disabled = true;
-      button.value = "Déjà au club"
-    }
   }
 }
