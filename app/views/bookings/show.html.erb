@@ -1,108 +1,87 @@
 <h1>Ma réservation</h1>
-
 <div class="container mt-4">
   <div class="big-card">
-    <div class="player-photo">
-      <% if @player.img.present? %>
-        <%= image_tag(@player.img) %>
-      <% else %>
-        <%= cl_image_tag @player.photo.key %>
-      <% end %>
-    </div>
-    <div class="infos">
-      <div class="player-name">
-        <h1><%= @player.name %></h1>
-      </div>
-    </div>
-    <div class="club-photo">
-      <% if @player.club == 'Liverpool' %>
-        <%= image_tag('Liv.png') %>
-      <% elsif @player.club == 'Benfica Lisbonne' %>
-        <%= image_tag('BL.png') %>
-      <% else %>
-        <%= image_tag('Juv.png') %>
-      <% end %>
-    </div>
+    <%= image_tag(@player.img) %>
+    <h1><%= @player.name %></h1>
+    <%= image_tag @player.club.photo %>
   </div>
-
   <div class="container mt-5">
-      <div class="row">
-        <div class="col-8">
-          <div class="infos-card">
-            <div class="icon">
-              <h1><i class="fa-solid fa-user-tie"></i></h1>
-            </div>
-            <div class="text">
-              <h5>Propriétaire</h5>
-              <h6><%= @player.owner.first_name.capitalize %> <%= @player.owner.last_name.capitalize %></h6>
-            </div>
+    <div class="row">
+      <div class="col-8">
+        <div class="infos-card">
+          <div class="icon">
+            <h1><i class="fa-solid fa-user-tie"></i></h1>
           </div>
-          <div class="infos-card">
-            <div class="icon">
-              <h1><i class="fa-solid fa-arrows-up-down-left-right"></i></h1>
-            </div>
-            <div class="text">
-              <h5>Position</h5>
-              <h6><%= @player.position.capitalize %></h6>
-            </div>
-          </div>
-          <div class="infos-card">
-            <div class="icon">
-              <h1><i class="fa-solid fa-cake-candles"></i></h1>
-            </div>
-            <div class="text">
-              <h5>Age</h5>
-              <h6><%= @player.age %> ans</h6>
-            </div>
-          </div>
-          <div class="infos-card">
-            <div class="icon">
-              <h1><i class="fa-solid fa-shoe-prints"></i></h1>
-            </div>
-            <div class="text">
-              <h5>Meilleur pied</h5>
-              <h6><%= @player.foot %></h6>
-            </div>
-          </div>
-          <div class="infos-card">
-            <div class="icon">
-              <h1><i class="fa-solid fa-ruler"></i></h1>
-            </div>
-            <div class="text">
-              <h5>Taille</h5>
-              <h6><%= @player.height %></h6>
-            </div>
-          </div>
-          <div class="infos-card">
-            <div class="icon">
-              <h1><i class="fa-solid fa-earth-americas"></i></h1>
-            </div>
-            <div class="text">
-              <h5>Nationalité</h5>
-              <h6><%= @player.nationality %></h6>
-            </div>
+          <div class="text">
+            <h5>Club propriétaire</h5>
+            <h6><%= @player.club.name %></h6>
           </div>
         </div>
-        <div class="col-4">
-          <div class="booking" data-controller="total-price-booking">
-            <h1><span data-total-price-booking-target="pricePerDay"><%= @booking.total_price %></span> €
-              <span class="small"></span>
-            </h1>
-            <div data-controller="owner-renting" data-user-id="<%= current_user.id if user_signed_in? %>" data-owner-id="<%= @player.owner_id %>">
-              <% if user_signed_in? %>
-                <%= render "bookings/edit", booking: @booking %>
-              <% else %>
-                <button class='mt-5'>
+        <div class="infos-card">
+          <div class="icon">
+            <h1><i class="fa-solid fa-arrows-up-down-left-right"></i></h1>
+          </div>
+          <div class="text">
+            <h5>Position</h5>
+            <h6><%= @player.position.capitalize %></h6>
+          </div>
+        </div>
+        <div class="infos-card">
+          <div class="icon">
+            <h1><i class="fa-solid fa-cake-candles"></i></h1>
+          </div>
+          <div class="text">
+            <h5>Age</h5>
+            <h6><%= @player.age %> ans</h6>
+          </div>
+        </div>
+        <div class="infos-card">
+          <div class="icon">
+            <h1><i class="fa-solid fa-shoe-prints"></i></h1>
+          </div>
+          <div class="text">
+            <h5>Meilleur pied</h5>
+            <h6><%= @player.foot %></h6>
+          </div>
+        </div>
+        <div class="infos-card">
+          <div class="icon">
+            <h1><i class="fa-solid fa-ruler"></i></h1>
+          </div>
+          <div class="text">
+            <h5>Taille</h5>
+            <h6><%= @player.height %></h6>
+          </div>
+        </div>
+        <div class="infos-card">
+          <div class="icon">
+            <h1><i class="fa-solid fa-earth-americas"></i></h1>
+          </div>
+          <div class="text">
+            <h5>Nationalité</h5>
+            <h6><%= @player.nationality %></h6>
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="booking" data-controller="total-price-booking">
+          <h1><span data-total-price-booking-target="pricePerDay"><%= @booking.total_price %></span> €
+            <span class="small"></span>
+          </h1>
+          <div data-controller="owner-renting" data-user-id="<%= current_user.id if user_signed_in? %>" data-owner-id="<%= @player.club.name %>">
+            <% if user_signed_in? %>
+              <%= render "bookings/edit", booking: @booking %>
+            <% else %>
+              <button class='mt-5'>
                 <%= link_to "Sign in", new_user_session_path %>
               </button>
-              <% end %>
-            </div>
+            <% end %>
           </div>
-          <div class="not-visible"></div>
         </div>
+        <div class="not-visible"></div>
       </div>
     </div>
-
+  </div>
   <p>
     <%= link_to "Retour", :back, class: "button" %>
   </p>
