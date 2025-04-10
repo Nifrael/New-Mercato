@@ -9,3 +9,9 @@ fr:
           available: Disponible
           rented: Loué
           unavailable: Indisponible
+        position: Position
+        position_options:
+          gardien: Gardien
+          defenseur: Défenseur
+          milieu: Milieu
+          polyvalent: Polyvalent
