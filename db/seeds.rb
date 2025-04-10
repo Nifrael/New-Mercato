@@ -28,8 +28,8 @@ madrid = ClubService.create_or_update_club('Real Madrid', 'Espagne', 'Santiago B
 juventus = ClubService.create_or_update_club('Juventus', 'Italie', 'Juventus Stadium', 'Juv.png')
 benfica = ClubService.create_or_update_club('Benfica Lisbonne', 'Portugal', 'Estadio do Benfica', 'BL.png')
 paris = ClubService.create_or_update_club('Paris Saint-Germain', 'France', 'Parc des Princes', 'Paris.png')
-munich = ClubService.create_or_update_club('Bayern Munich', 'Allemagne', 'Allianz Arena' 'Bay.png')
-arsenal = ClubService.create_or_update_club('Arsenal', 'Angleterre', 'Emirates Stadium' 'Ars.png')
+munich = ClubService.create_or_update_club('Bayern Munich', 'Allemagne', 'Allianz Arena', 'Bay.png')
+arsenal = ClubService.create_or_update_club('Arsenal', 'Angleterre', 'Emirates Stadium', 'Ars.png')
 
 puts "#{Club.count}"
 

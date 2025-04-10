@@ -32,10 +32,12 @@ class PlayerService
       raw_value = player_data['marketValue']
         if raw_value.is_a?(String)
           market_value = raw_value.delete('^.0-9').to_i * 1_000_000
+        elsif !raw_value.nil?
+          market_value = raw_value
         else
-          market_value = 0
+          market_value = 10_000_000
         end
-      price_per_day = market_value.positive? ? market_value / 365_000 : 0
+      price_per_day = market_value / 365_000
 
       player = Player.find_or_initialize_by(id: player_data['id'])
       player.assign_attributes(
