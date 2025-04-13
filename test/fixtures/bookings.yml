@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  player: one
+  club: one
+  total_price: 1
+  status: 1
+  start_date: 2025-04-13
+  end_date: 2025-04-13
+
+two:
+  player: two
+  club: two
+  total_price: 1
+  status: 1
+  start_date: 2025-04-13
+  end_date: 2025-04-13

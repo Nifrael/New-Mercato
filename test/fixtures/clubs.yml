@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  country: MyString
+  league: MyString
+  budget: 1
+  stadium: MyString
+  logo: MyString
+
+two:
+  name: MyString
+  country: MyString
+  league: MyString
+  budget: 1
+  stadium: MyString
+  logo: MyString
