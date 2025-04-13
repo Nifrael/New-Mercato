@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get "clubs/index"
-  get "clubs/show"
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -12,8 +10,11 @@ Rails.application.routes.draw do
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
-  # Defines the root path route ("/")
-  # root "posts#index"
+  root to: "pages#accueil"
 
   resources :clubs, only: %i[index show]
+
+  resources :players, only: %i[index show edit update] do
+    resources :bookings, only: %i[new create]
+  end
 end
