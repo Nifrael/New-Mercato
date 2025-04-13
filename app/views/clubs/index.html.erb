@@ -2,8 +2,7 @@
   <h1 class="font-bold text-4xl">Clubs#index</h1>
   <p><% @clubs.each do |club| %>
       <%= club.name %>
-      <%= image_tag 'Logos/Liv.png' %>
-      <%= club.logo %>
+      <%= image_tag club.logo %>
       <%= club.users.first.first_name %>
       <%= image_tag club.users.first.photo %> </p>
   <% end %>
