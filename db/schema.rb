@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_13_135033) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_13_153033) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -43,7 +43,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_13_135033) do
     t.string "nationality"
     t.integer "height"
     t.string "foot"
-    t.string "position"
+    t.integer "position"
     t.integer "age"
     t.integer "market_value"
     t.integer "price_per_day"
