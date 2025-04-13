@@ -10,9 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_13_125614) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_13_135033) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "bookings", force: :cascade do |t|
+    t.bigint "player_id", null: false
+    t.bigint "club_id", null: false
+    t.integer "total_price"
+    t.integer "status"
+    t.date "start_date"
+    t.date "end_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["club_id"], name: "index_bookings_on_club_id"
+    t.index ["player_id"], name: "index_bookings_on_player_id"
+  end
 
   create_table "clubs", force: :cascade do |t|
     t.string "name"
@@ -55,6 +68,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_13_125614) do
     t.index ["club_id"], name: "index_users_on_club_id"
   end
 
+  add_foreign_key "bookings", "clubs"
+  add_foreign_key "bookings", "players"
   add_foreign_key "players", "clubs"
   add_foreign_key "users", "clubs"
 end
