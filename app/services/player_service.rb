@@ -64,21 +64,21 @@ class PlayerService
     end
   end
 
-  # def self.update_player_photos
-  #   players = Player.all
-  #   players.each do |player|
-  #     puts "Recherche de la photo de #{player.name}..."
+  def self.update_player_photos
+    players = Player.all
+    players.each do |player|
+      puts "Recherche de la photo de #{player.name}..."
 
-  #     top_url = "https://www.transfermarkt.com/-/profil/spieler/#{player.id}"
-  #     doc = Nokogiri::HTML.parse(URI.parse(top_url).open("User-Agent" => USER_AGENT).read)
-  #     photo_element = doc.at_css(".data-header__profile-image")
-  #     photo_url = photo_element.attribute("src").value
-  #     if player.img.nil? || player.img != photo_url
-  #       player.update(img: photo_url)
-  #       puts "Photo mise à jour pour #{player.name}."
-  #     else
-  #       puts "Photo inchangée pour #{player.name}."
-  #     end
-  #   end
-  # end
+      top_url = "https://www.transfermarkt.com/-/profil/spieler/#{player.id}"
+      doc = Nokogiri::HTML.parse(URI.parse(top_url).open("User-Agent" => USER_AGENT).read)
+      photo_element = doc.at_css(".data-header__profile-image")
+      photo_url = photo_element.attribute("src").value
+      if player.photo.nil? || player.photo != photo_url
+        player.update(photo: photo_url)
+        puts "Photo mise à jour pour #{player.name}."
+      else
+        puts "Photo inchangée pour #{player.name}."
+      end
+    end
+  end
 end

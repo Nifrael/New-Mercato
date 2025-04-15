@@ -76,10 +76,10 @@ PlayerService.fetch_players_from_api('https://transfermarkt-api.fly.dev/clubs/27
 puts "Récupération des données des joueurs d'Arsenal..."
 PlayerService.fetch_players_from_api('https://transfermarkt-api.fly.dev/clubs/11/players', arsenal)
 
-# puts "----------------------------------------------------------------"
-# puts "Traitement des photos des joueurs..."
-# puts "----------------------------------------------------------------"
-# PlayerService.update_player_photos
+puts "----------------------------------------------------------------"
+puts "Traitement des photos des joueurs..."
+puts "----------------------------------------------------------------"
+PlayerService.update_player_photos
 
 puts "----------------------------------------------------------------"
 puts "#{Player.count} joueurs traités."
