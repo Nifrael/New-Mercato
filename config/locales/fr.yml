@@ -1,0 +1,23 @@
+fr:
+  activerecord:
+    models:
+      player: Joueur
+      user: Utilisateur
+    attributes:
+      player:
+        status: Statut
+        status_options:
+          available: Disponible
+          rented: Loué
+          unavailable: Indisponible
+        position: Position
+        position_options:
+          gardien: Gardien
+          defenseur: Défenseur
+          milieu: Milieu
+          polyvalent: Polyvalent
+      user:
+        role: Rôle
+        role_options:
+          employe: Employé
+          dirigeant: Dirigeant
