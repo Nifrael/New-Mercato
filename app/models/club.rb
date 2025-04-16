@@ -5,5 +5,5 @@ class Club < ApplicationRecord
   has_many :players, through: :bookings
 
   validates :name, presence: true, uniqueness: true
-  validates :stadium, :photo, presence: true
+  validates :stadium, :logo, presence: true
 end
