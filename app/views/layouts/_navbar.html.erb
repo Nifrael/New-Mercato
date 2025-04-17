@@ -1,0 +1,39 @@
+<header class="w-full black-bg">
+  <nav class="w-[95%] flex justify-between items-center">
+    <%= image_tag 'NewMercato.PNG', id:"logo-img" %>
+    <section class="hidden md:flex flex-row space-x-10">
+      <%= link_to root_path do %>
+        <h5>Accueil</h5>
+      <% end %>
+      <%= link_to root_path do %>
+        <h5>Accueil</h5>
+      <% end %>
+      <%= link_to root_path do %>
+        <h5>Accueil</h5>
+      <% end %>
+    </section>
+    <div data-controller="mobile-menu">
+      <svg class="block h-6 w-6 md:hidden" id="menu-button" data-mobile-menu-target="openIcon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" data-action="click->mobile-menu#toggle"
+        >
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+      <section class="md:hidden hidden" id="mobile-menu" data-mobile-menu-target="menu">
+        <div class="mobile-menu">
+          <svg class="hidden h-6 w-6" id="menu-button" data-mobile-menu-target="closeIcon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" data-action="click->mobile-menu#toggle"
+            >
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+          <%= link_to root_path do %>
+            <h5>Accueil</h5>
+          <% end %>
+          <%= link_to root_path do %>
+            <h5>Accueil</h5>
+          <% end %>
+          <%= link_to root_path do %>
+            <h5>Accueil</h5>
+          <% end %>
+        </div>
+      </section>
+    </div>
+  </nav>
+</header>
