@@ -1,0 +1,13 @@
+$bg-primary-color: rgb(0, 0, 0);
+$bg-secondary-color: rgb(43, 255, 0);
+$text-primary-color: $bg-secondary-color;
+$text-secondary-color: $bg-primary-color;
+$tertiary-color: rgb(228, 228, 228);
+
+.black-bg {
+  background-color: $bg-primary-color;
+}
+
+.green-bg {
+  background-color: $bg-secondary-color;
+}
