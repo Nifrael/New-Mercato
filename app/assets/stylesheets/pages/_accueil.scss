@@ -1,0 +1,20 @@
+@use "../config/colors";
+
+.black-bg .title,
+.black-bg h1 {
+  color: colors.$text-primary-color;
+}
+
+.green-bg .title,
+.green-bg h1 {
+  color: colors.$text-secondary-color;
+}
+
+.half-div {
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3%;
+  gap: 3vh;
+}

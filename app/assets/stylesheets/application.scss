@@ -1,0 +1,13 @@
+// Sassy
+@use "config/config";
+@use "pages/pages";
+
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}

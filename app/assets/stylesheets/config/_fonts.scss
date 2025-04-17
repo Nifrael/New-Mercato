@@ -1,0 +1,105 @@
+// Import des fichiers dont ce fichier est dépendant
+
+@use "breakpoints";
+
+// Fin de l'import
+
+// Import des fonts
+
+@import url("https://fonts.googleapis.com/css2?family=Mina:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Exo:wght@100..900&display=swap");
+
+// Fin de l'import
+
+// Définition des variables de font-style
+
+// $important-font: "Nunito", sans-serif;
+$title-font: "Mina", sans-serif;
+$text-font: "Exo", sans-serif;
+
+// Fin de la définition des font-style
+
+// Définition des fonts-sizes
+
+$base-size: 1rem;
+
+@mixin apply-font-scale($scale) {
+  $p: calc($base-size * $scale);
+  $h5: calc($p * $scale);
+  $h4: calc($h5 * $scale);
+  $h3: calc($h4 * $scale);
+  $h2: calc($h3 * $scale);
+  $h1: calc($h2 * $scale);
+  $title-size: calc($h1 * $scale);
+
+  .title {
+    font-size: $title-size;
+  }
+  h1 {
+    font-size: $h1;
+  }
+  h2 {
+    font-size: $h2;
+  }
+  h3 {
+    font-size: $h3;
+  }
+  h4 {
+    font-size: $h4;
+  }
+  h5 {
+    font-size: $h5;
+  }
+  p {
+    font-size: $p;
+  }
+}
+
+//
+
+// Application des styles
+
+.title {
+  font-family: $title-font;
+  font-weight: 700;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+  font-family: $text-font;
+}
+
+h1 {
+  font-weight: 400;
+}
+
+h2 {
+  font-weight: 300;
+}
+
+h3,
+h4,
+h5,
+p {
+  font-weight: 200;
+}
+
+@include apply-font-scale(1.12);
+
+@media (width >= breakpoints.$sm) {
+  @include apply-font-scale(1.15);
+}
+
+@media (width >= breakpoints.$lg) {
+  @include apply-font-scale(1.18);
+}
+
+@media (width >= breakpoints.$xl) {
+  @include apply-font-scale(1.25);
+}
+
+// Fin de l'application des styles
