@@ -90,12 +90,12 @@ p {
 
 @include apply-font-scale(1.12);
 
-@media (width >= breakpoints.$sm) {
-  @include apply-font-scale(1.15);
-}
+// @media (width >= breakpoints.$sm) {
+//   @include apply-font-scale(1.15);
+// }
 
 @media (width >= breakpoints.$lg) {
-  @include apply-font-scale(1.18);
+  @include apply-font-scale(1.16);
 }
 
 @media (width >= breakpoints.$xl) {
