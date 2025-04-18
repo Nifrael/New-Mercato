@@ -19,6 +19,9 @@
   </head>
   <body class="w-full min-h-screen flex flex-col overflow-auto m-0 p-0">
     <main class="flex-1">
+      <% unless current_page?(root_path) %>
+        <%= render "layouts/navbar" %>
+      <% end %>
       <%= yield %>
     </main>
   </body>
