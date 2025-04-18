@@ -12,24 +12,73 @@ nav {
     width: 35%;
   }
 
-  #menu-button path {
-    color: colors.$text-primary-color;
+  a h5 {
+    transition: 0.3s ease-in-out;
   }
 
-  .mobile-menu {
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 3rem;
-    top: 0;
-    left: 0;
-    background-color: colors.$bg-primary-color;
-    padding: 10px;
-    z-index: 10;
+  a:hover h5 {
+    color: colors.$tertiary-color;
+    transition: 0.3s ease-in-out;
   }
+}
+
+.menu-button {
+  height: 30px;
+  width: 30px;
+  position: relative;
+  span {
+    height: 3px;
+    width: 100%;
+    background-color: colors.$text-primary-color;
+    border-radius: 25px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: 0.2s ease;
+  }
+  span:first-child {
+    top: 25%;
+  }
+  span:last-child {
+    top: 75%;
+  }
+}
+
+.active {
+  span:first-child {
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+  span:nth-child(2) {
+    opacity: 0;
+  }
+  span:last-child {
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+  }
+}
+
+.mobile-menu {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5rem;
+  top: 100%;
+  left: 0;
+  background-color: colors.$bg-primary-color;
+  padding: 3rem 0;
+  z-index: 10;
+  transition: 0.5s ease;
+  opacity: 0;
+}
+
+.opened {
+  opacity: 1;
+  transition: 0.5s ease;
 }
 
 @media (width >= breakpoints.$md) {

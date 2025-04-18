@@ -2,14 +2,10 @@ import { Controller } from "@hotwired/stimulus";
 
 // Connects to data-controller="mobile-menu"
 export default class extends Controller {
-  connect() {
-    console.log("connecté");
-  }
-  static targets = ["menu", "openIcon", "closeIcon"];
+  static targets = ["menu", "button", "tabs"];
 
   toggle() {
-    this.menuTarget.classList.toggle("hidden");
-    this.openIconTarget.classList.toggle("hidden");
-    this.closeIconTarget.classList.toggle("hidden");
+    this.tabsTarget.classList.toggle("opened");
+    this.buttonTarget.classList.toggle("active");
   }
 }
