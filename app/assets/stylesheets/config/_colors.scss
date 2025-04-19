@@ -6,10 +6,28 @@ $tertiary-color: rgb(228, 228, 228);
 
 .black-bg {
   background-color: $bg-primary-color;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    color: $text-primary-color;
+  }
 }
 
 .green-bg {
   background-color: $bg-secondary-color;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    color: $text-secondary-color;
+  }
 }
 
 body {
