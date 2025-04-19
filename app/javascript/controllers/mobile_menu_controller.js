@@ -7,5 +7,6 @@ export default class extends Controller {
   toggle() {
     this.tabsTarget.classList.toggle("opened");
     this.buttonTarget.classList.toggle("active");
+    document.body.classList.toggle("no-scroll");
   }
 }
