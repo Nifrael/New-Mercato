@@ -73,6 +73,7 @@ nav {
   z-index: -3;
   transition: 0.5s ease;
   opacity: 0;
+  overflow: auto;
 }
 
 .opened {
@@ -82,7 +83,7 @@ nav {
 }
 
 .no-scroll {
-  overflow-y: hidden;
+  overflow: hidden;
 }
 
 @media (width >= breakpoints.$md) {
