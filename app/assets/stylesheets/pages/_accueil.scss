@@ -1,0 +1,24 @@
+@use "../config/colors";
+
+.accueil-block {
+  h3 {
+    color: colors.$tertiary-color;
+  }
+
+  h4 {
+    color: colors.$text-primary-color;
+    margin: 1% 0;
+  }
+
+  h3,
+  h4 {
+    font-weight: 500;
+  }
+
+  h1 {
+    font-weight: 900;
+    font-size: 3rem;
+    color: colors.$text-primary-color;
+    margin: 1% 0;
+  }
+}

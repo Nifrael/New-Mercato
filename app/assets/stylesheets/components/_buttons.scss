@@ -21,3 +21,31 @@
     transition: 0.5s ease-in-out;
   }
 }
+
+.button {
+  padding: 0.5rem;
+  border-radius: 10px;
+  font-weight: 500;
+}
+
+.btn-black {
+  background-color: colors.$bg-primary-color;
+  color: colors.$text-primary-color;
+  transition: 0.3s ease-in-out;
+  &:hover {
+    background-color: colors.$bg-secondary-color;
+    color: colors.$text-secondary-color;
+    transition: 0.3s ease-in-out;
+  }
+}
+
+.btn-green {
+  background-color: colors.$bg-secondary-color;
+  color: colors.$text-secondary-color;
+  transition: 0.3s ease-in-out;
+  &:hover {
+    background-color: colors.$bg-primary-color;
+    color: colors.$text-primary-color;
+    transition: 0.3s ease-in-out;
+  }
+}

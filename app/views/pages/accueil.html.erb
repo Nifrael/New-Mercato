@@ -1,3 +1,17 @@
-<div class="black-bg">
+<div class="accueil-block relative h-[93vh]">
+  <%= image_tag 'Accueil.jpg', class:"absolute w-full object-cover h-full filter brightness-70 z-[-1]"%>
+  <div class="absolute top-40 left-5">
+    <h1>NEW MERCATO</h1>
+    <h3>N'achetez plus les joueurs.</h3>
+    <h4>Louez-les.</h4>
+    <div class="my-6">
+      <%= link_to 'Joueurs disponibles', players_path, class:"button btn-black" %>
+    </div>
+  </div>
+  <div class="absolute bottom-15 left-1/2 -translate-x-1/2">
+    <%= link_to 'Découvrir', "#Plus", class:"button btn-green" %>
+  </div>
+</div>
+<div class="black-bg" id="Plus">
   <p>Bonjour ceci est l'accueil</p>
 </div>
