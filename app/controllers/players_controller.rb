@@ -1,6 +1,6 @@
 class PlayersController < ApplicationController
   def index
-    @positions = Player.positions.key
+    @positions = Player.positions.keys
     @players = Player.all
   end
 
