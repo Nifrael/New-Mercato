@@ -1,6 +1,6 @@
-<div class="accueil-block relative h-[93vh]">
-  <%= image_tag 'Accueil.jpg', class:"absolute w-full object-cover h-full filter brightness-70 z-[-1]"%>
-  <div class="absolute top-40 left-5">
+<div class="accueil-block relative h-[90vh] md:h-[88vh]">
+  <%= image_tag 'Accueil.jpg', class:"absolute w-full object-cover h-full filter brightness-70 z-[-1] md:object-[0%_70%]"%>
+  <div class="absolute bottom-[40%] left-5 md:left-10 lg:left-15 xl:left-20">
     <h1>NEW MERCATO</h1>
     <h3>N'achetez plus les joueurs.</h3>
     <h4>Louez-les.</h4>
@@ -9,7 +9,10 @@
     </div>
   </div>
   <div class="absolute bottom-15 left-1/2 -translate-x-1/2">
-    <%= link_to 'Découvrir', "#Plus", class:"button btn-green" %>
+    <%= link_to 'Découvrir', "#Plus", class:"button btn-green",
+        data: {
+          controller: "smooth-scroll",
+          action: "click->smooth-scroll#scrollToTarget" }%>
   </div>
 </div>
 <div class="black-bg" id="Plus">
