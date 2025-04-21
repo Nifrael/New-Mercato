@@ -1,4 +1,5 @@
 @use "../config/colors";
+@use "../config/breakpoints";
 
 .accueil-block {
   h3 {
@@ -20,5 +21,29 @@
     font-size: 3rem;
     color: colors.$text-primary-color;
     margin: 1% 0;
+  }
+}
+
+@media (width >= breakpoints.$md) {
+  .accueil-block {
+    h1 {
+      font-size: 3.5rem;
+    }
+  }
+}
+
+@media (width >= breakpoints.$lg) {
+  .accueil-block {
+    h1 {
+      font-size: 4rem;
+    }
+  }
+}
+
+@media (width >= breakpoints.$lg) {
+  .accueil-block {
+    h1 {
+      font-size: 4.5rem;
+    }
   }
 }
