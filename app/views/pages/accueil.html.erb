@@ -9,7 +9,10 @@
     </div>
   </div>
   <div class="absolute bottom-15 left-1/2 -translate-x-1/2">
-    <%= link_to 'Découvrir', "#Plus", class:"button btn-green" %>
+    <%= link_to 'Découvrir', "#Plus", class:"button btn-green",
+        data: {
+          controller: "smooth-scroll",
+          action: "click->smooth-scroll#scrollToTarget" }%>
   </div>
 </div>
 <div class="black-bg" id="Plus">
