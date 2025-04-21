@@ -17,5 +17,6 @@ export default class extends Controller {
 
   closeTheMenu() {
     this.tabsTarget.classList.remove("opened");
+    this.buttonTarget.classList.remove("active");
   }
 }
