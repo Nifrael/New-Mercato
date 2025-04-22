@@ -4,14 +4,9 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
   static targets = ["list"];
 
-  connect() {
-    console.log("coucou");
-  }
-
   filter(event) {
     event.preventDefault();
     const position = event.target.dataset.filterPosition;
-    console.log(position);
     this.fetchPlayers(position);
   }
 
