@@ -8,6 +8,10 @@ class Booking < ApplicationRecord
 
   validate :validate_time
 
+  def calculate_total_price(price_per_day)
+    (end_date - start_date).to_i * price_per_day
+  end
+
   private
 
   def validate_time
