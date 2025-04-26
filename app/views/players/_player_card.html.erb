@@ -1,7 +1,9 @@
 <div class="player-card">
-  <%= image_tag player.photo %>
-  <h3><%= player.name %></h3>
-  <p><%= t("activerecord.attributes.player.position_options.#{player.position}") %></p>
-  <p><%= player.foot %></p>
-  <p><%= player.age %></p>
+  <%= link_to player_path(player) do %>
+    <%= image_tag player.photo %>
+    <h3><%= player.name %></h3>
+    <p><%= t("activerecord.attributes.player.position_options.#{player.position}") %></p>
+    <p><%= player.foot %></p>
+    <p><%= player.age %></p>
+  <% end %>
 </div>
