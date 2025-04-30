@@ -74,6 +74,7 @@ gem "htmlbeautifier"
 
 gem "dartsass-rails", "~> 0.5.1"
 
-gem "sass-embedded", "~> 1.86", ">= 1.86.3"
-
 gem "simple_form"
+
+gem "sass-embedded", "~> 1.87"
+
