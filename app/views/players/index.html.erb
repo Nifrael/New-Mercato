@@ -1,11 +1,23 @@
-<div>
-  <h1 class="font-bold text-4xl">Players#index</h1>
-  <p>
-    <% @players.each do |player| %>
-      <%= image_tag player.photo %>
-      <%= player.name %>
-      <%= t("activerecord.attributes.player.position_options.#{player.position}") %>
-      <%= player.club.name %>
-    <% end %>
-  </p>
+<div class="container" data-controller="players-filter">
+  <div class="sidebar">
+    <ul>
+      <li>
+        <%= link_to "Tous les joueurs", players_path, id: 'all-players-link',
+      data: {
+        action: "players-filter#filter",
+        filter_position: 'all'} %>
+      </li>
+      <% @positions.each do |position| %>
+        <li>
+          <%= link_to position.capitalize, players_path(position: position),
+          data: {
+            action: "players-filter#filter",
+            filter_position: position } %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  <div data-players-filter-target="list">
+    <%= render partial: 'player_card', collection: @players, as: :player %>
+  </div>
 </div>

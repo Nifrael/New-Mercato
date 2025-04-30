@@ -1,0 +1,18 @@
+@use "../../config/colors";
+@use "../../config/fonts";
+
+#card-player-show {
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 15px colors.$text-primary-color;
+    h2 {
+        font-family: fonts.$title-font;
+        font-weight: 900;
+    }
+    img {
+        border-radius: 10px;
+    }
+}
+
+#logo-club {
+    width: 20%;
+}

@@ -1,0 +1,18 @@
+<%= simple_form_for [@player, @booking] do |f| %>
+  <div data-controller="date-range-picker">
+    <div data-date-range-picker-target="calendar"></div>
+    <%= f.input :start_date,
+                as: :hidden,
+                input_html: { data: { date_range_picker_target: "startDate" } } %>
+    <%= f.input :end_date,
+                as: :hidden,
+                input_html: { data: { date_range_picker_target: "endDate" } } %>
+    <div>
+      <p>Début : <span data-date-range-picker-target="startDateDisplay">N/A</span></p>
+      <p>Fin : <span data-date-range-picker-target="endDateDisplay">N/A</span></p>
+    </div>
+  </div>
+  <div>
+    <%= f.button :submit, "Réserver" %>
+  </div>
+<% end %>
