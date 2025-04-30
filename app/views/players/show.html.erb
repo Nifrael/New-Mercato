@@ -3,3 +3,6 @@
   <h2 class><%= @player.name.upcase %></h1>
   <%= image_tag (@player.club.logo), id:"logo-club" %>
 </div>
+<div class="m-10">
+  <%= render "bookings/form", booking: @booking %>
+</div>
