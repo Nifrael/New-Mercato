@@ -7,6 +7,7 @@ class Booking < ApplicationRecord
   validates :start_date, :end_date, presence: true
 
   validate :validate_time
+  validate :player_already_in_club, on: :create
 
   def calculate_total_price(price_per_day)
     (end_date - start_date).to_i * price_per_day
@@ -16,5 +17,11 @@ class Booking < ApplicationRecord
 
   def validate_time
     errors.add(:end_time, "doit être postérieure à la date de début.") if self.start_date >= self.end_date
+  end
+
+  def player_already_in_club
+    if player.club_id == club_id
+      errors.add(:base, "Ce joueur appartient déjà à votre club, vous ne pouvez pas le réserver.")
+    end
   end
 end
