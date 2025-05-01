@@ -12,6 +12,18 @@
         <%= link_to root_path do %>
           <h5>Clubs</h5>
         <% end %>
+        <% if user_signed_in? %>
+          <%= link_to dashboard_path do %>
+            <p>Tableau de bord</p>
+          <% end %>
+          <%= link_to destroy_user_session_path, data: { turbo_method: :delete } do %>
+            <p>Déconnexion</p>
+          <% end %>
+        <% else %>
+          <%= link_to new_user_session_path do %>
+            <p>Connexion</p>
+          <% end %>
+        <% end %>
       </div>
       <div class="md:hidden flex items-center"  >
         <button class="menu-button" data-mobile-menu-target="button" data-action="click->mobile-menu#toggle">
@@ -28,6 +40,18 @@
           <% end %>
           <%= link_to root_path do %>
             <h5>Clubs</h5>
+          <% end %>
+          <% if user_signed_in? %>
+            <%= link_to dashboard_path do %>
+              <p>Tableau de bord</p>
+            <% end %>
+            <%= link_to destroy_user_session_path do %>
+              <p>Déconnexion</p>
+            <% end %>
+          <% else %>
+            <%= link_to new_user_session_path do %>
+              <p>Connexion</p>
+            <% end %>
           <% end %>
         </div>
       </div>
