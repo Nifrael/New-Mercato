@@ -1,0 +1,8 @@
+<% if flash.any? %>
+  <% flash.each do |key, message| %>
+    <div class="flash-message flash-<%= key.to_s %>" role="alert">
+      <%= message %>
+      <button type="button" class="close-flash">&times;</button>
+    </div>
+  <% end %>
+<% end %>

@@ -23,6 +23,7 @@
       <%= render "layouts/navbar" %>
     <% end %>
     <main class="flex-1">
+      <%= render "shared/flash_messages" %>
       <%= yield %>
     </main>
     <% unless current_page?(root_path) %>
