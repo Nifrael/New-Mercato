@@ -1,4 +1,10 @@
 class BookingsController < ApplicationController
+  before_action :set_player, only: [ :new, :create ]
+
+  def show
+    @booking = Booking.find(params[:id])
+  end
+
   def new
   end
 
@@ -16,6 +22,10 @@ class BookingsController < ApplicationController
   end
 
   private
+
+  def set_player
+    @player = Player.find(params[:player_id])
+  end
 
   def booking_params
     params.require(:booking).permit(:start_date, :end_date, :club_id, :player_id, :total_price, :status)
