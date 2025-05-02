@@ -14,4 +14,23 @@ class Player < ApplicationRecord
       none
     end
   end
+
+  def update_availability_status!
+    today = Date.current
+
+    is_player_on_loan = Booking.where(player_id: self.id, status: :accepted)
+                                .where(start_date: ..today)
+                                .where(end_date: today..)
+                                .exists?
+
+    if is_player_on_loan
+      unless self.rented?
+        self.rented!
+      end
+    else
+      unless self.available?
+        self.available!
+      end
+    end
+  end
 end
