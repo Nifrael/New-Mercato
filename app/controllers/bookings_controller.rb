@@ -22,7 +22,7 @@ class BookingsController < ApplicationController
       elsif error_messages[:base].any?
         flash.now[:alert] = error_messages[:base].first
       elsif error_messages.any?
-        flash.npw[:alert] = "La réservation n'a pas pu aboutir, vérifiez toutes les informations fournies."
+        flash.now[:alert] = "La réservation n'a pas pu aboutir, vérifiez toutes les informations fournies."
       else
         flash.now[:alert] = "Une erreur est survenue pendant la tentative de réservation."
       end
