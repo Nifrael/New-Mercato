@@ -24,4 +24,13 @@ Rails.application.routes.draw do
   end
 
   resource :dashboard, only: %i[show]
+
+  namespace :dashboard do
+    resources :booking_requests, only: %i[index show] do
+      member do
+        patch :accept
+        patch :refuse
+      end
+    end
+  end
 end
