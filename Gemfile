@@ -78,3 +78,4 @@ gem "simple_form"
 
 gem "sass-embedded", "~> 1.87"
 
+gem "aasm", "~> 5.5"

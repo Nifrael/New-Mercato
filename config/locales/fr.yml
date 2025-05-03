@@ -21,3 +21,10 @@ fr:
         role_options:
           employe: Employé
           dirigeant: Dirigeant
+      booking: 
+        start_date: "Date de début"
+        end_date: "Date de fin"
+        player: "Joueur"
+        club: "Club"
+        total_price: "Prix total"
+        status: "Statut"

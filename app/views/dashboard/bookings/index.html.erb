@@ -1,0 +1,22 @@
+<% if @pending_bookings.empty? %>
+  <h1>Aucun club ne s'interesse à nos joueurs.</h1>
+<% else %>
+  <h1>Demandes reçues :</h1>
+  <%= @pending_bookings.each do |booking| %>
+    <%= booking.club.name %>
+    <%= booking.player.name %>
+    <%= booking.total_price %>
+    <%= button_to 'Accepter', accept_dashboard_booking_path(booking), method: :patch %>
+    <%= button_to 'Refuser', refuse_dashboard_booking_path(booking), 
+                            method: :patch, 
+                            data: { confirm: 'Êtes-vous sûr de vouloir refuser cette demande ?' } %>
+  <% end %>
+<% end %>
+<% @bookings.each do |booking| %>
+  <%= link_to dashboard_booking_path(booking) do %>
+    <%= booking.player.name  %>
+    <%= booking.total_price %>
+    <%= booking.status %>
+    <%= booking.end_date %>
+  <% end %>
+<% end %>

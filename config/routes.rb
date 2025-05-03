@@ -20,6 +20,17 @@ Rails.application.routes.draw do
     collection do
       get "filter_by_position"
     end
-    resources :bookings, only: %i[new create]
+    resources :bookings, only: %i[show new create]
+  end
+
+  resource :dashboard, only: %i[show]
+
+  namespace :dashboard do
+    resources :bookings, only: %i[index show] do
+      member do
+        patch :accept
+        patch :refuse
+      end
+    end
   end
 end
