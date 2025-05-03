@@ -4,4 +4,8 @@
   <%= @booking.start_date %>
   <%= @booking.end_date %>
   <%= @booking.total_price %> €
+  <%= button_to 'Accepter', accept_dashboard_booking_path(@booking), method: :patch %>
+  <%= button_to 'Refuser', refuse_dashboard_booking_path(@booking), 
+                            method: :patch, 
+                            data: { confirm: 'Êtes-vous sûr de vouloir refuser cette demande ?' } %>
 </div>
