@@ -6,8 +6,8 @@
     <%= booking.club.name %>
     <%= booking.player.name %>
     <%= booking.total_price %>
-    <%= button_to 'Accepter', accept_dashboard_bookings_path(booking), method: :patch %>
-    <%= button_to 'Refuser', refuse_dashboard_bookings_path(booking), 
+    <%= button_to 'Accepter', accept_dashboard_booking_path(booking), method: :patch %>
+    <%= button_to 'Refuser', refuse_dashboard_booking_path(booking), 
                             method: :patch, 
                             data: { confirm: 'Êtes-vous sûr de vouloir refuser cette demande ?' } %>
   <% end %>
