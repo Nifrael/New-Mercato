@@ -18,6 +18,7 @@ class PlayersController < ApplicationController
 
   def show
     authorize @player
+    authorize Booking, :new?
     @booking = Booking.new
   end
 
