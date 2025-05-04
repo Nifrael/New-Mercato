@@ -64,18 +64,26 @@ group :test do
   gem "selenium-webdriver"
 end
 
+# TailwindCSS
 gem "tailwindcss-ruby", "~> 4.1"
 
 gem "tailwindcss-rails", "~> 4.2"
 
+# Authentification
 gem "devise"
 
+# Authorization
+gem "pundit"
+
+# Extension VSCode
 gem "htmlbeautifier"
 
+# SASS
 gem "dartsass-rails", "~> 0.5.1"
-
-gem "simple_form"
-
 gem "sass-embedded", "~> 1.87"
 
+# Simple_form
+gem "simple_form"
+
+# State machines
 gem "aasm", "~> 5.5"
