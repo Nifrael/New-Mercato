@@ -3,9 +3,11 @@ class BookingsController < ApplicationController
 
   def show
     @booking = Booking.find(params[:id])
+    authorize @booking
   end
 
   def new
+    authorize @booking
   end
 
   def create
@@ -13,6 +15,7 @@ class BookingsController < ApplicationController
     @booking.player = @player
     @booking.club_id = current_user.club.id
     @booking.total_price = @booking.calculate_total_price(@player.price_per_day)
+    authorize @booking
     if @booking.save
       redirect_to player_booking_path(player_id: @booking.player.id, id: @booking.id)
     else
@@ -37,6 +40,6 @@ class BookingsController < ApplicationController
   end
 
   def booking_params
-    params.require(:booking).permit(:start_date, :end_date, :club_id, :player_id, :total_price)
+    params.require(:booking).permit(:start_date, :end_date)
   end
 end

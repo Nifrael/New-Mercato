@@ -9,9 +9,11 @@ class Dashboard::BookingsController < Dashboard::BaseController
   end
 
   def show
+    authorize @booking
   end
 
   def accept
+    authorize @booking, :update?
     if @booking.may_accept?
       begin
         @booking.accept!
@@ -26,6 +28,7 @@ class Dashboard::BookingsController < Dashboard::BaseController
   end
 
   def refuse
+    authorize @booking, :update?
     if @booking.may_refuse?
       begin
         @booking.refuse!
