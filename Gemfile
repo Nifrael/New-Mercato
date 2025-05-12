@@ -76,6 +76,6 @@ gem "dartsass-rails", "~> 0.5.1"
 
 gem "simple_form"
 
-gem "sass-embedded", "~> 1.87"
+gem "sass-embedded", "~> 1.88"
 
 gem "aasm", "~> 5.5"
