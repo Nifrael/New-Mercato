@@ -1,6 +1,7 @@
 class PlayersController < ApplicationController
   before_action :set_player, only: [ :show, :edit, :update ]
-  skip_before_action :authenticate_user!
+  before_action :authenticate_user!, only: [ :edit, :update ]
+
   def index
     @positions = Player.positions.keys
     @players = policy_scope(Player)
