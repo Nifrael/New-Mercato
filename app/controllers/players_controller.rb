@@ -19,8 +19,10 @@ class PlayersController < ApplicationController
 
   def show
     authorize @player
-    authorize Booking, :new?
-    @booking = Booking.new
+    if user_signed_in?
+      authorize Booking, :new?
+      @booking = Booking.new
+    end
   end
 
   def edit
