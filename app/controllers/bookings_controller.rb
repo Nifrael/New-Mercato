@@ -1,5 +1,5 @@
 class BookingsController < ApplicationController
-  before_action :set_player, only: [ :new, :create ]
+  before_action :set_player, only: [ :create ]
 
   def show
     @booking = Booking.find(params[:id])
