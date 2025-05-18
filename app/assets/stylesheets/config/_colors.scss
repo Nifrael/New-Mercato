@@ -34,3 +34,7 @@ body {
   background-color: $bg-primary-color;
   color: $text-primary-color;
 }
+
+.shadow-green {
+  box-shadow: 1px 1px 1px 1px $bg-secondary-color;
+}
