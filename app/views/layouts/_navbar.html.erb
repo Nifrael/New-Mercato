@@ -9,7 +9,7 @@
         <%= link_to root_path do %>
           <h5>Statistiques</h5>
         <% end %>
-        <%= link_to root_path do %>
+        <%= link_to clubs_path do %>
           <h5>Clubs</h5>
         <% end %>
         <% if user_signed_in? %>
@@ -32,13 +32,13 @@
           <span></span>
         </button>
         <div class="mobile-menu" data-mobile-menu-target="tabs">
-          <%= link_to root_path do %>
+          <%= link_to players_path do %>
             <h5>Joueurs</h5>
           <% end %>
           <%= link_to root_path do %>
             <h5>Statistiques</h5>
           <% end %>
-          <%= link_to root_path do %>
+          <%= link_to clubs_path do %>
             <h5>Clubs</h5>
           <% end %>
           <% if user_signed_in? %>

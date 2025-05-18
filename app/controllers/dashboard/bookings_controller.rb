@@ -3,15 +3,19 @@ class Dashboard::BookingsController < Dashboard::BaseController
   before_action :authorize_management, only: %i[accept refuse]
 
   def index
+    authorize Booking, :index?
+    base_scope = policy_scope(Booking)
     current_club = current_user.club
-    @pending_bookings = Booking.includes(:player, :club).where(status: :pending).where(players: { club_id: current_club.id })
-    @bookings = Booking.includes(:player).where(club_id: current_club.id)
+    @pending_bookings = base_scope.includes(:player, :club).where(status: :pending).where(players: { club_id: current_club.id })
+    @bookings = base_scope.includes(:player).where(club_id: current_club.id)
   end
 
   def show
+    authorize @booking
   end
 
   def accept
+    authorize @booking, :update?
     if @booking.may_accept?
       begin
         @booking.accept!
@@ -26,6 +30,7 @@ class Dashboard::BookingsController < Dashboard::BaseController
   end
 
   def refuse
+    authorize @booking, :update?
     if @booking.may_refuse?
       begin
         @booking.refuse!
