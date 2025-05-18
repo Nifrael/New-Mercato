@@ -1,5 +1,6 @@
 <div class="container" data-controller="players-filter">
-  <div class="sidebar">
+  <button class="btn-green fixed bottom-7 right-7 z-50 p-6 rounded-full" type="button" data-action="players-filter#toggleSideBar"></button>
+  <div class="hidden sidebar">
     <ul>
       <li>
         <%= link_to "Tous les joueurs", players_path, id: 'all-players-link',
