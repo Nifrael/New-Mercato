@@ -1,3 +1,10 @@
-.hexagon {
-  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+@use "../../config/colors";
+
+.player-card {
+  transition: 0.3s ease-in-out;
+  &:hover {
+    background-color: colors.$bg-secondary-color;
+    color: colors.$text-secondary-color;
+    transition: 0.3s ease-in-out;
+  }
 }
