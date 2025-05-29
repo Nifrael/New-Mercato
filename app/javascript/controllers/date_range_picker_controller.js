@@ -7,8 +7,6 @@ export default class extends Controller {
   static targets = [ "calendar", "startDate", "endDate", "startDateDisplay", "endDateDisplay", "bookingDuration" ]
 
   connect() {
-    console.log("pika pika")
-    console.dir(this.startDateDisplayTarget)
     const options = {
       type: 'default',
       displayMonthsCount: 1,
@@ -36,9 +34,4 @@ export default class extends Controller {
 
     calendar.init();
   }
-
-  // disconnect() {
-  //   calendar.destroy(); 
-  // }
-
 }
