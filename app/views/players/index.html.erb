@@ -1,6 +1,7 @@
 <div class="container" data-controller="players-filter">
   <button class="btn-green fixed bottom-7 right-7 z-50 p-6 rounded-full" type="button" data-action="players-filter#toggleSideBar"></button>
-  <div class="hidden sidebar">
+  <div class="hidden sidebar fixed inset-y-0 left-0 z-40 w-3/4 max-w-xs bg-green shadow-xl transform translate-x-full transition-transform duration-300 ease-out">
+    <div class="hidden fixed inset-0 bg-black/50 z-30 transition-opacity duration-300 ease-in-out"></div>
     <ul>
       <li>
         <%= link_to "Tous les joueurs", players_path, id: 'all-players-link',
@@ -18,7 +19,7 @@
       <% end %>
     </ul>
   </div>
-  <div data-players-filter-target="list">
+  <div data-players-filter-target="list" class="flex flex-col items-center my-10 gap-12">
     <%= render partial: 'player_card', collection: @players, as: :player %>
   </div>
 </div>
