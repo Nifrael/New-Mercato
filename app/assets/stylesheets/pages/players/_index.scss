@@ -2,6 +2,7 @@
 
 .player-card {
   transition: 0.3s ease-in-out;
+  color: colors.$text-primary-color;
   &:hover {
     background-color: colors.$bg-secondary-color;
     color: colors.$text-secondary-color;
