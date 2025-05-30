@@ -2,12 +2,17 @@ import { Controller } from "@hotwired/stimulus";
 
 // Connects to data-controller="players-filter"
 export default class extends Controller {
-  static targets = ["list"];
+  static targets = ["list", "menu", "overlay"];
 
   filter(event) {
     event.preventDefault();
     const position = event.target.dataset.filterPosition;
     this.fetchPlayers(position);
+  }
+
+  toggleSideBar() {
+    this.menuTarget.classList.toggle("hidden");
+    this.overlayTarget.classList.toggle("hidden");
   }
 
   fetchPlayers(position) {
