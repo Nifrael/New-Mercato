@@ -1,9 +1,17 @@
-<div class="player-card">
-  <%= link_to player_path(player) do %>
-    <%= image_tag player.photo %>
-    <h3><%= player.name %></h3>
-    <p><%= t("activerecord.attributes.player.position_options.#{player.position}") %></p>
-    <p><%= player.foot %></p>
-    <p><%= player.age %></p>
-  <% end %>
-</div>
+<%= link_to player_path(player) do %>
+  <div class="player-card w-64 xl:w-72 h-96 bg-black rounded-xl shadow-green shadow-lg overflow-hidden p-4 flex flex-col justify-between items-center">
+    <div class="w-full flex justify-center items-center mb-2">
+      <h4 class="text-center"><%= player.name %></h4>
+    </div>
+    <div class="w-full flex-grow flex items-center justify-center">
+      <%= image_tag player.photo, class: "h-full object-contain drop-shadow-md rounded-xl" %>
+    </div>
+    <div class="w-full flex justify-between items-center mt-4">
+      <div class="price-card flex items-center rounded-lg p-2 pr-3">
+        <span class="text-3xl font-extrabold"><%= player.price_per_day %>€</span></div>
+      <div class="w-10 h-10 flex items-center justify-center">
+        <%= image_tag player.club.logo %>
+      </div>
+    </div>
+  </div>
+<% end %>

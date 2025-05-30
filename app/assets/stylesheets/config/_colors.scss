@@ -12,7 +12,8 @@ $tertiary-color: rgb(228, 228, 228);
   h4,
   h5,
   h6,
-  p {
+  p,
+  a {
     color: $text-primary-color;
   }
 }
@@ -25,7 +26,8 @@ $tertiary-color: rgb(228, 228, 228);
   h4,
   h5,
   h6,
-  p {
+  p,
+  a {
     color: $text-secondary-color;
   }
 }
@@ -33,4 +35,8 @@ $tertiary-color: rgb(228, 228, 228);
 body {
   background-color: $bg-primary-color;
   color: $text-primary-color;
+}
+
+.shadow-green {
+  box-shadow: 0px 0px 20px 5px $bg-secondary-color;
 }
