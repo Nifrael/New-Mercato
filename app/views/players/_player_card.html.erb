@@ -1,7 +1,7 @@
 <%= link_to player_path(player) do %>
-  <div class="player-card w-64 h-96 bg-black rounded-xl shadow-green shadow-lg overflow-hidden p-4 flex flex-col justify-between items-center">
+  <div class="player-card w-64 xl:w-72 h-96 bg-black rounded-xl shadow-green shadow-lg overflow-hidden p-4 flex flex-col justify-between items-center">
     <div class="w-full flex justify-center items-center mb-2">
-      <h3 class="text-center"><%= player.name %></h3>
+      <h4 class="text-center"><%= player.name %></h4>
     </div>
     <div class="w-full flex-grow flex items-center justify-center">
       <%= image_tag player.photo, class: "h-full object-contain drop-shadow-md rounded-xl" %>
