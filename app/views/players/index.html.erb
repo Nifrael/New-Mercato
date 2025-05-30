@@ -1,25 +1,31 @@
 <div class="container" data-controller="players-filter">
-  <button class="btn-green fixed bottom-7 right-7 z-50 p-6 rounded-full" type="button" data-action="players-filter#toggleSideBar"></button>
-  <div class="hidden sidebar fixed inset-y-0 left-0 z-40 w-3/4 max-w-xs bg-green shadow-xl transform translate-x-full transition-transform duration-300 ease-out">
-    <div class="hidden fixed inset-0 bg-black/50 z-30 transition-opacity duration-300 ease-in-out"></div>
-    <ul>
+  <button class="md:hidden btn-green fixed bottom-7 right-7 z-20 p-6 rounded-full" type="button" data-action="players-filter#toggleSideBar"></button>
+  <div data-players-filter-target="menu" class="hidden md:block sidebar fixed inset-y-0 left-0 p-6 z-40 w-3/4 max-w-xs green-bg shadow-xl duration-300 ease-out">
+    <button type="button"
+        class="absolute top-6 right-6 p-1 text-green-100 hover:text-white"
+        data-action="players-filter#toggleSideBar">
+      <span class="text-2xl leading-none">&times;</span>
+    </button>
+    <h3>Filtres</h3>
+    <ul class="list-none flex flex-col gap-y-1">
       <li>
         <%= link_to "Tous les joueurs", players_path, id: 'all-players-link',
       data: {
-        action: "players-filter#filter",
+        action: "players-filter#filter players-filter#toggleSideBar",
         filter_position: 'all'} %>
       </li>
       <% @positions.each do |position| %>
         <li>
           <%= link_to position.capitalize, players_path(position: position),
           data: {
-            action: "players-filter#filter",
+            action: "players-filter#filter players-filter#toggleSideBar",
             filter_position: position } %>
         </li>
       <% end %>
     </ul>
   </div>
-  <div data-players-filter-target="list" class="flex flex-col items-center my-10 gap-12">
+  <div data-players-filter-target="overlay" class="hidden md:hidden fixed inset-0 bg-black/50 z-30 transition-opacity duration-300 ease-in-out"></div>
+  <div data-players-filter-target="list" class="flex flex-col items-center my-10 gap-12 md:grid md:grid-cols-2 lg:grid-cols-3">
     <%= render partial: 'player_card', collection: @players, as: :player %>
   </div>
 </div>
