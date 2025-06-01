@@ -1,0 +1,67 @@
+@use "../config/fonts";
+@use "../config/colors";
+
+.form-inputs {
+    margin: 1rem auto;
+}
+
+.form-label {
+    font-size: 3rem;
+}
+
+.form-input {
+  width: 90%;
+  border-radius: 10px;
+  background-color: white;
+  color: colors.$text-secondary-color;
+  padding: 0.2rem 0.5rem;
+  margin: 0.5rem auto;
+  border: 0.5px solid colors.$bg-primary-color;
+  &:focus {
+    box-shadow: 0 0 3px 3px colors.$bg-primary-color;
+    outline: none;
+    border-color: colors.$bg-primary-color;
+  }
+}
+
+.form-check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1.5rem auto;
+}
+
+#checkbox {
+  appearance: none;
+  border-radius: 5px;
+  border: 2px solid colors.$bg-primary-color;
+  width: 16px;   
+  height: 16px; 
+  position: relative;
+  &:focus {
+    background-color: colors.$bg-primary-color;
+  }
+  &:checked {
+    background-color: colors.$bg-primary-color;
+    color: white;
+  }
+  &:not(:checked):focus {
+    background-color: white;
+  }
+}
+
+#checkbox {
+    &:checked::after {    
+      content: "";
+      position: absolute;
+      left: 5px;
+      top: 1px;
+      width: 4px;
+      height: 8px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+      -webkit-transform: rotate(45deg);
+    }
+}
