@@ -1,2 +1,5 @@
-<h1>Bonjour, <%= @user.first_name %> <%= @user.last_name %>.</h1>
-<h5>Votre rôle au sein de <%= @club.name %> : <%= @user.role.capitalize %>.</h5>
+<div>
+  <%= image_tag "Dashboard.jpg", class:"w-full h-60 object-cover filter brightness-30" %>
+  <h1>Bonjour, <%= @user.first_name %> <%= @user.last_name %>.</h1>
+  <h5>Votre rôle au sein de <%= @club.name %> : <%= @user.role.capitalize %>.</h5>
+</div>
