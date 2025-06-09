@@ -1,6 +1,16 @@
-<div class="data-club green-bg relative flex flex-col rounded-xl justify-end">
-  <%= image_tag @club.logo, class: "absolute top-4 left-4 w-12" %>
-  <h1><%= @club.name %></h1>
-  <h2><%= @club.budget %></h2>
-  <h2><%= @club.stadium %></h2>
+<div class="data-club green-bg relative flex flex-col rounded-xl justify-end w-full h-30 m-auto">
+  <%= image_tag @club.logo, class: "absolute top-4 left-4 w-14" %>
+  <h1 class="absolute bottom-2 right-4"><%= @club.name %></h1>
+</div>
+<div class="data-players w-full h-20 green-bg rounded-xl relative">
+  <h4 class="pl-2">Budget</h4>
+  <p class="absolute bottom-2 right-4"><%= @club.budget %> €</p>
+</div>
+<div class="data-players w-full h-20 green-bg rounded-xl">
+  <p>Joueurs</p>
+  <p><%= @club.players.length %></p>
+</div>
+<div class="data-players w-full h-20 green-bg rounded-xl">
+  <p>Joueurs empruntés</p>
+  <p><%= @club.bookings.length %></p>
 </div>
