@@ -28,3 +28,7 @@
     transition: 0.3s ease-in-out;
   }
 }
+
+.data-players:last-of-type {
+  grid-column: 1/3;
+}
