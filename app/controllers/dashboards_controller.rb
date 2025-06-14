@@ -7,8 +7,10 @@ class DashboardsController < ApplicationController
     @players = @club.players
     @bookings = @club.bookings.includes(:players)
     @loaned = Booking.joins(:player).where(players: { club: @club }).where.not(club: @club)
-    @sent_offers = Booking.where(club: @club, status: :pending)
-    # @received_offers = Booking.where()
-    # @negociations = @sent_offers.or(@received_offers)
+    bookings_table = Booking.arel_table
+    players_table = Player.arel_table
+    @sent_offers = bookings_table[:club_id].eq(@club.id)
+    @received_offers = players_table[:club_id].eq(@club.id).and(bookings_table[:club_id].not_eq(@club.id))
+    @negociations = Booking.joins(:player).where(status: :pending).where(@sent_offers.or(@received_offers))
   end
 end
