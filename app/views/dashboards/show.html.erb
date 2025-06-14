@@ -1,7 +1,14 @@
-<h1>Bonjour, <%= @user.first_name %> <%= @user.last_name %>.</h1>
-<h5>Votre rôle au sein de <%= @club.name %> : <%= @user.role.capitalize %>.</h5>
-<div>
-  <% @players.each do |player| %>
-    <p><%= player.name %></p>
-  <% end %>
+<div class="green-bg w-[98%] h-36 mx-auto my-6 rounded-2xl relative shadow-green flex flex-col justify-center items-center">
+  <h1 class=""><%= @user.first_name %> <%= @user.last_name %></h1>
+  <h4><%= @user.role.capitalize %></h4>
+  <%= image_tag @user.photo, class:"absolute bottom-0 left-5 w-16 translate-y-6" %>
+  <%# <%= image_tag @user.club.logo, class:"absolute bottom-0 right-0 w-14 translate-y-6" %>
+</div>
+<%# <div class="green-bg w-[90%] h-auto grid grid-cols-2 grid-rows-3 mt-12 py-8 mx-auto rounded-xl"> %>
+<%#= image_tag @club.logo, class:"col-1 row-span-3 w-46" %>
+<%#= @club.budget %>
+<%#= @club.stadium  %>
+<%# </div> %>
+<div class="data-grid">
+  <%= render "dashboards/data_grid" %>
 </div>
