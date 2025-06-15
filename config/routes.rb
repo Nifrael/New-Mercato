@@ -26,6 +26,12 @@ Rails.application.routes.draw do
   resource :dashboard, only: %i[show]
 
   namespace :dashboard do
+    resources :players, only: %i[index] do
+      collection do
+        get :loaned_out
+        get :loaned_in
+      end
+    end
     resources :bookings, only: %i[index show] do
       member do
         patch :accept
