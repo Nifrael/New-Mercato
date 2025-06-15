@@ -6,18 +6,24 @@
   <p>Budget</p>
   <h5 class="text-right"><%= @club.budget %> €</h5>
 </div>
-<div class="data-players w-full h-20 green-bg rounded-xl flex flex-col justify-between p-2">
-  <p>Joueurs</p>
-  <h5 class="text-right"><%= @club.players.length %></h5>
-</div>
-<div class="data-players w-full h-20 green-bg rounded-xl flex flex-col justify-between p-2">
-  <p>Empruntés</p>
-  <h5 class="text-right"><%= @club.bookings.length %></h5>
-</div>
-<div class="data-players w-full h-20 green-bg rounded-xl flex flex-col justify-between p-2">
-  <p>Prêtés</p>
-  <h5 class="text-right"><%= @loaned.length %></h5>
-</div>
+<%= link_to dashboard_players_path do %>
+  <div class="data-players w-full h-20 green-bg rounded-xl flex flex-col justify-between p-2">
+    <p>Joueurs</p>
+    <h5 class="text-right"><%= @club.players.length %></h5>
+  </div>
+<% end %>
+<%= link_to loaned_in_dashboard_players_path do %>
+  <div class="data-players w-full h-20 green-bg rounded-xl flex flex-col justify-between p-2">
+    <p>Empruntés</p>
+    <h5 class="text-right"><%= @club.bookings.length %></h5>
+  </div>
+<% end %>
+<%= link_to loaned_out_dashboard_players_path do %>
+  <div class="data-players w-full h-20 green-bg rounded-xl flex flex-col justify-between p-2">
+    <p>Prêtés</p>
+    <h5 class="text-right"><%= @loaned.length %></h5>
+  </div>
+<% end %>
 <div class="data-players w-full h-20 green-bg rounded-xl flex flex-col justify-between p-2">
   <p>Négociations en cours</p>
   <h5 class="text-right"><%= @negociations.length %></h5>
