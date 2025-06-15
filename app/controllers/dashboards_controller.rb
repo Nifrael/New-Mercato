@@ -6,7 +6,7 @@ class DashboardsController < ApplicationController
     @club = current_user.club
     @players = @club.players
     @bookings = @club.bookings.includes(:players)
-    @loaned = Booking.joins(:player).where(players: { club: @club }).where.not(club: @club)
+    @loaned = Player.where(players: { club: @club }).joins(:bookings).where.not(club: @club)
     bookings_table = Booking.arel_table
     players_table = Player.arel_table
     @sent_offers = bookings_table[:club_id].eq(@club.id)
