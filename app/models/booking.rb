@@ -25,6 +25,8 @@ class Booking < ApplicationRecord
   validate :validate_time
   validate :player_already_in_club, on: :create
 
+  scope :active, -> { where(status: :accepted).where("start_date <= :today AND end_date >= :today", today: Date.today) }
+
   def calculate_total_price(price_per_day)
     (end_date - start_date).to_i * price_per_day
   end
