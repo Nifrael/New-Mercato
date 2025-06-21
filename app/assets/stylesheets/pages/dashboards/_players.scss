@@ -1,0 +1,18 @@
+.dashboard-players-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    flex-grow: 1;
+}
+
+.row-players {
+    display: grid;
+    grid-template-columns: 85px repeat(auto-fit, minmax(0, 1fr));
+    align-items: center;
+    justify-items: center;
+    text-align: center;
+    transition: all 0.5s ease;
+    &:hover {
+        transform: translateX(10px);
+    }
+}
