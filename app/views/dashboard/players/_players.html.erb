@@ -1,5 +1,14 @@
-<div class="grid grid-cols-5">
-  <%= image_tag player.photo, class: "w-1/2 h-auto rounded-full" %>
-  <p><%= player.name %></p>
-  <%= t("activerecord.enums.player.status.#{player.status}") %>
+<div class="dashboard-players-grid">
+  <div class="row-players mx-auto my-4 w-[95%]">
+    <%= image_tag player.photo, class: "w-18 h-18 rounded-full bg-center object-cover" %>
+    <p><%= player.name %></p>
+    <% case context %>
+    <% when :club_squad %>
+      <p><%= t("activerecord.enums.player.status.#{player.status}") %></p>
+    <% when :loaned_in %>
+      <p>Coucou</p>
+    <% when :loaned_out %>
+      <p>Salut</p>
+    <% end %>
+  </div>
 </div>
