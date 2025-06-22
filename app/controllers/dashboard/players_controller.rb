@@ -5,16 +5,11 @@ class Dashboard::PlayersController < Dashboard::BaseController
   end
 
   def loaned_out
-    @loaned_out_players = @club.players
-                                .joins(:bookings)
-                                .merge(Booking.active)
-                                .where.not(bookings: { club: @club })
-                                .includes(:bookings)
-                                .distinct
+    @loaned_out_players = @club.loaned_out_players.includes(:bookings)
   end
 
   def loaned_in
-    @loaned_in_players = Player.where.not(club: @club).joins(:bookings).where(bookings: { club: @club }).distinct
+    @loaned_in_players = @club.loaned_in_players.includes(:bookings)
   end
 
   private
