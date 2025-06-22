@@ -3,24 +3,12 @@ fr:
     models:
       player: Joueur
       user: Utilisateur
+    
     attributes:
       player:
-        status: Statut
-        status_options:
-          available: Disponible
-          rented: Loué
-          unavailable: Indisponible
         position: Position
-        position_options:
-          gardien: Gardien
-          defenseur: Défenseur
-          milieu: Milieu
-          polyvalent: Polyvalent
       user:
         role: Rôle
-        role_options:
-          employe: Employé
-          dirigeant: Dirigeant
       booking: 
         start_date: "Date de début"
         end_date: "Date de fin"
@@ -28,3 +16,20 @@ fr:
         club: "Club"
         total_price: "Prix total"
         status: "Statut"
+
+    enums:
+      player: 
+        status:
+          available: "Disponible"
+          rented: "Loué"
+          unavailable: "Indisponible"
+        position:
+          gardien: "Gardien"
+          defenseur: "Défenseur"
+          milieu: Milieu
+          polyvalent: Polyvalent
+
+      user:
+        role:
+          employe: "Employé"
+          dirigeant: "Dirigeant"
