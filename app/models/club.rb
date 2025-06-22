@@ -31,4 +31,31 @@ class Club < ApplicationRecord
 
     entire_squad
   end
+
+  def loaned_out_players
+    @loaned_out_players = self.players
+                            .joins(:bookings)
+                            .merge(Booking.active)
+                            .where.not(bookings: { club_id: self.id })
+                            .distinct
+  end
+
+  def loaned_in_players
+    @loaned_in_players = Player.where.not(club: @club)
+                            .joins(:bookings)
+                            .merge(Booking.active)
+                            .where(bookings: { club: @club })
+                            .distinct
+  end
+
+  def pending_negociations
+    bookings_table = Booking.arel_table
+    players_table = Player.arel_table
+
+    sent_offers = bookings_table[:club_id].eq(self.id)
+    received_offers = players_table[:club_id].eq(self.id)
+                      .and(bookings_table[:club_id].not_eq(self.id))
+
+    Booking.joins(:player).where(status: :pending).where(sent_offers.or(received_offers))
+  end
 end
