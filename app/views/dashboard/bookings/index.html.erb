@@ -12,6 +12,7 @@
                             data: { confirm: 'Êtes-vous sûr de vouloir refuser cette demande ?' } %>
   <% end %>
 <% end %>
+<h1>Demandes envoyées :</h1>
 <% @bookings.each do |booking| %>
   <%= link_to dashboard_booking_path(booking) do %>
     <%= booking.player.name  %>
