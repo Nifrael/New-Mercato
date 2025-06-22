@@ -15,16 +15,18 @@
 <%= link_to loaned_in_dashboard_players_path do %>
   <div class="data-players w-full h-20 green-bg rounded-xl flex flex-col justify-between p-2">
     <p>Empruntés</p>
-    <h5 class="text-right"><%= @club.bookings.length %></h5>
+    <h5 class="text-right"><%= @loaned_in_players.count %></h5>
   </div>
 <% end %>
 <%= link_to loaned_out_dashboard_players_path do %>
   <div class="data-players w-full h-20 green-bg rounded-xl flex flex-col justify-between p-2">
     <p>Prêtés</p>
-    <h5 class="text-right"><%= @loaned.length %></h5>
+    <h5 class="text-right"><%= @loaned_out_players.count %></h5>
   </div>
 <% end %>
-<div class="data-players w-full h-20 green-bg rounded-xl flex flex-col justify-between p-2">
-  <p>Négociations en cours</p>
-  <h5 class="text-right"><%= @negociations.length %></h5>
-</div>
+<%= link_to dashboard_bookings_path do %>
+  <div class="data-players w-full h-20 green-bg rounded-xl flex flex-col justify-between p-2">
+    <p>Négociations en cours</p>
+    <h5 class="text-right"><%= @pending_negociations.count %></h5>
+  </div>
+<% end %>
