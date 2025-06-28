@@ -49,3 +49,14 @@
     transition: 0.3s ease-in-out;
   }
 }
+
+.btn-red {
+  background-color: rgb(128, 0, 0);
+  color: colors.$text-secondary-color;
+  transition: 0.3s ease-in-out;
+  &:hover {
+    background-color: colors.$bg-primary-color;
+    color: rgb(128, 0, 0);
+    transition: 0.3s ease-in-out;
+  }
+}
