@@ -2,14 +2,23 @@
   <h1>Aucun club ne s'interesse à nos joueurs.</h1>
 <% else %>
   <h1>Demandes reçues :</h1>
-  <%= @pending_bookings.each do |booking| %>
-    <%= booking.club.name %>
-    <%= booking.player.name %>
-    <%= booking.total_price %>
-    <%= button_to 'Accepter', accept_dashboard_booking_path(booking), method: :patch %>
-    <%= button_to 'Refuser', refuse_dashboard_booking_path(booking), 
+  <% @pending_bookings.each do |booking| %>
+    <div class="dashboard-players-grid">
+      <div class="flex flex-row mx-auto my-6 p-4 w-[90%] rounded-xl justify-between items-center black-bg shadow-green">
+        <%= image_tag booking.player.photo, class: "w-[35%] h-auto rounded-xl bg-center object-cover" %>
+        <div class="flex flex-col justify-evenly items-center align-middle text-center w-[60%] gap-2">
+          <p><%= booking.player.name %></p>
+          <p><%= booking.club.name %></p>
+          <p><%= booking.total_price %> €</p>
+          <div class="flex flex-row gap-2">
+            <%= button_to 'Accepter', accept_dashboard_booking_path(booking), class:"button btn-green", method: :patch %>
+            <%= button_to 'Refuser', refuse_dashboard_booking_path(booking), class:"button btn-red",
                             method: :patch, 
                             data: { confirm: 'Êtes-vous sûr de vouloir refuser cette demande ?' } %>
+          </div>
+        </div>
+      </div>
+    </div>
   <% end %>
 <% end %>
 <h1>Demandes envoyées :</h1>
