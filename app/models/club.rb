@@ -48,6 +48,16 @@ class Club < ApplicationRecord
                             .distinct
   end
 
+  def sent_pending_bookings
+    self.bookings.where(status: :pending)
+  end
+
+  def received_pending_bookings
+    Booking.where(status: :pending)
+            .where(player_id: self.player_ids)
+            .where.not(club_id: self.id)
+  end
+
   def pending_negociations
     bookings_table = Booking.arel_table
     players_table = Player.arel_table
