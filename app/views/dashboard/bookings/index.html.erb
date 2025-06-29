@@ -1,7 +1,9 @@
+<div class="green-bg shadow-green my-8 mx-auto w-[95%] rounded-xl">
+  <h2 class="text-center">Demandes reçues</h2>
+</div>
 <% if @pending_bookings.empty? %>
-  <h1>Aucun club ne s'interesse à nos joueurs.</h1>
+  <p class="px-6">Aucun club ne s'interesse actuellement à nos joueurs.</p>
 <% else %>
-  <h1>Demandes reçues :</h1>
   <% @pending_bookings.each do |booking| %>
     <div class="dashboard-players-grid">
       <div class="flex flex-row mx-auto my-6 p-4 w-[90%] rounded-xl justify-between items-center black-bg shadow-green">
@@ -21,12 +23,14 @@
     </div>
   <% end %>
 <% end %>
-<h1>Demandes envoyées :</h1>
+<div class="green-bg shadow-green my-8 mx-auto w-[95%] rounded-xl">
+  <h2 class="text-center">Demandes envoyées</h2>
+</div>
 <% @bookings.each do |booking| %>
   <div class="dashboard-players-grid">
     <%= link_to dashboard_booking_path(booking), class:"flex flex-row mx-auto my-6 p-4 w-[90%] rounded-xl justify-between items-center black-bg shadow-green" do  %>
       <%= image_tag booking.player.photo, class: "w-[35%] h-auto rounded-xl bg-center object-cover" %>
-      <div class="flex flex-col justify-evenly items-center align-middle text-center w-[60%]">
+      <div class="flex flex-col justify-between items-center gap-4 w-[60%]">
         <p><%= booking.player.name  %></p>
         <p><%= t("activerecord.enums.booking.status.#{booking.status}") %></p>
         <p><%= booking.total_price %> €</p>
