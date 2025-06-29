@@ -1,7 +1,12 @@
-<div class="green-bg w-[85%] flex justify-center p-4 items-center mx-auto mt-10 relative mb-30" id="card-player-show">
-  <%= image_tag (@player.photo), class:"w-16 h-20 absolute object-cover left-0 bottom-0 translate-y-14" %>
-  <h2><%= @player.name.upcase %></h2>
-  <%= image_tag (@player.club.logo), class:"w-12 h-12 absolute right-0 top-0 translate-y-2 " %>
+<div class="mt-4 gradient"></div>
+<%= image_tag (@player.photo), class:"w-48 h-auto object-cover mx-auto my-4 rounded-2xl" %>
+<h1 class="text-center pb-4"><%= @player.name.upcase %></h1>
+<div class="green-bg w-full rounded-t-2xl py-4 shadow-green">
+  <div class="flex flex-col gap-2 justify-center items-center w-[90%] border-b-1 mx-auto border-b-neutral-400 py-4">
+    <h2><%= t("activerecord.enums.player.position.#{@player.position}") %></h2>
+    <h5><%= @player.club.name %></h5>
+    <%= image_tag (@player.club.logo), class:"w-14 h-14" %>
+  </div>
 </div>
 <div class="m-10">
   <%= render "bookings/form", booking: @booking %>
