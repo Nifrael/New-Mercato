@@ -28,6 +28,11 @@ fr:
           defenseur: "Défenseur"
           milieu: Milieu
           polyvalent: Polyvalent
+      booking: 
+        status: 
+          accepted: "Accepté"
+          pending: "En attente"
+          refused: "Rejeté"
 
       user:
         role:

@@ -41,11 +41,21 @@ class Club < ApplicationRecord
   end
 
   def loaned_in_players
-    @loaned_in_players = Player.where.not(club: @club)
+    @loaned_in_players = Player.where.not(club: self)
                             .joins(:bookings)
                             .merge(Booking.active)
-                            .where(bookings: { club: @club })
+                            .where(bookings: { club: self })
                             .distinct
+  end
+
+  def sent_pending_bookings
+    self.bookings.where(status: :pending)
+  end
+
+  def received_pending_bookings
+    Booking.where(status: :pending)
+            .where(player_id: self.player_ids)
+            .where.not(club_id: self.id)
   end
 
   def pending_negociations

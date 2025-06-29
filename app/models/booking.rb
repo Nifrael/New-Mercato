@@ -20,7 +20,7 @@ class Booking < ApplicationRecord
     end
   end
 
-  validates :start_date, :end_date, presence: true
+  validates :start_date, :end_date, :total_price, presence: true
 
   validate :validate_time
   validate :player_already_in_club, on: :create

@@ -1,7 +1,7 @@
-<div class="green-bg w-[85%] flex justify-between p-4 items-center mx-auto mt-10" id="card-player-show">
-  <%= image_tag (@player.photo), class:"w-[15%]" %>
-  <h2 class><%= @player.name.upcase %></h1>
-  <%= image_tag (@player.club.logo), id:"logo-club" %>
+<div class="green-bg w-[85%] flex justify-center p-4 items-center mx-auto mt-10 relative mb-30" id="card-player-show">
+  <%= image_tag (@player.photo), class:"w-16 h-20 absolute object-cover left-0 bottom-0 translate-y-14" %>
+  <h2><%= @player.name.upcase %></h2>
+  <%= image_tag (@player.club.logo), class:"w-12 h-12 absolute right-0 top-0 translate-y-2 " %>
 </div>
 <div class="m-10">
   <%= render "bookings/form", booking: @booking %>

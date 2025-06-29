@@ -4,10 +4,11 @@ class Dashboard::BookingsController < Dashboard::BaseController
 
   def index
     authorize Booking, :index?
-    base_scope = policy_scope(Booking)
     current_club = current_user.club
-    @pending_bookings = base_scope.includes(:player, :club).where(status: :pending).where(players: { club_id: current_club.id })
-    @bookings = base_scope.includes(:player).where(club_id: current_club.id)
+    sent_offers = current_club.sent_pending_bookings
+    received_offers = current_club.received_pending_bookings
+    @pending_bookings = policy_scope(received_offers).includes(:player)
+    @bookings = policy_scope(sent_offers).includes(:player, :club)
   end
 
   def show
