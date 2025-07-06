@@ -87,3 +87,6 @@ gem "simple_form"
 
 # State machines
 gem "aasm", "~> 5.5"
+
+# Font-Awesome
+gem "font-awesome-sass"
