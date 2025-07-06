@@ -21,8 +21,8 @@ export default class extends Controller {
           let endDate = new Date(self.context.selectedDates[1])
           this.startDateTarget.value = self.context.selectedDates[0]
           this.endDateTarget.value = self.context.selectedDates[1]
-          this.startDateDisplayTarget.innerText = self.context.selectedDates[0]
-          this.endDateDisplayTarget.innerText = self.context.selectedDates[1]
+          this.startDateDisplayTarget.innerText = `Date de début : ${self.context.selectedDates[0]}`
+          this.endDateDisplayTarget.innerText = `Date de fin : ${self.context.selectedDates[1]}`
           const duration = Math.abs(endDate - startDate)
           const durationDays = Math.ceil(duration / (1000 * 60 * 60 * 24))
           this.bookingDurationTarget.innerText = `Durée de la location : ${durationDays} jours.`
