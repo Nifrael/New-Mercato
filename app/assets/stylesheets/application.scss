@@ -3,6 +3,9 @@
 @use "pages/pages";
 @use "components/components";
 
+// Imports extérieurs
+@use "vendors/font-awesome";
+
 *,
 *:after,
 *:before {
