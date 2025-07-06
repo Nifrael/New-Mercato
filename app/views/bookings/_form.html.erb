@@ -1,4 +1,4 @@
-<div class="green-bg shadow-green p-4">
+<div class="green-bg shadow-green p-2">
   <div class="mx-auto">
     <% if @booking %>
       <%= simple_form_for [@player, @booking] do |f| %>
@@ -10,13 +10,13 @@
           <%= f.input :end_date,
                   as: :hidden,
                   input_html: { data: { date_range_picker_target: "endDate" } } %>
-          <div>
-            <p>Début : <span data-date-range-picker-target="startDateDisplay">N/A</span></p>
-            <p>Fin : <span data-date-range-picker-target="endDateDisplay">N/A</span></p>
+          <div class="text-center py-3 space-y-3">
+            <p><span data-date-range-picker-target="startDateDisplay"></span></p>
+            <p><span data-date-range-picker-target="endDateDisplay"></span></p>
             <p data-date-range-picker-target="bookingDuration"></p>
           </div>
         </div>
-        <div>
+        <div class="text-center">
           <%= f.button :submit, "Réserver", class: "button btn-black" %>
         </div>
       <% end %>
