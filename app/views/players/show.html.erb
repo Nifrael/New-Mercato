@@ -1,8 +1,37 @@
-<div class="green-bg w-[85%] flex justify-center p-4 items-center mx-auto mt-10 relative mb-30" id="card-player-show">
-  <%= image_tag (@player.photo), class:"w-16 h-20 absolute object-cover left-0 bottom-0 translate-y-14" %>
-  <h2><%= @player.name.upcase %></h2>
-  <%= image_tag (@player.club.logo), class:"w-12 h-12 absolute right-0 top-0 translate-y-2 " %>
-</div>
-<div class="m-10">
-  <%= render "bookings/form", booking: @booking %>
+<div class="mt-4 gradient"></div>
+<%= image_tag (@player.photo), class:"w-48 h-auto object-cover mx-auto my-4 rounded-2xl" %>
+<h1 class="text-center pb-4"><%= @player.name.upcase %></h1>
+<div class="green-bg w-full rounded-t-2xl rounded-b-2xl py-4 shadow-green my-4 mx-auto grid grid-cols-1 md:w-[95%] lg:grid-cols-4 lg:w-[80%]">
+  <div class="lg:grid lg:col-span-2 lg:col-start-1 w-[95%] mx-auto">
+    <div class="flex flex-col gap-2 justify-center items-center w-[90%] border-b-1 mx-auto border-b-neutral-400 py-4">
+      <h2 id="position"><%= t("activerecord.enums.player.position.#{@player.position}") %></h2>
+      <h5><%= @player.club.name %></h5>
+      <%= image_tag (@player.club.logo), class:"w-14 h-14" %>
+    </div>
+    <div class="flex flex-col gap-4 justify-start align-center w-[95%] mx-auto py-8 px-4 border-b-1 border-b-neutral-400">
+      <div class="infos-player">
+        <h5>Pied</h5>
+        <i class="fa-solid fa-shoe-prints"></i>
+        <p>Pied <%= @player.foot %></p>
+      </div>
+      <div class="infos-player">
+        <h5>Age</h5>
+        <i class="fa-solid fa-cake-candles"></i>
+        <p><%= @player.age %> ans</p>
+      </div>
+      <div class="infos-player">
+        <h5>Taille</h5>
+        <i class="fa-solid fa-ruler"></i>
+        <p><%= @player.height %> cm</p>
+      </div>
+      <div class="infos-player">
+        <h5>Valeur sur le marché</h5>
+        <i class="fa-solid fa-money-check-dollar"></i>
+        <p><%= @player.market_value %> €</p>
+      </div>
+    </div>
+  </div>
+  <div class="m-4 lg:col-span-2 lg:col-start-3 w-[90%] md:w-[80%] lg:w-[70%] mx-auto">
+    <%= render "bookings/form", booking: @booking %>
+  </div>
 </div>
