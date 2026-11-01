@@ -1,29 +1,29 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  nationality: MyString
-  height: 1
-  foot: MyString
-  position: MyString
-  age: 1
-  market_value: 1
-  price_per_day: 1
-  jersey_number: MyString
+  name: Player One
+  nationality: France
+  height: 180
+  foot: Right
+  position: Forward
+  age: 25
+  market_value: 100000
+  price_per_day: 1000
+  jersey_number: 10
   status: 1
   photo: MyString
   club: one
 
 two:
-  name: MyString
-  nationality: MyString
-  height: 1
-  foot: MyString
-  position: MyString
-  age: 1
-  market_value: 1
-  price_per_day: 1
-  jersey_number: MyString
+  name: Player Two
+  nationality: Spain
+  height: 185
+  foot: Left
+  position: Defender
+  age: 28
+  market_value: 200000
+  price_per_day: 2000
+  jersey_number: 4
   status: 1
   photo: MyString
   club: two
