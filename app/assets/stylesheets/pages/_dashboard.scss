@@ -1,0 +1,25 @@
+// Mise en page propre au tableau de bord (les composants vivent dans components/).
+@use "../config/breakpoints" as *;
+@use "../config/mixins" as *;
+
+// Page générique de l'app : marges verticales et espacement entre sections.
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-l);
+  padding-block: var(--espace-m-plus) var(--espace-l);
+
+  @include breakpoint-up($lg) {
+    gap: var(--espace-l-plus);
+    padding-block: var(--espace-l) var(--espace-xl);
+  }
+}
+
+.dashboard__stats {
+  --grid-min: 9rem; // 2 colonnes sur mobile, 5 sur grand écran
+}
+
+.dashboard__requests,
+.dashboard__loans {
+  --grid-min: 18rem;
+}

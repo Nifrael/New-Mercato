@@ -6,5 +6,6 @@ class StyleguideController < ApplicationController
     # Enregistrements construits en mémoire (jamais sauvegardés) pour afficher les badges.
     @booking_statuses = Booking.statuses.keys.map { |status| Booking.new(status: status) }
     @player_statuses = Player.statuses.keys.map { |status| Player.new(status: status) }
+    @sample_loan = Booking.new(start_date: Date.current - 6, end_date: Date.current + 8)
   end
 end

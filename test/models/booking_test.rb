@@ -18,6 +18,33 @@ class BookingTest < ActiveSupport::TestCase
     assert_includes booking.errors.full_messages, "Date de début doit être rempli(e)"
   end
 
+  # --- Durée et avancement d'un prêt (états dérivés des dates) ---------------
+
+  test "la durée est le nombre de jours entre le début et la fin" do
+    booking = Booking.new(start_date: Date.new(2026, 11, 1), end_date: Date.new(2026, 11, 15))
+
+    assert_equal 14, booking.duration_in_days
+  end
+
+  test "jours restants et progression d'un prêt en cours" do
+    booking = Booking.new(start_date: Date.new(2026, 11, 1), end_date: Date.new(2026, 11, 11))
+
+    travel_to Date.new(2026, 11, 4) do
+      assert_equal 7, booking.days_left
+      assert_equal 30, booking.progress_percent
+    end
+  end
+
+  test "la progression reste entre 0 et 100 avant et après le prêt" do
+    booking = Booking.new(start_date: Date.new(2026, 11, 1), end_date: Date.new(2026, 11, 11))
+
+    travel_to(Date.new(2026, 10, 20)) { assert_equal 0, booking.progress_percent }
+    travel_to(Date.new(2026, 12, 1)) do
+      assert_equal 100, booking.progress_percent
+      assert_equal 0, booking.days_left
+    end
+  end
+
   test "le prix total ne peut pas être calculé sans dates" do
     booking = Booking.new(player: players(:one), club: clubs(:two))
 

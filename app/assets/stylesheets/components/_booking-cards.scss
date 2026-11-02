@@ -1,0 +1,65 @@
+// Cartes de réservation (complètent .card) :
+//   .request-card → demande reçue à traiter (bookings/_request_card)
+//   .loan-card    → prêt en cours (dashboards/_loan_card)
+@use "../config/mixins" as *;
+
+.request-card__header,
+.loan-card__header {
+  display: flex;
+  align-items: center;
+  gap: var(--espace-s-plus);
+}
+
+.request-card__who,
+.loan-card__who {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.request-card__player,
+.loan-card__player {
+  font-size: var(--p);
+  font-weight: 600;
+}
+
+.request-card__club,
+.loan-card__direction {
+  color: var(--color-text-secondary);
+}
+
+.request-card__details {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--espace-s);
+  margin: 0;
+  color: var(--color-text-secondary);
+
+  dd {
+    margin: 0;
+  }
+}
+
+.request-card__total,
+.loan-card__total {
+  @include numeric;
+  color: var(--color-text-strong);
+  font-weight: 500;
+}
+
+// Mobile first : boutons côte à côte, chacun la moitié de la largeur.
+.request-card__actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--espace-s);
+}
+
+.loan-card__footer {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--espace-s);
+  color: var(--color-text-secondary);
+}

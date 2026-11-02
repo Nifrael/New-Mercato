@@ -1,0 +1,19 @@
+// Avatar rond : photo du joueur (helper player_avatar) ou initiale à défaut.
+.avatar {
+  flex-shrink: 0;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: var(--rayon-rond);
+  border: 1px solid var(--color-accent-border);
+  background-color: var(--color-bg-surface-hover);
+  object-fit: cover;
+}
+
+.avatar--initials {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-accent);
+  font-family: var(--font-brand);
+  font-weight: 700;
+}

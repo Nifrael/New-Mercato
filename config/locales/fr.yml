@@ -1,4 +1,9 @@
 fr:
+  # Formats de date propres à l'app (les autres viennent de rails-i18n).
+  date:
+    formats:
+      compact: "%-d %b"   # « 3 nov. » (pas d'espace devant les jours à un chiffre, contrairement à :short)
+
   activerecord:
     models:
       player: Joueur

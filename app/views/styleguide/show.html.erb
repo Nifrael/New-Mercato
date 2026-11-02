@@ -63,6 +63,36 @@
   </section>
 
   <section class="styleguide__section">
+    <h2 class="styleguide__heading">En-tête de page</h2>
+    <header class="page-header">
+      <div class="page-header__text">
+        <p class="page-header__eyebrow">Liverpool FC · Premier League</p>
+        <h1>Bonjour Julien</h1>
+        <p class="page-header__lead">Mardi 3 novembre — <strong class="page-header__highlight">2 demandes attendent</strong> votre réponse.</p>
+      </div>
+      <button type="button" class="btn btn--primary"><%= icon(:search, size: 18) %> Trouver un joueur</button>
+    </header>
+    <h2 class="section-title">.section-title — À traiter</h2>
+  </section>
+
+  <section class="styleguide__section">
+    <h2 class="styleguide__heading">Avatars, progression, jours restants</h2>
+    <div class="cluster">
+      <%= player_avatar(Player.new(name: "Pedri", photo: nil)) %>
+      <%= days_left_badge(@sample_loan) %>
+    </div>
+    <progress class="progress" value="43" max="100" aria-label="Exemple de progression">43 %</progress>
+  </section>
+
+  <section class="styleguide__section">
+    <h2 class="styleguide__heading">État vide</h2>
+    <div class="empty-state">
+      <p class="empty-state__title">Rien à traiter pour l'instant</p>
+      <p>Les demandes de location de vos joueurs apparaîtront ici.</p>
+    </div>
+  </section>
+
+  <section class="styleguide__section">
     <h2 class="styleguide__heading">Cartes</h2>
     <div class="grid-auto">
       <article class="card">

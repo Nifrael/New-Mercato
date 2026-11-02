@@ -1,12 +1,14 @@
+# Tableau de bord du club : « qu'est-ce que je dois faire aujourd'hui ? »
 class DashboardsController < ApplicationController
   before_action :authenticate_user!
 
   def show
-    @user = current_user
     @club = current_user.club
-    @players = @club.players
-    @loaned_out_players = @club.loaned_out_players
-    @loaned_in_players = @club.loaned_in_players
-    @pending_negociations = @club.pending_negociations
+    @squad_count = @club.current_squad.count
+    @loaned_in_count = @club.loaned_in_players.count
+    @loaned_out_count = @club.loaned_out_players.count
+    # includes : chaque carte affiche le joueur ET le club → préchargés (pas de N+1).
+    @requests_to_handle = @club.received_pending_bookings.includes(:club, :player).order(:start_date)
+    @active_loans = @club.active_loans.includes(:club, player: :club).order(:end_date)
   end
 end

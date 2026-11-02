@@ -35,6 +35,13 @@ class Club < ApplicationRecord
                             .distinct
   end
 
+  # Prêts en cours concernant le club, dans les deux sens :
+  # il emprunte (bookings.club_id) ou il prête (players.club_id).
+  def active_loans
+    loans = Booking.active.joins(:player)
+    loans.where(club: self).or(loans.where(players: { club_id: id }))
+  end
+
   def sent_pending_bookings
     self.bookings.where(status: :pending)
   end
@@ -43,16 +50,5 @@ class Club < ApplicationRecord
     Booking.where(status: :pending)
             .where(player_id: self.player_ids)
             .where.not(club_id: self.id)
-  end
-
-  def pending_negociations
-    bookings_table = Booking.arel_table
-    players_table = Player.arel_table
-
-    sent_offers = bookings_table[:club_id].eq(self.id)
-    received_offers = players_table[:club_id].eq(self.id)
-                      .and(bookings_table[:club_id].not_eq(self.id))
-
-    Booking.joins(:player).where(status: :pending).where(sent_offers.or(received_offers))
   end
 end

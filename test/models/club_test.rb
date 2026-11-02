@@ -45,6 +45,23 @@ class ClubTest < ActiveSupport::TestCase
     assert_equal [ players(:one), players(:two) ].sort_by(&:id), clubs(:two).current_squad.sort_by(&:id)
   end
 
+  # --- Prêts en cours (empruntés ET prêtés) ----------------------------------
+
+  test "un prêt en cours apparaît chez l'emprunteur et chez le prêteur" do
+    loan = create_active_loan(player: players(:one), borrower: clubs(:two))
+
+    assert_includes clubs(:two).active_loans, loan # emprunteur
+    assert_includes clubs(:one).active_loans, loan # prêteur (propriétaire du joueur)
+    assert_not_includes clubs(:three).active_loans, loan
+  end
+
+  test "les demandes en attente et les prêts terminés ne sont pas des prêts en cours" do
+    finished = create_active_loan(player: players(:one), borrower: clubs(:two))
+    finished.update!(start_date: Date.current - 10, end_date: Date.current - 2)
+
+    assert_empty clubs(:one).active_loans # bookings(:one) est pending, `finished` est passé
+  end
+
   test "une demande en attente ne modifie pas l'effectif" do
     # bookings(:one) : le club two demande players(:one), statut pending.
     assert_includes clubs(:one).current_squad, players(:one)

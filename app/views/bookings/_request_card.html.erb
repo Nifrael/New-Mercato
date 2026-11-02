@@ -1,0 +1,34 @@
+<%# locals: (booking:) -%>
+<%# Demande REÇUE en attente : le club propriétaire accepte ou refuse.
+    id = dom_id(booking) → cible des Turbo Streams (mise à jour sans recharger la page). %>
+<article id="<%= dom_id(booking) %>" class="card request-card">
+  <header class="request-card__header">
+    <%= player_avatar(booking.player) %>
+    <div class="request-card__who">
+      <h3 class="request-card__player"><%= booking.player.name %></h3>
+      <p class="request-card__club">Demandé par <%= booking.club.name %></p>
+    </div>
+  </header>
+
+  <dl class="request-card__details">
+    <div>
+      <dt class="visually-hidden">Période</dt>
+      <dd>
+        <%= l(booking.start_date, format: :compact) %> → <%= l(booking.end_date, format: :compact) %>
+        · <%= booking.duration_in_days %> j
+      </dd>
+    </div>
+    <div>
+      <dt class="visually-hidden">Total</dt>
+      <dd class="request-card__total"><%= number_to_currency(booking.total_price, precision: 0) %></dd>
+    </div>
+  </dl>
+
+  <div class="request-card__actions">
+    <%= button_to "Accepter", accept_dashboard_booking_path(booking), method: :patch,
+                  class: "btn btn--primary btn--block" %>
+    <%= button_to "Refuser", refuse_dashboard_booking_path(booking), method: :patch,
+                  class: "btn btn--danger btn--block",
+                  form: { data: { turbo_confirm: "Refuser la demande de #{booking.club.name} ?" } } %>
+  </div>
+</article>

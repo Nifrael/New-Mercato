@@ -30,7 +30,25 @@ class Booking < ApplicationRecord
   def calculate_total_price(price_per_day)
     return if start_date.blank? || end_date.blank?
 
-    (end_date - start_date).to_i * price_per_day
+    duration_in_days * price_per_day
+  end
+
+  # --- États dérivés des dates (calculés, jamais stockés) ---------------------
+
+  # Nombre de jours facturés : du 1er au 15 → 14 jours.
+  def duration_in_days
+    (end_date - start_date).to_i
+  end
+
+  # Jours avant la fin du prêt (0 une fois terminé).
+  def days_left
+    [ (end_date - Date.current).to_i, 0 ].max
+  end
+
+  # Avancement du prêt en %, borné entre 0 (pas commencé) et 100 (terminé).
+  def progress_percent
+    elapsed = (Date.current - start_date).to_i
+    (elapsed * 100 / duration_in_days).clamp(0, 100)
   end
 
   private

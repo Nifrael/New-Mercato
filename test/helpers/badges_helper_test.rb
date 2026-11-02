@@ -24,6 +24,18 @@ class BadgesHelperTest < ActionView::TestCase
     )
   end
 
+  # --- Jours restants d'un prêt ----------------------------------------------
+
+  test "le badge des jours restants passe en avertissement à 3 jours ou moins" do
+    travel_to Date.new(2026, 11, 3) do
+      far = Booking.new(start_date: Date.new(2026, 11, 1), end_date: Date.new(2026, 11, 11))
+      near = Booking.new(start_date: Date.new(2026, 11, 1), end_date: Date.new(2026, 11, 6))
+
+      assert_dom_equal '<span class="badge badge--success">J-8</span>', days_left_badge(far)
+      assert_dom_equal '<span class="badge badge--warning">J-3</span>', days_left_badge(near)
+    end
+  end
+
   # --- Joueurs ---------------------------------------------------------------
 
   test "chaque statut de joueur a son badge" do
