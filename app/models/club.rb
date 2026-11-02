@@ -1,5 +1,8 @@
 class Club < ApplicationRecord
   has_many :users
+  # Le membre au rôle « dirigeant ». Association (et non méthode) pour pouvoir
+  # la précharger avec includes(:dirigeant) et éviter les requêtes N+1.
+  has_one :dirigeant, -> { dirigeant }, class_name: "User"
   has_many :players
   has_many :bookings
   has_many :booked_players, through: :bookings
