@@ -26,8 +26,9 @@ fr:
         position:
           gardien: "Gardien"
           defenseur: "Défenseur"
-          milieu: Milieu
-          polyvalent: Polyvalent
+          milieu: "Milieu"
+          attaquant: "Attaquant"
+          polyvalent: "Polyvalent"
       booking: 
         status: 
           accepted: "Accepté"
