@@ -1,5 +1,4 @@
 @use "../config/colors";
-@use "../config/fonts";
 
 .btn-home {
   position: absolute;
@@ -8,7 +7,7 @@
   border-radius: 15px;
   color: colors.$text-secondary-color;
   background-color: colors.$bg-secondary-color;
-  font-family: fonts.$text-font;
+  font-family: var(--font-text);
   font-weight: 700;
   top: 50%;
   left: 50%;

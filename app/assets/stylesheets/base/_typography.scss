@@ -1,0 +1,47 @@
+// Typographie de base — même logique que le Portfolio :
+// les tailles viennent de l'échelle modulaire (config/_tokens.scss).
+
+body {
+  font-family: var(--font-text);
+  font-size: var(--base-size);
+  line-height: 1.5;
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+@each $i in (1, 2, 3, 4, 5) {
+  h#{$i} {
+    font-size: var(--h#{$i});
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1.2;
+  font-weight: 700;
+  color: var(--color-text-strong);
+  text-wrap: balance; // évite un mot seul sur la dernière ligne d'un titre
+}
+
+h4,
+h5,
+h6 {
+  font-weight: 600;
+}
+
+h6,
+p {
+  font-size: var(--p);
+}
+
+small {
+  font-size: var(--little-text);
+}
+
+a {
+  color: inherit;
+}

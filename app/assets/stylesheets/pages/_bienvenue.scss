@@ -1,5 +1,13 @@
 @use "../config/colors";
 
+// Grand titre de marque de la page d'accueil (police du logo, une marche au-dessus de h1).
+.title {
+  font-family: var(--font-brand);
+  font-size: calc(var(--h1) * var(--scale));
+  font-weight: 700;
+  line-height: 1.1;
+}
+
 .black-bg .title,
 .black-bg h1 {
   color: colors.$text-primary-color;

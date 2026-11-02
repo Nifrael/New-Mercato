@@ -1,21 +1,5 @@
-// Sassy
+// Ordre : réglages → bases globales → composants → pages (du plus général au plus spécifique).
 @use "config/config";
-@use "pages/pages";
+@use "base/base";
 @use "components/components";
-
-// Imports extérieurs
-
-*,
-*:after,
-*:before {
-  box-sizing: border-box;
-}
-
-html {
-  height: 100%;
-}
-
-.container {
-  width: 90%;
-  margin: 0 auto;
-}
+@use "pages/pages";

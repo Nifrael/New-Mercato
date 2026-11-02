@@ -35,11 +35,6 @@ $tertiary-color: var(--color-text);
   }
 }
 
-body {
-  background-color: $bg-primary-color;
-  color: $text-primary-color;
-}
-
 .shadow-green {
   box-shadow: 0px 0px 20px 5px $bg-secondary-color;
 }
