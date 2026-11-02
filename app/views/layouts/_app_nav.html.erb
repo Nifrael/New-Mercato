@@ -1,0 +1,39 @@
+<%# locals: () -%>
+<%# Navigation principale : UN seul HTML. Le CSS (layout/_app-shell.scss) en fait
+    une barre d'onglets en bas sur mobile, et une sidebar à partir de $lg. %>
+<header class="app-nav">
+  <%= link_to (user_signed_in? ? dashboard_path : players_path), class: "app-nav__brand" do %>
+    <span class="app-nav__logo" aria-hidden="true">NM</span>
+    <span class="app-nav__wordmark">New Mercato</span>
+  <% end %>
+
+  <nav class="app-nav__menu" aria-label="Navigation principale">
+    <% if user_signed_in? %>
+      <%= nav_link "Tableau de bord", dashboard_path, icon: :dashboard, short_label: "Accueil", exact: true %>
+      <%= nav_link "Trouver un joueur", players_path, icon: :search, short_label: "Joueurs" %>
+      <%= nav_link "Demandes", dashboard_bookings_path, icon: :inbox, badge: pending_requests_count %>
+      <%= nav_link "Mon effectif", dashboard_players_path, icon: :squad, short_label: "Effectif" %>
+      <%= nav_link "Clubs", clubs_path, icon: :shield %>
+    <% else %>
+      <%= nav_link "Trouver un joueur", players_path, icon: :search, short_label: "Joueurs" %>
+      <%= nav_link "Clubs", clubs_path, icon: :shield %>
+      <%= nav_link "Connexion", new_user_session_path, icon: :login %>
+    <% end %>
+  </nav>
+
+  <% if user_signed_in? %>
+    <div class="app-nav__account">
+      <span class="app-nav__avatar" aria-hidden="true"><%= current_user.initials %></span>
+      <span class="app-nav__identity">
+        <span class="app-nav__name"><%= current_user.first_name %> <%= current_user.last_name %></span>
+        <span class="app-nav__role">
+          <%= t("activerecord.enums.user.role.#{current_user.role}") %> · <%= current_user.club.name %>
+        </span>
+      </span>
+      <%= button_to destroy_user_session_path, method: :delete, class: "app-nav__logout",
+                    "aria-label": "Se déconnecter" do %>
+        <%= icon(:logout) %>
+      <% end %>
+    </div>
+  <% end %>
+</header>

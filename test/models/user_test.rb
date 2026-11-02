@@ -31,6 +31,10 @@ class UserTest < ActiveSupport::TestCase
     assert_equal [ "Club doit exister" ], user.errors.full_messages
   end
 
+  test "les initiales reprennent la première lettre du prénom et du nom" do
+    assert_equal "JM", build_user(first_name: "julien", last_name: "marchand").initials
+  end
+
   test "deux utilisateurs ne peuvent pas avoir le même email" do
     user = build_user(email: users(:one).email)
 

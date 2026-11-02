@@ -9,4 +9,9 @@ class User < ApplicationRecord
 
   # Club obligatoire : assuré par belongs_to. Email obligatoire et unique : assuré par Devise (:validatable).
   validates :first_name, :last_name, :role, presence: true
+
+  # « Julien Marchand » → « JM » (avatar de la navigation).
+  def initials
+    "#{first_name.first}#{last_name.first}".upcase
+  end
 end
