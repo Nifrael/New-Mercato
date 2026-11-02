@@ -48,6 +48,17 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
     assert_equal "Date de fin doit être postérieure à la date de début.", flash[:alert]
   end
 
+  test "une demande sans dates est refusée sans faire planter l'application" do
+    sign_in users(:two)
+    empty_params = { booking: { start_date: "", end_date: "" } }
+
+    assert_no_difference "Booking.count" do
+      post player_bookings_url(@player), params: empty_params
+    end
+
+    assert_response :unprocessable_entity
+  end
+
   test "un club ne peut pas louer son propre joueur" do
     sign_in users(:one) # même club que players(:one)
 

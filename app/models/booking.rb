@@ -28,13 +28,18 @@ class Booking < ApplicationRecord
   scope :active, -> { where(status: :accepted).where("start_date <= :today AND end_date >= :today", today: Date.current) }
 
   def calculate_total_price(price_per_day)
+    return if start_date.blank? || end_date.blank?
+
     (end_date - start_date).to_i * price_per_day
   end
 
   private
 
   def validate_time
-    errors.add(:end_date, "doit être postérieure à la date de début.") if self.start_date >= self.end_date
+    # Dates manquantes : déjà signalées par `validates ... presence: true`.
+    return if start_date.blank? || end_date.blank?
+
+    errors.add(:end_date, "doit être postérieure à la date de début.") if start_date >= end_date
   end
 
   def player_already_in_club
