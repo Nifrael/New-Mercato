@@ -3,6 +3,7 @@ class DashboardsController < ApplicationController
   before_action :authenticate_user!
 
   def show
+    authorize :dashboard, :show?
     @club = current_user.club
     @squad_count = @club.current_squad.count
     @loaned_in_count = @club.loaned_in_players.count
