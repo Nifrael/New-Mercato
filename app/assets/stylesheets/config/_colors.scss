@@ -1,10 +1,10 @@
 // PONT TEMPORAIRE pendant la migration : les anciennes variables (nommées par
 // teinte) pointent vers les tokens sémantiques de _tokens.scss.
 // À supprimer quand plus aucun fichier n'utilise `colors.$…`.
-$bg-primary-color: var(--color-bg);
+$bg-primary-color: var(--color-bg-primary);
 $bg-secondary-color: var(--color-accent);
 $text-primary-color: var(--color-accent);
-$text-secondary-color: var(--color-on-accent);
+$text-secondary-color: var(--color-text-on-accent);
 $tertiary-color: var(--color-text);
 
 .black-bg {
@@ -49,10 +49,10 @@ body {
   height: 2px;
   background: linear-gradient(
     90deg,
-    var(--color-bg) 0%,
+    var(--color-bg-primary) 0%,
     color-mix(in srgb, var(--color-accent) 66%, transparent) 15%,
     var(--color-accent) 50%,
     color-mix(in srgb, var(--color-accent) 66%, transparent) 85%,
-    var(--color-bg) 100%
+    var(--color-bg-primary) 100%
   );
 }
