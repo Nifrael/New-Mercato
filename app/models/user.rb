@@ -7,6 +7,6 @@ class User < ApplicationRecord
 
   enum :role, { employe: 0, dirigeant: 1 }
 
+  # Club obligatoire : assuré par belongs_to. Email obligatoire et unique : assuré par Devise (:validatable).
   validates :first_name, :last_name, :role, presence: true
-  validates :club_id, :email, presence: true, uniqueness: true
 end
