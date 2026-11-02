@@ -1,8 +1,11 @@
-$bg-primary-color: rgb(0, 0, 0);
-$bg-secondary-color: rgb(43, 255, 0);
-$text-primary-color: $bg-secondary-color;
-$text-secondary-color: $bg-primary-color;
-$tertiary-color: rgb(228, 228, 228);
+// PONT TEMPORAIRE pendant la migration : les anciennes variables (nommées par
+// teinte) pointent vers les tokens sémantiques de _tokens.scss.
+// À supprimer quand plus aucun fichier n'utilise `colors.$…`.
+$bg-primary-color: var(--color-bg);
+$bg-secondary-color: var(--color-accent);
+$text-primary-color: var(--color-accent);
+$text-secondary-color: var(--color-on-accent);
+$tertiary-color: var(--color-text);
 
 .black-bg {
   background-color: $bg-primary-color;
@@ -46,10 +49,10 @@ body {
   height: 2px;
   background: linear-gradient(
     90deg,
-    rgb(0, 0, 0) 0%,
-    rgba(0, 255, 4, 0.664) 15%,
-    rgb(43, 255, 0) 50%,
-    rgba(0, 255, 4, 0.664) 85%,
-    rgb(0, 0, 0) 100%
+    var(--color-bg) 0%,
+    color-mix(in srgb, var(--color-accent) 66%, transparent) 15%,
+    var(--color-accent) 50%,
+    color-mix(in srgb, var(--color-accent) 66%, transparent) 85%,
+    var(--color-bg) 100%
   );
 }

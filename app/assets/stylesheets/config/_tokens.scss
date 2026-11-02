@@ -1,0 +1,69 @@
+// =============================================================================
+// Design tokens — SEULE source de vérité pour les valeurs de design.
+// Partout ailleurs : var(--…). Aucune couleur / taille en dur hors de ce fichier.
+// Noms sémantiques : on nomme le RÔLE (accent, surface), jamais la teinte (vert).
+// =============================================================================
+
+:root {
+  // --- Couleurs : fonds ------------------------------------------------------
+  --color-bg: #0f1113;             // fond de l'application
+  --color-surface: #181b1f;        // cartes, panneaux
+  --color-surface-hover: #1f2328;  // survol d'une surface cliquable
+  --color-border: #2a2f36;         // séparateurs, contours de cartes
+
+  // --- Couleurs : texte ------------------------------------------------------
+  --color-text: #e8eaed;           // texte principal
+  --color-muted: #9aa1ab;          // texte secondaire, libellés
+
+  // --- Couleurs : marque et statuts -------------------------------------------
+  --color-accent: #2ee683;         // vert de la marque : actions principales, succès
+  --color-on-accent: #0b130e;      // texte posé sur un fond accent
+  --color-warning: #f5b544;        // en attente, à surveiller
+  --color-on-warning: #1a1305;
+  --color-danger: #f0565b;         // refus, erreurs, actions destructives
+  --color-on-danger: #ffffff;
+
+  // Variantes douces (fonds de badges, halos) : dérivées, jamais recopiées.
+  --color-accent-soft: color-mix(in srgb, var(--color-accent) 14%, transparent);
+  --color-warning-soft: color-mix(in srgb, var(--color-warning) 14%, transparent);
+  --color-danger-soft: color-mix(in srgb, var(--color-danger) 14%, transparent);
+
+  // --- Typographie -----------------------------------------------------------
+  --font-sans: "Inter", system-ui, sans-serif;               // texte courant
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;    // chiffres, montants, codes
+  --font-display: "Mina", var(--font-sans);                  // logo / titres de marque
+
+  // Échelle de tailles (≈ ratio 1.25). On choisit une marche, on n'invente pas de taille.
+  --text-xs: 0.75rem;   // 12px — badges, mentions
+  --text-sm: 0.875rem;  // 14px — libellés, texte secondaire
+  --text-md: 1rem;      // 16px — texte courant
+  --text-lg: 1.25rem;   // 20px — titres de carte
+  --text-xl: 1.5rem;    // 24px — titres de section
+  --text-2xl: 2rem;     // 32px — titre de page, chiffres clés
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-bold: 700;
+
+  // --- Espacements (multiples de 4px) ----------------------------------------
+  --space-1: 0.25rem;  // 4px
+  --space-2: 0.5rem;   // 8px
+  --space-3: 0.75rem;  // 12px
+  --space-4: 1rem;     // 16px
+  --space-6: 1.5rem;   // 24px
+  --space-8: 2rem;     // 32px
+  --space-12: 3rem;    // 48px
+
+  // --- Rayons ----------------------------------------------------------------
+  --radius-sm: 6px;     // badges, petits boutons
+  --radius-md: 10px;    // boutons, champs
+  --radius-lg: 16px;    // cartes
+  --radius-full: 999px; // pastilles, avatars
+
+  // --- Ombres et halos -------------------------------------------------------
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.4), 0 8px 24px rgb(0 0 0 / 0.25);
+  --shadow-glow: 0 0 0 1px var(--color-accent-soft), 0 0 24px var(--color-accent-soft);
+
+  // --- Animations ------------------------------------------------------------
+  --transition-fast: 150ms ease;
+}
