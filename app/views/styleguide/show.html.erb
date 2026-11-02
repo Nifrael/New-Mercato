@@ -85,6 +85,23 @@
   </section>
 
   <section class="styleguide__section">
+    <h2 class="styleguide__heading">Toasts (messages flash)</h2>
+    <p>Affichés ici sans le contrôleur Stimulus pour rester visibles ; dans l'app, ils se ferment seuls après 5 s.</p>
+    <div class="stack">
+      <div class="toast toast--success" role="status">
+        <%= icon(:check) %>
+        <p class="toast__message">Réservation pour « Pedri » acceptée.</p>
+        <button type="button" class="toast__close" aria-label="Fermer"><%= icon(:close, size: 18) %></button>
+      </div>
+      <div class="toast toast--danger" role="alert">
+        <%= icon(:alert) %>
+        <p class="toast__message">Cette réservation ne peut plus être acceptée (statut : Rejeté).</p>
+        <button type="button" class="toast__close" aria-label="Fermer"><%= icon(:close, size: 18) %></button>
+      </div>
+    </div>
+  </section>
+
+  <section class="styleguide__section">
     <h2 class="styleguide__heading">État vide</h2>
     <div class="empty-state">
       <p class="empty-state__title">Rien à traiter pour l'instant</p>
