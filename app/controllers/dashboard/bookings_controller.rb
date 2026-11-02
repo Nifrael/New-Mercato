@@ -18,9 +18,9 @@ class Dashboard::BookingsController < Dashboard::BaseController
     authorize @booking, :update?
     if @booking.may_accept?
       @booking.accept!
-      redirect_to dashboard_bookings_path, notice: "Réservation pour « #{@booking.player.name} » acceptée."
+      redirect_back_or_to dashboard_bookings_path, notice: "Réservation pour « #{@booking.player.name} » acceptée."
     else
-      redirect_to dashboard_bookings_path, alert: "Cette réservation ne peut plus être acceptée (statut : #{status_label})."
+      redirect_back_or_to dashboard_bookings_path, alert: "Cette réservation ne peut plus être acceptée (statut : #{status_label})."
     end
   end
 
@@ -28,9 +28,9 @@ class Dashboard::BookingsController < Dashboard::BaseController
     authorize @booking, :update?
     if @booking.may_refuse?
       @booking.refuse!
-      redirect_to dashboard_bookings_path, notice: "Réservation pour « #{@booking.player.name} » refusée."
+      redirect_back_or_to dashboard_bookings_path, notice: "Réservation pour « #{@booking.player.name} » refusée."
     else
-      redirect_to dashboard_bookings_path, alert: "Cette réservation ne peut plus être refusée (statut : #{status_label})."
+      redirect_back_or_to dashboard_bookings_path, alert: "Cette réservation ne peut plus être refusée (statut : #{status_label})."
     end
   end
 

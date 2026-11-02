@@ -9,6 +9,15 @@ class DashboardsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to new_user_session_url
   end
 
+  test "les rechargements de page sont morphés en gardant le défilement (Turbo 8)" do
+    sign_in users(:one)
+
+    get dashboard_url
+
+    assert_select "meta[name='turbo-refresh-method'][content='morph']"
+    assert_select "meta[name='turbo-refresh-scroll'][content='preserve']"
+  end
+
   test "les chiffres clés du club sont affichés, montants abrégés" do
     sign_in users(:one)
 

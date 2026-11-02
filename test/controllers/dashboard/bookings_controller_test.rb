@@ -68,6 +68,23 @@ class Dashboard::BookingsControllerTest < ActionDispatch::IntegrationTest
     assert flash[:notice].present?
   end
 
+  test "accepter depuis le tableau de bord ramène au tableau de bord" do
+    sign_in users(:one)
+
+    patch accept_dashboard_booking_url(@booking), headers: { "HTTP_REFERER" => dashboard_url }
+
+    # Retour sur la même page : Turbo 8 la « morphe » (mise à jour sans rechargement).
+    assert_redirected_to dashboard_url
+  end
+
+  test "refuser depuis le tableau de bord ramène au tableau de bord" do
+    sign_in users(:one)
+
+    patch refuse_dashboard_booking_url(@booking), headers: { "HTTP_REFERER" => dashboard_url }
+
+    assert_redirected_to dashboard_url
+  end
+
   test "l'emprunteur et un club étranger ne peuvent pas accepter la demande" do
     [ users(:two), users(:three) ].each do |user|
       sign_in user
