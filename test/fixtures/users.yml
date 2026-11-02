@@ -25,3 +25,11 @@ employe_one:
   photo: Avatar.png
   role: employe
   club: one
+
+three:
+  first_name: UserThree
+  last_name: Test
+  email: user_three@example.com
+  photo: Avatar.png
+  role: dirigeant
+  club: three
