@@ -1,0 +1,26 @@
+// Utilitaires de mise en page — volontairement peu nombreux (pas un nouveau Tailwind).
+// Tous mobile first : ils s'adaptent seuls à la largeur disponible.
+
+// Empilement vertical régulier.
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-m);
+}
+
+// Éléments côte à côte qui passent à la ligne quand la place manque (boutons, badges).
+.cluster {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--espace-s);
+}
+
+// Grille qui crée autant de colonnes que la largeur le permet :
+// 1 colonne sur mobile, 2, 3, 4… sur grand écran, SANS media query.
+.grid-auto {
+  --grid-min: 14rem; // largeur minimale d'une colonne, ajustable par composant
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(var(--grid-min), 100%), 1fr));
+  gap: var(--espace-m);
+}

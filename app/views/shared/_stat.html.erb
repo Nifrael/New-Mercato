@@ -1,0 +1,7 @@
+<%# locals: (label:, value:, accent: false) -%>
+<%# Statistique : libellé en sur-titre + valeur chiffrée.
+    render "shared/stat", label: "Prix / jour", value: number_to_currency(player.price_per_day) %>
+<div class="<%= class_names("stat", "stat--accent": accent) %>">
+  <span class="stat__label"><%= label %></span>
+  <span class="stat__value"><%= value %></span>
+</div>

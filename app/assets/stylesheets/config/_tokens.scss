@@ -6,6 +6,7 @@
 // Besoin d'une variante transparente → nouveau token calculé ici avec rgba($palette, alpha).
 // =============================================================================
 
+@use "sass:color";
 @use "breakpoints" as *;
 
 // Début de la palette
@@ -40,6 +41,7 @@ $corail: #f0565b;
 
   // Traits et accents
   --color-accent: #{$vert-menthe};
+  --color-accent-hover: #{color.adjust($vert-menthe, $lightness: 10%)};
   --color-accent-soft: #{rgba($vert-menthe, 0.14)};   // fond de badge, halo
   --color-accent-border: #{rgba($vert-menthe, 0.3)};
   --color-border: #{$graphite};
@@ -50,6 +52,7 @@ $corail: #f0565b;
   --color-warning-soft: #{rgba($ambre, 0.14)};
   --color-text-on-warning: #{$brun-nuit};
   --color-danger: #{$corail};
+  --color-danger-hover: #{color.adjust($corail, $lightness: 8%)};
   --color-danger-soft: #{rgba($corail, 0.14)};
   --color-text-on-danger: #{$blanc};
 

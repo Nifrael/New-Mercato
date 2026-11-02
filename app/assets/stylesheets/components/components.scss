@@ -1,3 +1,10 @@
+// Nouveaux composants (design system)
+@forward "button";
+@forward "badge";
+@forward "card";
+@forward "stat";
+
+// Anciens composants — à supprimer au fil de la migration des pages
 @forward "buttons";
 @forward "navbar";
 @forward "footer";

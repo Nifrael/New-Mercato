@@ -1,5 +1,7 @@
-// Ordre : réglages → bases globales → composants → pages (du plus général au plus spécifique).
+// Ordre : réglages → bases globales → mise en page → composants → pages
+// (du plus général au plus spécifique : à spécificité égale, la dernière règle gagne).
 @use "config/config";
 @use "base/base";
+@use "layout/layout";
 @use "components/components";
 @use "pages/pages";

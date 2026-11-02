@@ -14,6 +14,9 @@ Rails.application.routes.draw do
 
   get "/accueil", to: "pages#accueil"
 
+  # Catalogue des composants du design system : développement et test uniquement.
+  get "/styleguide", to: "styleguide#show" if Rails.env.local?
+
   resources :clubs, only: %i[index show]
 
   resources :players, only: %i[index show edit update] do
