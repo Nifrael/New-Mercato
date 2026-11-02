@@ -95,4 +95,10 @@ class BookingPolicyTest < ActiveSupport::TestCase
     scope = BookingPolicy::Scope.new(@user, Booking).resolve
     assert_empty scope
   end
+
+  def test_scope_without_user
+    # Un visiteur non connecté ne voit aucune réservation (et l'appli ne plante pas).
+    scope = BookingPolicy::Scope.new(nil, Booking).resolve
+    assert_empty scope
+  end
 end
