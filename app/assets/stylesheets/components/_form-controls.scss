@@ -1,0 +1,48 @@
+// Champs du design system : recherche et menu déroulant.
+@use "../config/breakpoints" as *;
+
+.search-field {
+  display: flex;
+  align-items: center;
+  gap: var(--espace-s);
+  min-height: 2.75rem;
+  padding-inline: var(--espace-s-plus);
+  border: 1px solid var(--color-border);
+  border-radius: var(--rayon-m);
+  background-color: var(--color-bg-surface);
+  color: var(--color-text-secondary);
+
+  // Le focus est sur l'input ; c'est tout le champ qui s'éclaire.
+  &:focus-within {
+    border-color: var(--color-accent);
+  }
+}
+
+.search-field__input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0; // remplacé par la bordure du champ (:focus-within)
+  background-color: transparent;
+  color: var(--color-text);
+
+  &::placeholder {
+    color: var(--color-text-secondary);
+  }
+}
+
+.select-field {
+  display: flex;
+  align-items: center;
+  gap: var(--espace-s);
+  color: var(--color-text-secondary);
+}
+
+.select-field__input {
+  min-height: 2.75rem;
+  padding-inline: var(--espace-s-plus);
+  border: 1px solid var(--color-border);
+  border-radius: var(--rayon-m);
+  background-color: var(--color-bg-surface);
+  color: var(--color-text);
+}

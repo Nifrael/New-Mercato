@@ -2,19 +2,20 @@ class PlayersController < ApplicationController
   before_action :set_player, only: [ :show, :edit, :update ]
   before_action :authenticate_user!, only: [ :edit, :update ]
 
+  # Catalogue : recherche + poste + tri, tous dans l'URL (?q=…&position=…&sort=…).
+  # Le formulaire cible la Turbo Frame « players » : seule la liste est remplacée.
   def index
     @positions = Player.positions.keys
-    @players = policy_scope(Player)
-  end
-
-  def filter_by_position
-    base_scope = policy_scope(Player)
-    if params[:position].present?
-      @players = base_scope.by_position(params[:position])
-    else
-      @players = base_scope.all
-    end
-    render partial: "player_card", collection: @players, as: :player
+    @filters = {
+      q: params[:q].to_s.strip,
+      position: params[:position].presence || "all",
+      sort: params[:sort].presence || Player::DEFAULT_SORT
+    }
+    @players = policy_scope(Player).includes(:club)
+                                   .by_position(@filters[:position])
+                                   .search(@filters[:q])
+                                   .sorted_by(@filters[:sort])
+                                   .load # chargé une fois : le compteur et la liste s'en servent
   end
 
   def show

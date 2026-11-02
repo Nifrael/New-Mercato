@@ -20,9 +20,6 @@ Rails.application.routes.draw do
   resources :clubs, only: %i[index show]
 
   resources :players, only: %i[index show edit update] do
-    collection do
-      get "filter_by_position"
-    end
     resources :bookings, only: %i[show new create]
   end
 

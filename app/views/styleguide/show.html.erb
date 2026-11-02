@@ -85,6 +85,25 @@
   </section>
 
   <section class="styleguide__section">
+    <h2 class="styleguide__heading">Champs et pastilles de filtre</h2>
+    <label class="search-field">
+      <%= icon(:search, size: 18) %>
+      <span class="visually-hidden">Rechercher</span>
+      <input type="search" class="search-field__input" placeholder="Nom, club, nationalité…">
+    </label>
+    <fieldset class="chips">
+      <legend class="visually-hidden">Poste</legend>
+      <label class="chip"><input type="radio" name="styleguide_position" class="chip__input" checked> Tous</label>
+      <label class="chip"><input type="radio" name="styleguide_position" class="chip__input"> Gardien</label>
+      <label class="chip"><input type="radio" name="styleguide_position" class="chip__input"> Attaquant</label>
+    </fieldset>
+    <label class="select-field">
+      <span class="select-field__label">Trier par</span>
+      <select class="select-field__input"><option>Valeur marchande</option><option>Prix par jour</option></select>
+    </label>
+  </section>
+
+  <section class="styleguide__section">
     <h2 class="styleguide__heading">Onglets segmentés et colonnes de pipeline</h2>
     <nav class="segmented" aria-label="Exemple d'onglets">
       <a href="#" class="segmented__item" aria-current="page">Reçues</a>

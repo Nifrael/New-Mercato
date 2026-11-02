@@ -10,6 +10,46 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
     assert_select ".player-card__name", text: players(:one).name
   end
 
+  # --- Catalogue : formulaire GET qui cible une Turbo Frame -------------------
+
+  test "les résultats sont dans une Turbo Frame que le formulaire de filtres cible" do
+    get players_url
+
+    assert_select "form[method=get][action=?][data-turbo-frame=players]", players_path
+    assert_select "turbo-frame#players[data-turbo-action=advance] .player-card", count: Player.count
+    # Les cartes (liens vers la fiche) doivent naviguer la PAGE, pas seulement la frame.
+    assert_select "turbo-frame#players[target=_top]"
+  end
+
+  test "filtrer par poste ne garde que les joueurs de ce poste" do
+    get players_url(position: "attaquant")
+
+    assert_select ".player-card__name", text: players(:one).name
+    assert_select ".player-card__name", text: players(:two).name, count: 0
+    assert_select "input[name=position][value=attaquant][checked]" # le filtre actif reste coché
+  end
+
+  test "la recherche filtre par nom, club ou nationalité et reste dans le champ" do
+    get players_url(q: "spain")
+
+    assert_select ".player-card__name", text: players(:two).name
+    assert_select ".player-card__name", text: players(:one).name, count: 0
+    assert_select "input[name=q][value=spain]"
+  end
+
+  test "le nombre de résultats est affiché" do
+    get players_url(position: "attaquant")
+
+    assert_select ".catalog__count", text: /1 joueur/
+  end
+
+  test "un état vide s'affiche quand aucun joueur ne correspond" do
+    get players_url(q: "personne ne s'appelle comme ça")
+
+    assert_select ".player-card", count: 0
+    assert_select "turbo-frame#players .empty-state"
+  end
+
   test "un visiteur peut voir la fiche d'un joueur" do
     get player_url(players(:one))
 
