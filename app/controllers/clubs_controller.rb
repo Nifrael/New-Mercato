@@ -1,6 +1,6 @@
 class ClubsController < ApplicationController
   def index
-    @clubs = policy_scope(Club)
+    @clubs = policy_scope(Club).includes(:dirigeant)
   end
 
   def show
