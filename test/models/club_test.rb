@@ -45,6 +45,23 @@ class ClubTest < ActiveSupport::TestCase
     assert_equal [ players(:one), players(:two) ].sort_by(&:id), clubs(:two).current_squad.sort_by(&:id)
   end
 
+  # --- Demandes reçues -------------------------------------------------------
+  # bookings(:one) : le club two demande players(:one) (club one) → reçue par le club one.
+  # bookings(:two) : le club one demande players(:two) (club two) → ENVOYÉE par le club one.
+
+  test "les demandes reçues portent sur nos joueurs, quel que soit leur statut" do
+    bookings(:one).update!(status: :refused)
+
+    assert_equal [ bookings(:one) ], clubs(:one).received_bookings.to_a
+  end
+
+  test "les demandes reçues en attente excluent les autres statuts" do
+    assert_equal [ bookings(:one) ], clubs(:one).received_pending_bookings.to_a
+
+    bookings(:one).update!(status: :accepted)
+    assert_empty clubs(:one).received_pending_bookings
+  end
+
   # --- Prêts en cours (empruntés ET prêtés) ----------------------------------
 
   test "un prêt en cours apparaît chez l'emprunteur et chez le prêteur" do

@@ -46,9 +46,13 @@ class Club < ApplicationRecord
     self.bookings.where(status: :pending)
   end
 
+  # Demandes reçues : réservations de NOS joueurs par d'autres clubs (tous statuts).
+  # Une seule requête (jointure), au lieu de charger d'abord la liste des player_ids.
+  def received_bookings
+    Booking.joins(:player).where(players: { club_id: id }).where.not(club_id: id)
+  end
+
   def received_pending_bookings
-    Booking.where(status: :pending)
-            .where(player_id: self.player_ids)
-            .where.not(club_id: self.id)
+    received_bookings.pending
   end
 end
