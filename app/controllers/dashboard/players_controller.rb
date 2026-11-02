@@ -1,7 +1,7 @@
 class Dashboard::PlayersController < Dashboard::BaseController
   before_action :set_club
   def index
-    @players = @club.players
+    @players = @club.current_squad
   end
 
   def loaned_out

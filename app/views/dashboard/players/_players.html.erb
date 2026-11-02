@@ -1,7 +1,7 @@
 <div class="dashboard-players-grid">
   <div class="row-players mx-auto my-4 w-[95%]">
     <%= image_tag player.photo, class: "w-18 h-18 rounded-full bg-center object-cover" %>
-    <p><%= player.name %></p>
+    <p class="row-players__name"><%= player.name %></p>
     <% case context %>
     <% when :club_squad %>
       <p><%= t("activerecord.enums.player.status.#{player.status}") %></p>
