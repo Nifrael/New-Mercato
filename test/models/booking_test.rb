@@ -1,6 +1,28 @@
 require "test_helper"
 
 class BookingTest < ActiveSupport::TestCase
+  # --- Validations ----------------------------------------------------------
+
+  test "un booking sans dates est invalide (et ne plante pas)" do
+    booking = Booking.new(player: players(:one), club: clubs(:two), total_price: 1000)
+
+    assert_not booking.valid?
+    assert booking.errors.added?(:start_date, :blank)
+    assert booking.errors.added?(:end_date, :blank)
+  end
+
+  test "les messages d'erreur par défaut sont traduits en français" do
+    booking = Booking.new(player: players(:one), club: clubs(:two), total_price: 1000)
+    booking.valid?
+
+    assert_includes booking.errors.full_messages, "Date de début doit être rempli(e)"
+  end
+
+  test "le prix total ne peut pas être calculé sans dates" do
+    booking = Booking.new(player: players(:one), club: clubs(:two))
+
+    assert_nil booking.calculate_total_price(1000)
+  end
   # --- Scope active : prêts acceptés et en cours aujourd'hui ----------------
 
   # Crée un booking accepté entre deux dates (club two emprunte le joueur du club one).
