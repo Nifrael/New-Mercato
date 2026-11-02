@@ -4,14 +4,14 @@ one:
   first_name: UserOne
   last_name: Test
   email: user_one@example.com
-  photo: MyString
-  role: 1
+  photo: Avatar.png
+  role: dirigeant
   club: one
 
 two:
   first_name: UserTwo
   last_name: Test
   email: user_two@example.com
-  photo: MyString
-  role: 1
+  photo: Avatar.png
+  role: dirigeant
   club: two

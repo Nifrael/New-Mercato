@@ -22,3 +22,10 @@ module ActiveSupport
     end
   end
 end
+
+module ActionDispatch
+  class IntegrationTest
+    # Donne accès à sign_in(user) / sign_out(user) dans les tests de contrôleur.
+    include Devise::Test::IntegrationHelpers
+  end
+end

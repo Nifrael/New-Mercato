@@ -6,7 +6,7 @@ one:
   league: Ligue 1
   budget: 1000000
   stadium: Stadium One
-  logo: MyString
+  logo: Logos/Paris.png
 
 two:
   name: Club Two
@@ -14,4 +14,4 @@ two:
   league: La Liga
   budget: 2000000
   stadium: Stadium Two
-  logo: MyString
+  logo: Logos/Paris.png
