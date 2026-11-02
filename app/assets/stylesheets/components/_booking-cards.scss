@@ -1,16 +1,16 @@
 // Cartes de réservation (complètent .card) :
-//   .request-card → demande reçue à traiter (bookings/_request_card)
+//   .booking-card → une réservation, reçue ou envoyée (bookings/_booking_card)
 //   .loan-card    → prêt en cours (dashboards/_loan_card)
 @use "../config/mixins" as *;
 
-.request-card__header,
+.booking-card__header,
 .loan-card__header {
   display: flex;
   align-items: center;
   gap: var(--espace-s-plus);
 }
 
-.request-card__who,
+.booking-card__who,
 .loan-card__who {
   display: flex;
   flex: 1;
@@ -18,18 +18,18 @@
   min-width: 0;
 }
 
-.request-card__player,
+.booking-card__player,
 .loan-card__player {
   font-size: var(--p);
   font-weight: 600;
 }
 
-.request-card__club,
+.booking-card__counterpart,
 .loan-card__direction {
   color: var(--color-text-secondary);
 }
 
-.request-card__details {
+.booking-card__details {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
@@ -43,7 +43,7 @@
   }
 }
 
-.request-card__total,
+.booking-card__total,
 .loan-card__total {
   @include numeric;
   color: var(--color-text-strong);
@@ -51,7 +51,7 @@
 }
 
 // Mobile first : boutons côte à côte, chacun la moitié de la largeur.
-.request-card__actions {
+.booking-card__actions {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--espace-s);
@@ -62,4 +62,14 @@
   justify-content: space-between;
   gap: var(--espace-s);
   color: var(--color-text-secondary);
+}
+
+// Demande refusée : affichée en retrait, montant barré.
+.booking-card--closed {
+  opacity: 0.7;
+
+  .booking-card__total {
+    color: var(--color-text-secondary);
+    text-decoration: line-through;
+  }
 }

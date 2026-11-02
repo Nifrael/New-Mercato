@@ -39,7 +39,8 @@
     <h2 id="a-traiter" class="section-title">À traiter</h2>
     <% if @requests_to_handle.any? %>
       <div class="grid-auto dashboard__requests">
-        <%= render partial: "bookings/request_card", collection: @requests_to_handle, as: :booking %>
+        <%= render partial: "bookings/booking_card", collection: @requests_to_handle, as: :booking,
+                   locals: { direction: :received, actions: true } %>
       </div>
     <% else %>
       <div class="empty-state">

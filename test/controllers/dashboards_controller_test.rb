@@ -33,11 +33,11 @@ class DashboardsControllerTest < ActionDispatch::IntegrationTest
 
     get dashboard_url
 
-    assert_select ".request-card", count: 1
-    assert_select ".request-card", text: /#{players(:one).name}/
-    assert_select ".request-card", text: /#{clubs(:two).name}/ # le club demandeur
-    assert_select ".request-card form[action=?]", accept_dashboard_booking_path(bookings(:one))
-    assert_select ".request-card form[action=?]", refuse_dashboard_booking_path(bookings(:one))
+    assert_select ".booking-card", count: 1
+    assert_select ".booking-card", text: /#{players(:one).name}/
+    assert_select ".booking-card", text: /#{clubs(:two).name}/ # le club demandeur
+    assert_select ".booking-card form[action=?]", accept_dashboard_booking_path(bookings(:one))
+    assert_select ".booking-card form[action=?]", refuse_dashboard_booking_path(bookings(:one))
   end
 
   test "un état vide s'affiche quand rien n'est à traiter" do
@@ -46,7 +46,7 @@ class DashboardsControllerTest < ActionDispatch::IntegrationTest
 
     get dashboard_url
 
-    assert_select ".request-card", count: 0
+    assert_select ".booking-card", count: 0
     assert_select ".empty-state", text: /Rien à traiter/
   end
 
