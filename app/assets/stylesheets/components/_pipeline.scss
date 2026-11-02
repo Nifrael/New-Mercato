@@ -1,0 +1,63 @@
+// Pipeline : colonnes de réservations par statut (page Demandes).
+// MOBILE FIRST : colonnes empilées ; côte à côte quand la largeur le permet (grille intrinsèque).
+// Les colonnes n'ont PAS de fond : les cartes sont posées dessus (jamais de carte dans une carte).
+@use "../config/mixins" as *;
+
+.pipeline {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
+  gap: var(--espace-l) var(--espace-m);
+  align-items: start;
+}
+
+.pipeline__column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-s-plus);
+}
+
+.pipeline__header {
+  display: flex;
+  align-items: center;
+  gap: var(--espace-s);
+  padding-bottom: var(--espace-s);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.pipeline__dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: var(--rayon-rond);
+  background-color: var(--color-text-secondary);
+}
+
+.pipeline__dot--warning {
+  background-color: var(--color-warning);
+}
+
+.pipeline__dot--success {
+  background-color: var(--color-accent);
+}
+
+.pipeline__dot--danger {
+  background-color: var(--color-danger);
+}
+
+.pipeline__title {
+  @include eyebrow(var(--color-text));
+  flex: 1;
+}
+
+.pipeline__count {
+  @include numeric;
+  color: var(--color-text-secondary);
+}
+
+.pipeline__empty {
+  padding: var(--espace-m);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--rayon-m);
+  color: var(--color-text-secondary);
+  font-size: var(--base-size);
+  text-align: center;
+}

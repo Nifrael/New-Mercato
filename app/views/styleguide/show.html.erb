@@ -85,6 +85,26 @@
   </section>
 
   <section class="styleguide__section">
+    <h2 class="styleguide__heading">Onglets segmentés et colonnes de pipeline</h2>
+    <nav class="segmented" aria-label="Exemple d'onglets">
+      <a href="#" class="segmented__item" aria-current="page">Reçues</a>
+      <a href="#" class="segmented__item">Envoyées</a>
+    </nav>
+    <div class="pipeline">
+      <% %w[pending accepted refused].each do |status| %>
+        <section class="pipeline__column">
+          <header class="pipeline__header">
+            <span class="<%= class_names("pipeline__dot", "pipeline__dot--#{status_variant(:booking, status)}") %>" aria-hidden="true"></span>
+            <h3 class="pipeline__title"><%= t("dashboard.bookings.index.columns.#{status}") %></h3>
+            <span class="pipeline__count">0</span>
+          </header>
+          <p class="pipeline__empty">Aucune demande</p>
+        </section>
+      <% end %>
+    </div>
+  </section>
+
+  <section class="styleguide__section">
     <h2 class="styleguide__heading">Toasts (messages flash)</h2>
     <p>Affichés ici sans le contrôleur Stimulus pour rester visibles ; dans l'app, ils se ferment seuls après 5 s.</p>
     <div class="stack">

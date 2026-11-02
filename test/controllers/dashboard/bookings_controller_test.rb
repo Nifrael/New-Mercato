@@ -18,12 +18,48 @@ class Dashboard::BookingsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to new_user_session_url
   end
 
-  test "un utilisateur connecté voit ses demandes" do
+  # Pipeline : onglets Reçues / Envoyées × colonnes En attente / Acceptées / Refusées.
+  # Vu par le club one : bookings(:one) est REÇUE (pending), bookings(:two) est ENVOYÉE (pending).
+
+  test "par défaut, l'onglet Reçues est actif et la demande en attente a ses actions" do
     sign_in users(:one)
 
     get dashboard_bookings_url
 
     assert_response :success
+    assert_select ".segmented__item[aria-current=page][href=?]", dashboard_bookings_path
+    assert_select "#column-pending .booking-card", count: 1, text: /#{players(:one).name}/
+    assert_select "#column-pending form[action=?]", accept_dashboard_booking_path(@booking)
+  end
+
+  test "l'onglet Envoyées liste nos demandes, sans actions de décision" do
+    sign_in users(:one)
+
+    get dashboard_bookings_url(direction: "sent")
+
+    assert_select ".segmented__item[aria-current=page][href=?]", dashboard_bookings_path(direction: "sent")
+    assert_select "#column-pending .booking-card", count: 1, text: /#{players(:two).name}/
+    assert_select ".booking-card form", count: 0
+  end
+
+  test "chaque demande est rangée dans la colonne de son statut, avec un compteur" do
+    @booking.update!(status: :accepted)
+    sign_in users(:one)
+
+    get dashboard_bookings_url
+
+    assert_select "#column-accepted .booking-card", text: /#{players(:one).name}/
+    assert_select "#column-accepted .pipeline__count", text: "1"
+    assert_select "#column-pending .booking-card", count: 0
+    assert_select "#column-pending .pipeline__empty"
+  end
+
+  test "une direction inconnue retombe sur les demandes reçues" do
+    sign_in users(:one)
+
+    get dashboard_bookings_url(direction: "n-importe-quoi")
+
+    assert_select ".segmented__item[aria-current=page][href=?]", dashboard_bookings_path
   end
 
   # --- Détail ----------------------------------------------------------------

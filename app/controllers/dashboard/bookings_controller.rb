@@ -1,13 +1,21 @@
 class Dashboard::BookingsController < Dashboard::BaseController
   before_action :set_booking, only: %i[show accept refuse]
 
+  # Ordre des colonnes du pipeline.
+  PIPELINE_STATUSES = %w[pending accepted refused].freeze
+
+  # Pipeline des demandes : reçues (par défaut) ou envoyées (?direction=sent),
+  # rangées par statut. Toute autre valeur de direction retombe sur « reçues ».
   def index
     authorize Booking, :index?
-    current_club = current_user.club
-    sent_offers = current_club.sent_pending_bookings
-    received_offers = current_club.received_pending_bookings
-    @pending_bookings = policy_scope(received_offers).includes(:player)
-    @bookings = policy_scope(sent_offers).includes(:player, :club)
+    @direction = params[:direction] == "sent" ? :sent : :received
+
+    club = current_user.club
+    bookings = @direction == :sent ? club.bookings : club.received_bookings
+    bookings = policy_scope(bookings).includes(:club, player: :club).order(:start_date)
+
+    by_status = bookings.group_by(&:status)
+    @columns = PIPELINE_STATUSES.index_with { |status| by_status.fetch(status, []) }
   end
 
   def show

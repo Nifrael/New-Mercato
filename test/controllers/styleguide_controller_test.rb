@@ -20,6 +20,8 @@ class StyleguideControllerTest < ActionDispatch::IntegrationTest
     assert_select ".avatar"
     assert_select "progress.progress"
     assert_select ".empty-state .empty-state__title"
+    assert_select ".segmented .segmented__item[aria-current=page]"
+    assert_select ".pipeline .pipeline__dot--warning"
     assert_select ".toast.toast--success"
     assert_select ".toast.toast--danger"
   end

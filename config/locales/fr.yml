@@ -4,6 +4,15 @@ fr:
     formats:
       compact: "%-d %b"   # « 3 nov. » (pas d'espace devant les jours à un chiffre, contrairement à :short)
 
+  # Textes des vues (lookup « paresseux » : t(".clé") dans la vue correspondante).
+  dashboard:
+    bookings:
+      index:
+        columns:
+          pending: "En attente"
+          accepted: "Acceptées"
+          refused: "Refusées"
+
   activerecord:
     models:
       player: Joueur

@@ -8,9 +8,15 @@ module BadgesHelper
 
   # Badge du statut d'un enregistrement, libellé traduit via fr.yml.
   #   status_badge(booking) # => <span class="badge badge--warning">En attente</span>
+  # Variante d'un statut : status_variant(:booking, "pending") # => :warning
+  # Partagée par les badges et les pastilles de colonnes du pipeline (une seule correspondance).
+  def status_variant(model, status)
+    STATUS_VARIANTS.dig(model, status.to_sym)
+  end
+
   def status_badge(record)
     model = record.model_name.i18n_key
-    variant = STATUS_VARIANTS.dig(model, record.status.to_sym)
+    variant = status_variant(model, record.status)
 
     tag.span t("activerecord.enums.#{model}.status.#{record.status}"),
              class: [ "badge", ("badge--#{variant}" if variant) ]
