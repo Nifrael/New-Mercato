@@ -10,29 +10,13 @@ class Club < ApplicationRecord
   validates :name, presence: true, uniqueness: true
   validates :stadium, :logo, presence: true
 
+  # Effectif actuel : nos joueurs qui ne sont pas prêtés + les joueurs empruntés.
+  # La notion de « prêt en cours » vient de Booking.active, via les deux méthodes ci-dessous.
   def current_squad
-    today = Date.current
+    own_players = players.where.not(id: loaned_out_players.select(:id))
 
-    players_out_ids = Player.joins(:bookings).where(club_id: self.id)
-                                              .where(bookings: { status: :accepted })
-                                              .where("bookings.club_id != ?", self.id)
-                                              .where({ start_date: ..today })
-                                              .where({ end_date: today.. })
-                                              .distinct
-                                              .pluck(:id)
-
-    available_permanent_players = self.player.where.not(id: players_out_ids).load
-
-    active_in_bookings = Booking.includes(:player).where(club_id: self.id)
-                                              .where(status: :accepted)
-                                              .where(start_date: ..today)
-                                              .where(end_date: today..)
-
-    loaned_in_players = active_in_bookings.map(&:player).compact
-
-    entire_squad = (available_permanent_players + loaned_in_players).uniqueness
-
-    entire_squad
+    Player.where(id: own_players.select(:id))
+          .or(Player.where(id: loaned_in_players.select(:id)))
   end
 
   def loaned_out_players
