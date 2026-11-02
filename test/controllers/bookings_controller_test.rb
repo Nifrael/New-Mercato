@@ -45,6 +45,7 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_response :unprocessable_entity
+    assert_equal "Date de fin doit être postérieure à la date de début.", flash[:alert]
   end
 
   test "un club ne peut pas louer son propre joueur" do
