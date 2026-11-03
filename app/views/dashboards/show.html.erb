@@ -8,7 +8,7 @@
       <p class="page-header__lead">
         <%= l(Date.current, format: "%A %-d %B").capitalize %>
         <% if pending_requests_count.positive? %>
-          — <strong class="page-header__highlight"><%= pluralize(pending_requests_count, "demande attend", plural: "demandes attendent") %></strong> votre réponse.
+          — <strong class="page-header__highlight"><%= t("counts.pending_requests", count: pending_requests_count) %></strong> votre réponse.
         <% end %>
       </p>
     </div>

@@ -48,7 +48,7 @@
       target="_top" : les liens DANS la frame (cartes → fiche joueur) naviguent toute la page ;
       seul le formulaire de filtres, qui cible la frame, la remplace. %>
   <%= turbo_frame_tag "players", class: "catalog__results", target: "_top", data: { turbo_action: "advance" } do %>
-    <p class="catalog__count" role="status"><%= pluralize(@players.size, "joueur") %></p>
+    <p class="catalog__count" role="status"><%= t("counts.players", count: @players.size) %></p>
 
     <% if @players.any? %>
       <div class="catalog__grid">

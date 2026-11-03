@@ -40,7 +40,10 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
   test "le nombre de résultats est affiché" do
     get players_url(position: "attaquant")
 
-    assert_select ".catalog__count", text: /1 joueur/
+    assert_select ".catalog__count", text: "1 joueur"
+
+    get players_url
+    assert_select ".catalog__count", text: "2 joueurs" # pluriel français (pas « 2 joueur »)
   end
 
   test "un état vide s'affiche quand aucun joueur ne correspond" do

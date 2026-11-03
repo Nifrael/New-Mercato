@@ -9,6 +9,19 @@ fr:
     failure:
       unauthenticated: "Connectez-vous pour continuer."   # pas d'inscription libre : on n'en parle pas
 
+  # Nombres + mot au bon nombre : t("counts.players", count: n) → « 0 joueur », « 2 joueurs ».
+  # (pluralize de Rails suit la règle anglaise ; ici, la règle française vient de rails-i18n.)
+  counts:
+    players:
+      one: "%{count} joueur"
+      other: "%{count} joueurs"
+    clubs:
+      one: "%{count} club"
+      other: "%{count} clubs"
+    pending_requests:
+      one: "%{count} demande attend"
+      other: "%{count} demandes attendent"
+
   # Textes des vues (lookup « paresseux » : t(".clé") dans la vue correspondante).
   dashboard:
     bookings:
