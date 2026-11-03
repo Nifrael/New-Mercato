@@ -1,5 +1,4 @@
 <% content_for(:title, "Clubs — New Mercato") %>
-
 <div class="container page">
   <header class="page-header">
     <div class="page-header__text">
@@ -7,7 +6,6 @@
       <p class="page-header__lead"><%= t("counts.clubs", count: @clubs.size) %> prêtent et louent leurs joueurs sur New Mercato.</p>
     </div>
   </header>
-
   <div class="clubs__grid">
     <%= render partial: "clubs/club_card", collection: @clubs, as: :club %>
   </div>
