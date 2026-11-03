@@ -25,15 +25,30 @@ class PlayersController < ApplicationController
     load_player_page(@player)
   end
 
+  # Le club propriétaire règle le prix par jour et la disponibilité à la location.
   def edit
     authorize @player
   end
 
   def update
     authorize @player
+    if @player.update(player_params)
+      redirect_to @player, notice: "Fiche de #{@player.name} mise à jour."
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   private
+
+  # Champs modifiables par le club propriétaire. Le statut n'est accepté que s'il fait partie
+  # des choix du propriétaire (jamais « loué », état dérivé), et pas pendant un prêt en cours.
+  def player_params
+    permitted = params.require(:player).permit(:price_per_day, :status)
+    status_choice_allowed = !@player.rented? && Player::OWNER_SETTABLE_STATUSES.include?(permitted[:status])
+    permitted.delete(:status) unless status_choice_allowed
+    permitted
+  end
 
   def set_player
     @player = Player.find(params[:id])

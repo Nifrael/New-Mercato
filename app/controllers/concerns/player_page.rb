@@ -12,5 +12,6 @@ module PlayerPage
     @booking = booking || Booking.new(player: player, club: current_user&.club)
     # « Peut-il réserver ? » : décidé par la policy, pas par la vue.
     @can_book = user_signed_in? && policy(@booking).create?
+    @can_edit = policy(player).update?
   end
 end

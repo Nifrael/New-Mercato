@@ -1,4 +1,4 @@
-<%# locals: (player:, booking:, can_book:) -%>
+<%# locals: (player:, booking:, can_book:, can_edit:) -%>
 <%# Panneau « Louer ce joueur » : formulaire pour un autre club, sinon un message adapté.
     Le total affiché est calculé en direct par Stimulus (booking-total) pour information ;
     le VRAI total est recalculé côté serveur (calculate_total_price) : on ne fait jamais
@@ -11,7 +11,12 @@
     </p>
   </div>
 
-  <% if can_book %>
+  <% if can_edit %>
+    <p class="booking-panel__note">C'est un joueur de votre club : réglez ici son prix et sa disponibilité.</p>
+    <%= link_to "Modifier la fiche", edit_player_path(player), class: "btn btn--secondary btn--block" %>
+  <% elsif player.unavailable? %>
+    <p class="booking-panel__note">Ce joueur n'est pas proposé à la location pour le moment.</p>
+  <% elsif can_book %>
     <%= form_with model: [ player, booking ], class: "booking-form",
                   data: { controller: "booking-total", booking_total_price_value: player.price_per_day } do |f| %>
       <div class="booking-form__dates">
@@ -43,6 +48,6 @@
     <p class="booking-panel__note">Connectez-vous avec le compte de votre club pour envoyer une demande.</p>
     <%= link_to "Se connecter pour louer", new_user_session_path, class: "btn btn--primary btn--block" %>
   <% else %>
-    <p class="booking-panel__note">C'est un joueur de votre club : vous ne pouvez pas le louer.</p>
+    <p class="booking-panel__note">Votre compte ne permet pas de louer ce joueur.</p>
   <% end %>
 </div>
