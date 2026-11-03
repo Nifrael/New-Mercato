@@ -88,7 +88,7 @@
       <div class="landing__story-intro">
         <p class="page-header__eyebrow">Comment ça marche</p>
         <h2 id="comment-ca-marche-titre" class="section-title">Une location, de la blessure à la réponse</h2>
-        <p class="landing__story-lead">Une demande d'exemple, construite avec les vrais joueurs et les vrais prix du site.</p>
+        <p class="landing__section-lead">Une demande d'exemple, construite avec les vrais joueurs et les vrais prix du site.</p>
       </div>
 
       <ol class="landing__story-steps" role="list">
@@ -113,6 +113,25 @@
           </p>
         </li>
       </ol>
+    </section>
+  <% end %>
+
+  <%# Le marché en chiffres : tout est calculé en direct depuis la base. %>
+  <% if @players_count.positive? %>
+    <section class="stack" aria-labelledby="chiffres-titre">
+      <div>
+        <p class="page-header__eyebrow">Le marché</p>
+        <h2 id="chiffres-titre" class="section-title">Des milliards sur le terrain, à la journée</h2>
+        <p class="landing__section-lead">Calculés en direct depuis la base de données, comme tout le reste de cette page.</p>
+      </div>
+
+      <div class="grid-auto landing__market">
+        <%= render "shared/stat", label: "Valeur des joueurs", value: compact_currency(@market_value), large: true %>
+        <%= render "shared/stat", label: "Prix moyen / jour", value: number_to_currency(@average_price, precision: 0),
+                                  accent: true, large: true %>
+        <%= render "shared/stat", label: "Championnats", value: @leagues_count, large: true %>
+        <%= render "shared/stat", label: "Nationalités", value: @nationalities_count, large: true %>
+      </div>
     </section>
   <% end %>
 

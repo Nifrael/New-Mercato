@@ -242,7 +242,8 @@
   }
 }
 
-.landing__story-lead {
+// Texte d'introduction sous un titre de section.
+.landing__section-lead {
   max-width: 40ch;
   color: var(--color-text-secondary);
 }
@@ -288,4 +289,9 @@
   gap: var(--espace-s);
   color: var(--color-accent);
   font-weight: 600;
+}
+
+// Le marché en chiffres : 2 colonnes sur mobile, 4 sur une ligne en grand écran.
+.landing__market {
+  --grid-min: 9rem;
 }

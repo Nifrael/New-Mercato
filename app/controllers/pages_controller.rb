@@ -11,6 +11,12 @@ class PagesController < ApplicationController
     @featured_players = policy_scope(Player).available.includes(:club)
                                             .sorted_by(Player::DEFAULT_SORT).limit(4)
     @story_booking = story_booking(@featured_players.first)
+    # Chiffres du marché : calculés PAR LA BASE (SUM, AVG, COUNT DISTINCT), une requête chacun,
+    # sans charger un seul joueur en mémoire.
+    @market_value = Player.sum(:market_value)
+    @average_price = Player.average(:price_per_day)
+    @leagues_count = Club.distinct.count(:league)
+    @nationalities_count = Player.distinct.count(:nationality)
   end
 
   private

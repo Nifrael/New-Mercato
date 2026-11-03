@@ -16,6 +16,7 @@ class StyleguideControllerTest < ActionDispatch::IntegrationTest
     assert_select ".card .card__title"
     assert_select ".stat .stat__label"
     assert_select ".stat .stat__value"
+    assert_select ".stat.stat--large"
     assert_select ".page-header .page-header__eyebrow"
     assert_select ".avatar"
     assert_select "progress.progress"

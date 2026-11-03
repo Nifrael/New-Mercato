@@ -130,6 +130,27 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
     assert_select ".landing__side a[href=?]", new_user_session_path, count: 0
   end
 
+  # --- Le marché en chiffres -------------------------------------------------
+
+  test "les chiffres du marché sont calculés depuis la base" do
+    get accueil_url
+
+    average = number_to_currency(Player.average(:price_per_day), precision: 0)
+    assert_select ".landing__market .stat", count: 4
+    assert_select ".landing__market .stat--accent .stat__value", text: average
+    assert_select ".landing__market .stat__value", text: Club.distinct.count(:league).to_s
+    assert_select ".landing__market .stat__value", text: Player.distinct.count(:nationality).to_s
+  end
+
+  test "sans aucun joueur, pas de chiffres du marché" do
+    Booking.delete_all
+    Player.delete_all
+
+    get accueil_url
+
+    assert_select ".landing__market", count: 0
+  end
+
   test "chaque club participant mène à sa page" do
     get accueil_url
 
