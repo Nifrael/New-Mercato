@@ -1,6 +1,8 @@
 require "test_helper"
 
 class PagesControllerTest < ActionDispatch::IntegrationTest
+  include ActionView::Helpers::NumberHelper # number_to_currency, pour comparer le total affiché
+
   # --- Page de bienvenue (racine du site) ------------------------------------
 
   test "la page de bienvenue s'affiche avec un seul titre principal" do
@@ -44,11 +46,38 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
     assert_select ".landing__figures", text: /#{Club.count} clubs/
   end
 
-  test "les trois étapes expliquent le fonctionnement, avec une ancre pour y aller" do
+  # --- La location racontée ---------------------------------------------------
+
+  test "le fonctionnement est raconté sur une vraie carte de réservation, avec une ancre pour y aller" do
     get accueil_url
 
     assert_select "a[href='#comment-ca-marche']"
-    assert_select "#comment-ca-marche .steps__item", count: 3
+    assert_select "#comment-ca-marche .landing__story-step", count: 3
+    # Le joueur le plus coté, demandé par un AUTRE club que le sien.
+    assert_select "#comment-ca-marche .booking-card__player", text: players(:two).name
+    assert_select "#comment-ca-marche .booking-card__counterpart", text: /#{players(:two).club.name}/
+    assert_select "#comment-ca-marche .badge", text: "En attente"
+    assert_select "#comment-ca-marche .badge", text: "Accepté"
+  end
+
+  test "le total de l'exemple vient du vrai calcul : 21 jours au prix du joueur" do
+    get accueil_url
+
+    total = 21 * players(:two).price_per_day
+    assert_select "#comment-ca-marche .booking-card__total", text: /#{number_to_currency(total, precision: 0)}/
+  end
+
+  test "la location d'exemple n'est jamais enregistrée" do
+    assert_no_difference("Booking.count") { get accueil_url }
+  end
+
+  test "sans joueur disponible, pas de récit ni d'ancre vers lui" do
+    Player.update_all(status: Player.statuses[:unavailable])
+
+    get accueil_url
+
+    assert_select "#comment-ca-marche", count: 0
+    assert_select "a[href='#comment-ca-marche']", count: 0
   end
 
   # --- Vitrine des joueurs ----------------------------------------------------

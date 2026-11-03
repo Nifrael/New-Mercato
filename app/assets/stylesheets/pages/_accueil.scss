@@ -77,31 +77,6 @@
   text-decoration: none;
 }
 
-// Étapes : 1 colonne sur mobile, côte à côte quand la place le permet.
-.steps {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr));
-  gap: var(--espace-m);
-  margin: 0;
-  padding: 0;
-}
-
-.steps__item p {
-  color: var(--color-text-secondary);
-  font-size: var(--base-size);
-}
-
-.steps__icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.75rem;
-  height: 2.75rem;
-  border-radius: var(--rayon-m);
-  background-color: var(--color-accent-soft);
-  color: var(--color-accent);
-}
-
 .landing__clubs {
   display: flex;
   flex-wrap: wrap;
@@ -242,4 +217,75 @@
   &:hover {
     text-decoration-thickness: 2px;
   }
+}
+
+// « Comment ça marche » : une location racontée sur une frise.
+// MOBILE : intro puis frise, empilées. $lg : intro à gauche (reste visible en défilant), frise à droite.
+.landing__story {
+  display: grid;
+  gap: var(--espace-l);
+
+  @include breakpoint-up($lg) {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    align-items: start;
+  }
+}
+
+.landing__story-intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-s);
+
+  @include breakpoint-up($lg) {
+    position: sticky;
+    top: calc(var(--app-header-height) + var(--espace-l));
+  }
+}
+
+.landing__story-lead {
+  max-width: 40ch;
+  color: var(--color-text-secondary);
+}
+
+.landing__story-steps {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+}
+
+// Chaque moment : un trait vertical à gauche (la frise) et un point sur l'heure.
+.landing__story-step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-s-plus);
+  padding: 0 0 var(--espace-l) var(--espace-l);
+  border-left: 2px solid var(--color-border);
+
+  &:last-child {
+    padding-bottom: 0;
+    border-left-color: transparent; // la frise s'arrête au dernier point
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0.35em;
+    left: calc(-0.4375rem - 1px); // centré sur le trait de 2px
+    width: 0.875rem;
+    height: 0.875rem;
+    border-radius: var(--rayon-rond);
+    background-color: var(--color-accent);
+    box-shadow: 0 0 0 4px var(--color-bg-primary); // détache le point du trait
+  }
+}
+
+.landing__story-time {
+  @include numeric;
+  display: flex;
+  align-items: center;
+  gap: var(--espace-s);
+  color: var(--color-accent);
+  font-weight: 600;
 }
