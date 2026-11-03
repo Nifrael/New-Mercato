@@ -28,6 +28,34 @@ ol[role="list"] {
   list-style: none;
 }
 
+// Repris du reset de Tailwind (preflight) au moment de son retrait : seulement ce dont
+// nos composants dépendent. Chaque composant précise ensuite ses propres styles.
+dl,
+dd,
+blockquote {
+  margin: 0;
+}
+
+fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+legend {
+  padding: 0;
+}
+
+button {
+  background-color: transparent; // pas de fond gris par défaut
+  color: inherit;
+}
+
+// L'attribut hidden doit toujours masquer, même si une classe définit un display.
+[hidden] {
+  display: none !important;
+}
+
 body {
   display: flex;
   flex-direction: column;

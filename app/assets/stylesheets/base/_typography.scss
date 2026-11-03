@@ -42,6 +42,9 @@ small {
   font-size: var(--little-text);
 }
 
+// Pas de soulignement par défaut : chaque lien est stylé par son composant
+// (bouton, carte, lien de navigation, .auth__link…).
 a {
   color: inherit;
+  text-decoration: none;
 }
