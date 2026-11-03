@@ -31,7 +31,9 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
     assert_predicate booking, :pending?
     assert_equal clubs(:two), booking.club # le club emprunteur est celui de l'utilisateur
     assert_equal 3 * @player.price_per_day, booking.total_price # 3 jours
-    assert_redirected_to player_booking_url(@player, booking)
+    # On arrive sur ses demandes envoyées, où la nouvelle demande est visible « En attente ».
+    assert_redirected_to dashboard_bookings_url(direction: "sent")
+    assert_equal "Demande envoyée à #{@player.club.name}. Suivez sa réponse ici.", flash[:notice]
   end
 
   test "une demande dont la fin précède le début est refusée" do

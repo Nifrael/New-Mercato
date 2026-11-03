@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   resources :clubs, only: %i[index show]
 
   resources :players, only: %i[index show edit update] do
-    resources :bookings, only: %i[show new create]
+    resources :bookings, only: %i[create]
   end
 
   resource :dashboard, only: %i[show]

@@ -4,10 +4,6 @@ class BookingsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_player, only: [ :create ]
 
-  def show
-    @booking = Booking.find(params[:id])
-    authorize @booking
-  end
   def create
     @booking = Booking.new(booking_params)
     @booking.player = @player
@@ -15,7 +11,8 @@ class BookingsController < ApplicationController
     @booking.total_price = @booking.calculate_total_price(@player.price_per_day)
     authorize @booking
     if @booking.save
-      redirect_to player_booking_path(player_id: @booking.player.id, id: @booking.id)
+      redirect_to dashboard_bookings_path(direction: "sent"),
+                  notice: "Demande envoyée à #{@player.club.name}. Suivez sa réponse ici."
     else
       flash.now[:alert] = @booking.errors.full_messages.to_sentence
       load_player_page(@player, booking: @booking) # garde la saisie pour la corriger

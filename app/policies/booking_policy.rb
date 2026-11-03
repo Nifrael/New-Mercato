@@ -9,10 +9,6 @@ class BookingPolicy < ApplicationPolicy
     (user.club_id == record.club_id || user.club_id == record.player.club_id)
   end
 
-  def new?
-    user.present? && user.club.present?
-  end
-
   def create?
     user.present? && user.club.present? &&
     record.club.present? && record.player&.club.present? &&
