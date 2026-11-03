@@ -1,0 +1,61 @@
+// Panneau « Louer ce joueur » (players/_booking_panel) et son formulaire.
+@use "../config/mixins" as *;
+
+.booking-panel {
+  border-color: var(--color-accent-border);
+  box-shadow: var(--glow-accent);
+}
+
+.booking-panel__amount {
+  @include numeric;
+  color: var(--color-accent);
+  font-size: var(--h2);
+  font-weight: 600;
+}
+
+.booking-panel__unit {
+  font-family: var(--font-text);
+  font-size: var(--base-size);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.booking-panel__note {
+  color: var(--color-text-secondary);
+  font-size: var(--base-size);
+}
+
+.booking-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-m);
+}
+
+// Mobile first : les deux dates côte à côte même sur téléphone (champs courts).
+.booking-form__dates {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--espace-s);
+}
+
+.booking-form__summary {
+  margin: 0;
+  padding-block: var(--espace-s-plus);
+  border-block: 1px solid var(--color-border);
+}
+
+.booking-form__line {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--espace-s);
+  color: var(--color-text-secondary);
+}
+
+.booking-form__total {
+  @include numeric;
+  margin: 0;
+  color: var(--color-text-strong);
+  font-size: var(--h4);
+  font-weight: 600;
+}

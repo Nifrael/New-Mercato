@@ -1,4 +1,6 @@
 class PlayersController < ApplicationController
+  include PlayerPage
+
   before_action :set_player, only: [ :show, :edit, :update ]
   before_action :authenticate_user!, only: [ :edit, :update ]
 
@@ -20,10 +22,7 @@ class PlayersController < ApplicationController
 
   def show
     authorize @player
-    if user_signed_in?
-      authorize Booking, :new?
-      @booking = Booking.new
-    end
+    load_player_page(@player)
   end
 
   def edit

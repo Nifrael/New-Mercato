@@ -1,4 +1,6 @@
 class BookingsController < ApplicationController
+  include PlayerPage
+
   before_action :authenticate_user!
   before_action :set_player, only: [ :create ]
 
@@ -16,6 +18,7 @@ class BookingsController < ApplicationController
       redirect_to player_booking_path(player_id: @booking.player.id, id: @booking.id)
     else
       flash.now[:alert] = @booking.errors.full_messages.to_sentence
+      load_player_page(@player, booking: @booking) # garde la saisie pour la corriger
       render "players/show", status: :unprocessable_entity
     end
   end

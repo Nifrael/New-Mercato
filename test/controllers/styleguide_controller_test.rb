@@ -23,6 +23,8 @@ class StyleguideControllerTest < ActionDispatch::IntegrationTest
     assert_select ".search-field .search-field__input"
     assert_select ".chips .chip .chip__input[checked]"
     assert_select ".select-field .select-field__input"
+    assert_select ".field input[type=date].field__input"
+    assert_select ".avatar.avatar--xl"
     assert_select ".segmented .segmented__item[aria-current=page]"
     assert_select ".pipeline .pipeline__dot--warning"
     assert_select ".toast.toast--success"

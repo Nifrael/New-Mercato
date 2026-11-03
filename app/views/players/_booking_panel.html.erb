@@ -1,0 +1,48 @@
+<%# locals: (player:, booking:, can_book:) -%>
+<%# Panneau « Louer ce joueur » : formulaire pour un autre club, sinon un message adapté.
+    Le total affiché est calculé en direct par Stimulus (booking-total) pour information ;
+    le VRAI total est recalculé côté serveur (calculate_total_price) : on ne fait jamais
+    confiance à un montant venu du navigateur. %>
+<div class="card booking-panel">
+  <div class="booking-panel__price">
+    <p class="stat__label">Louer ce joueur</p>
+    <p class="booking-panel__amount">
+      <%= number_to_currency(player.price_per_day, precision: 0) %><span class="booking-panel__unit"> / jour</span>
+    </p>
+  </div>
+
+  <% if can_book %>
+    <%= form_with model: [ player, booking ], class: "booking-form",
+                  data: { controller: "booking-total", booking_total_price_value: player.price_per_day } do |f| %>
+      <div class="booking-form__dates">
+        <div class="field">
+          <%= f.label :start_date, "Du", class: "field__label" %>
+          <%= f.date_field :start_date, min: Date.current, required: true, class: "field__input",
+                           data: { booking_total_target: "start", action: "change->booking-total#update" } %>
+        </div>
+        <div class="field">
+          <%= f.label :end_date, "Au", class: "field__label" %>
+          <%= f.date_field :end_date, min: Date.current + 1, required: true, class: "field__input",
+                           data: { booking_total_target: "end", action: "change->booking-total#update" } %>
+        </div>
+      </div>
+
+      <dl class="booking-form__summary">
+        <div class="booking-form__line">
+          <dt><%= number_to_currency(player.price_per_day, precision: 0) %> × <span data-booking-total-target="days">0</span> jour(s)</dt>
+          <dd class="booking-form__total" data-booking-total-target="total" aria-live="polite">—</dd>
+        </div>
+      </dl>
+
+      <%= f.submit "Envoyer la demande", class: "btn btn--primary btn--block" %>
+      <p class="booking-panel__note">
+        <%= player.club.name %> accepte ou refuse votre demande. Vous suivez son avancement depuis vos demandes.
+      </p>
+    <% end %>
+  <% elsif !user_signed_in? %>
+    <p class="booking-panel__note">Connectez-vous avec le compte de votre club pour envoyer une demande.</p>
+    <%= link_to "Se connecter pour louer", new_user_session_path, class: "btn btn--primary btn--block" %>
+  <% else %>
+    <p class="booking-panel__note">C'est un joueur de votre club : vous ne pouvez pas le louer.</p>
+  <% end %>
+</div>

@@ -79,6 +79,8 @@
     <h2 class="styleguide__heading">Avatars, progression, jours restants</h2>
     <div class="cluster">
       <%= player_avatar(Player.new(name: "Pedri", photo: nil)) %>
+      <%= player_avatar(Player.new(name: "Pedri", photo: nil), size: :lg) %>
+      <%= player_avatar(Player.new(name: "Pedri", photo: nil), size: :xl) %>
       <%= days_left_badge(@sample_loan) %>
     </div>
     <progress class="progress" value="43" max="100" aria-label="Exemple de progression">43 %</progress>
@@ -97,6 +99,10 @@
       <label class="chip"><input type="radio" name="styleguide_position" class="chip__input"> Gardien</label>
       <label class="chip"><input type="radio" name="styleguide_position" class="chip__input"> Attaquant</label>
     </fieldset>
+    <div class="field">
+      <label class="field__label" for="styleguide_date">Du</label>
+      <input type="date" id="styleguide_date" class="field__input">
+    </div>
     <label class="select-field">
       <span class="select-field__label">Trier par</span>
       <select class="select-field__input"><option>Valeur marchande</option><option>Prix par jour</option></select>

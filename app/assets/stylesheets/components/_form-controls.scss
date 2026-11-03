@@ -46,3 +46,31 @@
   background-color: var(--color-bg-surface);
   color: var(--color-text);
 }
+
+// Champ classique : libellé au-dessus, saisie en dessous.
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-xs);
+}
+
+.field__label {
+  color: var(--color-text-secondary);
+  font-size: var(--little-text);
+  font-weight: 600;
+}
+
+.field__input {
+  min-height: 2.75rem;
+  padding-inline: var(--espace-s-plus);
+  border: 1px solid var(--color-border);
+  border-radius: var(--rayon-m);
+  background-color: var(--color-bg-primary);
+  color: var(--color-text);
+  color-scheme: dark; // sélecteur de date natif en thème sombre
+
+  &:focus {
+    border-color: var(--color-accent);
+    outline: 0;
+  }
+}

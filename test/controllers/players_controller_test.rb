@@ -50,10 +50,54 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
     assert_select "turbo-frame#players .empty-state"
   end
 
-  test "un visiteur peut voir la fiche d'un joueur" do
+  # --- Fiche joueur : le panneau de réservation dépend de qui regarde ---------
+
+  test "un visiteur voit la fiche et est invité à se connecter pour louer" do
     get player_url(players(:one))
 
     assert_response :success
+    assert_select "h1", text: players(:one).name
+    assert_select ".stat__label", text: "Prix / jour"
+    assert_select ".booking-panel a[href=?]", new_user_session_path
+    assert_select ".booking-panel form", count: 0
+  end
+
+  test "un membre d'un autre club voit le formulaire de réservation avec champs date natifs" do
+    sign_in users(:two)
+
+    get player_url(players(:one))
+
+    assert_select ".booking-panel form[action=?]", player_bookings_path(players(:one)) do
+      assert_select "input[type=date][name=?][required]", "booking[start_date]"
+      assert_select "input[type=date][name=?][required]", "booking[end_date]"
+    end
+    # Total calculé en direct (Stimulus) à partir du prix par jour.
+    assert_select "form[data-controller=booking-total][data-booking-total-price-value=?]",
+                  players(:one).price_per_day.to_s
+  end
+
+  test "un membre du club propriétaire ne peut pas réserver son propre joueur" do
+    sign_in users(:one)
+
+    get player_url(players(:one))
+
+    assert_select ".booking-panel form", count: 0
+    assert_select ".booking-panel", text: /joueur de votre club/
+  end
+
+  test "les périodes déjà louées sont affichées" do
+    Booking.create!(player: players(:one), club: clubs(:three), total_price: 1, status: :accepted,
+                    start_date: Date.current + 30, end_date: Date.current + 40)
+
+    get player_url(players(:one))
+
+    assert_select ".availability__item", text: /#{I18n.l(Date.current + 30, format: :compact)}/
+  end
+
+  test "sans location à venir, le joueur est annoncé disponible" do
+    get player_url(players(:one))
+
+    assert_select ".availability", text: /Disponible/
   end
 
   # --- Modification : réservée au club du joueur -----------------------------

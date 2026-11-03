@@ -17,3 +17,19 @@
   font-family: var(--font-brand);
   font-weight: 700;
 }
+
+// Tailles (helper player_avatar(player, size: :lg / :xl)).
+.avatar--lg {
+  width: 4rem;
+  height: 4rem;
+  font-size: var(--h5);
+}
+
+.avatar--xl {
+  width: 6rem;
+  height: 6rem;
+  border-width: 2px;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 6px var(--color-accent-soft); // halo de la maquette
+  font-size: var(--h2);
+}
