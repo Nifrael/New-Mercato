@@ -8,6 +8,13 @@ class Club < ApplicationRecord
   has_many :booked_players, through: :bookings
 
   validates :name, presence: true, uniqueness: true
+
+  # Ajoute l'attribut `players_count` à chaque club, calculé dans LA MÊME requête que la liste
+  # (LEFT JOIN + COUNT + GROUP BY) : pas une requête COUNT par club (N+1).
+  # LEFT JOIN plutôt que JOIN : un club sans joueur reste dans la liste, avec 0.
+  scope :with_players_count, -> {
+    left_joins(:players).select("clubs.*, COUNT(players.id) AS players_count").group(:id)
+  }
   validates :stadium, :logo, presence: true
 
   # Effectif actuel : nos joueurs qui ne sont pas prêtés + les joueurs empruntés.

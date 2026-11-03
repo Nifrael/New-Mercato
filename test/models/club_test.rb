@@ -1,6 +1,15 @@
 require "test_helper"
 
 class ClubTest < ActiveSupport::TestCase
+  # --- Nombre de joueurs (calculé en SQL, sans N+1) -------------------------
+
+  test "with_players_count ajoute le nombre de joueurs de chaque club, zéro compris" do
+    clubs = Club.with_players_count.index_by(&:id)
+
+    assert_equal 1, clubs[clubs(:one).id].players_count
+    assert_equal 0, clubs[clubs(:three).id].players_count # LEFT JOIN : un club sans joueur reste listé
+  end
+
   # --- Dirigeant du club -----------------------------------------------------
 
   test "le dirigeant est le membre au rôle dirigeant, pas un employé" do
