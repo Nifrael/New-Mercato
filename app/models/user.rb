@@ -1,8 +1,8 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+  # Pas de :registerable : les comptes sont créés POUR les clubs (seeds, console,
+  # invitation plus tard). Une inscription libre permettrait à n'importe qui de se
+  # déclarer membre d'un club et d'accepter ou refuser ses demandes à sa place.
+  devise :database_authenticatable, :recoverable, :rememberable, :validatable
   belongs_to :club
 
   enum :role, { employe: 0, dirigeant: 1 }
