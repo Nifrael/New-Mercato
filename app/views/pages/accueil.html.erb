@@ -1,20 +1,61 @@
-<div class="accueil-block relative h-[90vh] md:h-[88vh]">
-  <%= image_tag 'Accueil.jpg', class:"absolute w-full object-cover h-full filter brightness-70 z-[-1] md:object-[0%_70%]"%>
-  <div class="absolute top-[15%] left-5 md:left-10 lg:left-15 xl:left-20">
-    <h1>NEW MERCATO</h1>
-    <h3>N'achetez plus les joueurs.</h3>
-    <h4>Louez-les.</h4>
-    <div class="my-6">
-      <%= link_to 'Joueurs disponibles', players_path, class:"button btn-black" %>
+<% content_for(:title, "New Mercato — la location de joueurs entre clubs") %>
+
+<section class="landing__hero">
+  <%= image_tag "Accueil.jpg", alt: "", class: "landing__image" %>
+  <div class="container landing__intro">
+    <p class="page-header__eyebrow">La location de joueurs entre clubs</p>
+    <h1 class="landing__title">N'achetez plus les joueurs.<br> <span class="landing__accent">Louez-les.</span></h1>
+    <p class="landing__lead">
+      New Mercato met les clubs en relation : trouvez un joueur, demandez-le pour une période,
+      et suivez la réponse de son club.
+    </p>
+    <div class="landing__actions cluster">
+      <%= link_to "Voir les joueurs", players_path, class: "btn btn--primary" %>
+      <% if user_signed_in? %>
+        <%= link_to "Mon tableau de bord", dashboard_path, class: "btn btn--secondary" %>
+      <% else %>
+        <%= link_to "Connexion", new_user_session_path, class: "btn btn--secondary" %>
+      <% end %>
     </div>
+    <p class="landing__figures">
+      <%= t("counts.players", count: @players_count) %> · <%= t("counts.clubs", count: @clubs.size) %>
+      · <a href="#comment-ca-marche" class="landing__anchor">Comment ça marche ↓</a>
+    </p>
   </div>
-  <div class="absolute bottom-[10%] left-1/2 -translate-x-1/2">
-    <%= link_to 'Découvrir', "#Plus", class:"button btn-green",
-        data: {
-          controller: "smooth-scroll",
-          action: "click->smooth-scroll#scrollToTarget" }%>
-  </div>
-</div>
-<div class="black-bg" id="Plus">
-  <p>Bonjour ceci est l'accueil</p>
+</section>
+
+<div class="container page">
+  <section id="comment-ca-marche" class="stack" aria-labelledby="comment-ca-marche-titre">
+    <h2 id="comment-ca-marche-titre" class="section-title">Comment ça marche</h2>
+    <ol class="steps" role="list">
+      <li class="card steps__item">
+        <span class="steps__icon"><%= icon(:search, size: 22) %></span>
+        <h3 class="card__title">1. Trouvez</h3>
+        <p>Parcourez le catalogue, filtrez par poste et comparez les prix à la journée.</p>
+      </li>
+      <li class="card steps__item">
+        <span class="steps__icon"><%= icon(:inbox, size: 22) %></span>
+        <h3 class="card__title">2. Demandez</h3>
+        <p>Choisissez vos dates : le total est calculé, et le club du joueur accepte ou refuse.</p>
+      </li>
+      <li class="card steps__item">
+        <span class="steps__icon"><%= icon(:dashboard, size: 22) %></span>
+        <h3 class="card__title">3. Suivez</h3>
+        <p>Vos demandes, vos prêts en cours et votre effectif, au même endroit.</p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="stack" aria-labelledby="clubs-participants">
+    <h2 id="clubs-participants" class="section-title">Les clubs participants</h2>
+    <ul class="landing__clubs" role="list">
+      <% @clubs.each do |club| %>
+        <li>
+          <%= link_to club_path(club), class: "landing__club", title: club.name do %>
+            <%= image_tag club.logo, alt: club.name, class: "club-logo", loading: "lazy" %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </section>
 </div>
