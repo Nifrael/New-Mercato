@@ -31,8 +31,10 @@
       <%# Page de bienvenue : plein écran, sans navigation. %>
       <main><%= yield %></main>
     <% else %>
-      <div class="app-shell">
-        <%= render "layouts/app_nav" %>
+      <%# Partout ailleurs : barre d'onglets en bas sur mobile, pour tout le monde.
+          En desktop : sidebar si connecté, barre en haut sinon (cf. NavigationHelper#app_shell?). %>
+      <div class="<%= class_names("app-shell", "app-shell--sidebar": app_shell?) %>">
+        <%= render(app_shell? ? "layouts/app_nav" : "layouts/site_nav") %>
         <main class="app-shell__main">
           <%= render "shared/flash_messages" %>
           <%= yield %>

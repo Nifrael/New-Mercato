@@ -1,6 +1,9 @@
-// Shell de l'application : navigation + zone de contenu.
-// MOBILE FIRST : la base = en-tête en haut + barre d'onglets fixée en bas.
-// À partir de $lg, le MÊME HTML devient une sidebar (aucun menu dupliqué).
+// Shell : navigation + zone de contenu. Utilisé par TOUTES les pages sauf la bienvenue.
+// MOBILE FIRST : la base = en-tête en haut + barre d'onglets fixée en bas, pour tout le monde
+// (visiteur ou connecté : le menu ne change jamais de place sur un même appareil).
+// À partir de $lg, deux variantes :
+//   - .app-shell--sidebar / .app-nav--sidebar : connecté → sidebar à gauche ;
+//   - sans variante (.app-nav--site)          : visiteur → la barre reste en haut, liens en ligne.
 @use "../config/breakpoints" as *;
 @use "../config/mixins" as *;
 
@@ -10,9 +13,11 @@
   display: flex;
   flex-direction: column;
   min-height: 100svh;
+}
 
+.app-shell--sidebar {
   @include breakpoint-up($lg) {
-    flex-direction: row;
+    flex-direction: row; // sidebar à gauche, contenu à droite
   }
 }
 
@@ -27,7 +32,7 @@
   }
 }
 
-// --- Conteneur de navigation : en-tête (mobile) / sidebar (desktop) --------
+// --- Conteneur de navigation : en-tête (mobile, et desktop visiteur) -------
 
 .app-nav {
   position: sticky;
@@ -40,7 +45,10 @@
   padding: var(--espace-s) var(--gouttiere);
   background-color: var(--color-bg-primary);
   border-bottom: 1px solid var(--color-border);
+}
 
+// Connecté, en desktop : l'en-tête devient une colonne à gauche.
+.app-nav--sidebar {
   @include breakpoint-up($lg) {
     flex: 0 0 var(--sidebar-width);
     flex-direction: column;
@@ -55,41 +63,14 @@
   }
 }
 
+// La marque elle-même est le composant .brand ; ici, seulement sa place dans la sidebar.
 .app-nav__brand {
-  display: flex;
-  align-items: center;
-  gap: var(--espace-s);
-  color: var(--color-text-strong);
-  text-decoration: none;
-
   @include breakpoint-up($lg) {
     padding-inline: var(--espace-s);
   }
 }
 
-.app-nav__logo {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2rem;
-  height: 2rem;
-  border-radius: var(--rayon-s);
-  background-color: var(--color-accent);
-  color: var(--color-text-on-accent);
-  font-family: var(--font-brand);
-  font-size: var(--little-text);
-  font-weight: 700;
-}
-
-.app-nav__wordmark {
-  font-family: var(--font-brand);
-  font-size: var(--h5);
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-// --- Liens : barre d'onglets (mobile) / liste verticale (desktop) ----------
+// --- Liens : barre d'onglets (mobile) / dans l'en-tête ou la sidebar (desktop)
 
 .app-nav__menu {
   position: fixed;
@@ -103,15 +84,22 @@
   background-color: var(--color-bg-surface);
   border-top: 1px solid var(--color-border);
 
+  // En desktop, les liens quittent le bas de l'écran et rejoignent l'en-tête (en ligne)…
   @include breakpoint-up($lg) {
     position: static;
     display: flex;
-    flex-direction: column;
     gap: var(--espace-xs);
     min-height: 0;
     padding: 0;
     background-color: transparent;
     border-top: 0;
+  }
+}
+
+// … ou la sidebar (en colonne).
+.app-nav--sidebar .app-nav__menu {
+  @include breakpoint-up($lg) {
+    flex-direction: column;
   }
 }
 
@@ -164,7 +152,7 @@
   }
 }
 
-// Libellé court en onglet, libellé complet en sidebar.
+// Libellé court en onglet, libellé complet en desktop.
 // display: none masque aussi le libellé aux lecteurs d'écran : un seul est lu.
 .app-nav__label--full {
   display: none;
