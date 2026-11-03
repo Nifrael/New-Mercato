@@ -43,7 +43,41 @@
       </div>
     </section>
   <% end %>
+</div>
 
+<%# Les deux côtés d'une location : bandeau pleine largeur, d'où la sortie du .container.
+    Même coupure sombre / accent que la page de bienvenue. %>
+<section class="landing__sides" aria-labelledby="cotes-titre">
+  <h2 id="cotes-titre" class="visually-hidden">Emprunter ou prêter un joueur</h2>
+
+  <div class="landing__side">
+    <p class="landing__side-eyebrow">Vous empruntez</p>
+    <h3 class="landing__side-title">Un renfort, pas une dette.</h3>
+    <ul class="landing__side-points" role="list">
+      <li class="landing__side-point">Un joueur pour la durée exacte du besoin : une blessure, une fin de saison, une coupe.</li>
+      <li class="landing__side-point">Le prix à la journée est affiché d'avance, le total se calcule avec vos dates.</li>
+      <li class="landing__side-point">La réponse du club arrive dans votre tableau de bord.</li>
+    </ul>
+    <%= link_to "Trouver un joueur →", players_path, class: "landing__side-link" %>
+  </div>
+
+  <div class="landing__side landing__side--accent">
+    <p class="landing__side-eyebrow">Vous prêtez</p>
+    <h3 class="landing__side-title">Vos remplaçants rapportent.</h3>
+    <ul class="landing__side-points" role="list">
+      <li class="landing__side-point">Un joueur qui ne joue pas chez vous joue ailleurs, et reste à vous.</li>
+      <li class="landing__side-point">Vous fixez son prix par jour et décidez s'il est disponible.</li>
+      <li class="landing__side-point">Chaque demande vous attend : vous acceptez ou vous refusez.</li>
+    </ul>
+    <% if user_signed_in? %>
+      <%= link_to "Gérer mon effectif →", dashboard_players_path, class: "landing__side-link" %>
+    <% else %>
+      <%= link_to "Se connecter →", new_user_session_path, class: "landing__side-link" %>
+    <% end %>
+  </div>
+</section>
+
+<div class="container page">
   <section id="comment-ca-marche" class="stack" aria-labelledby="comment-ca-marche-titre">
     <h2 id="comment-ca-marche-titre" class="section-title">Comment ça marche</h2>
     <ol class="steps" role="list">

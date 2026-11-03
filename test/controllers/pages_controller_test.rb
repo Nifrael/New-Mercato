@@ -81,6 +81,26 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
     assert_select ".landing__players .player-card__name", text: players(:one).name, count: 0 # le moins coté sort
   end
 
+  # --- Les deux côtés d'une location -----------------------------------------
+
+  test "l'accueil présente le côté emprunteur et le côté prêteur" do
+    get accueil_url
+
+    assert_select ".landing__sides h2", count: 1 # titre de section (lu par les lecteurs d'écran)
+    assert_select ".landing__side h3", count: 2
+    assert_select ".landing__side a[href=?]", players_path
+    assert_select ".landing__side a[href=?]", new_user_session_path
+  end
+
+  test "connecté, le côté prêteur mène à son effectif au lieu de la connexion" do
+    sign_in users(:one)
+
+    get accueil_url
+
+    assert_select ".landing__side a[href=?]", dashboard_players_path
+    assert_select ".landing__side a[href=?]", new_user_session_path, count: 0
+  end
+
   test "chaque club participant mène à sa page" do
     get accueil_url
 

@@ -38,6 +38,7 @@ $corail: #f0565b;
   --color-text-secondary: #{$gris};
   --color-text-strong: #{$blanc};
   --color-text-on-accent: #{$vert-nuit};   // texte posé sur un fond accent
+  --color-border-on-accent: #{rgba($vert-nuit, 0.2)}; // séparateur posé sur un fond accent
 
   // Traits et accents
   --color-accent: #{$vert-menthe};

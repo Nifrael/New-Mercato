@@ -166,3 +166,80 @@
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
+
+// « Vous empruntez / Vous prêtez » : bandeau pleine largeur en deux moitiés.
+// MOBILE : empilées (sombre puis accent) ; côte à côte dès $lg, comme la page de bienvenue.
+.landing__sides {
+  display: grid;
+
+  @include breakpoint-up($lg) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.landing__side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--espace-m);
+  padding: var(--espace-xl) var(--gouttiere);
+  background-color: var(--color-bg-surface);
+  // Les variables locales évitent de répéter chaque règle dans la variante accent :
+  // la variante ne change QUE ces trois couleurs.
+  --side-text: var(--color-text-secondary);
+  --side-strong: var(--color-text-strong);
+  --side-border: var(--color-border);
+  color: var(--side-text);
+
+  @include breakpoint-up($lg) {
+    padding: var(--espace-xxl) var(--espace-xl);
+  }
+}
+
+.landing__side--accent {
+  background-color: var(--color-accent);
+  --side-text: var(--color-text-on-accent);
+  --side-strong: var(--color-text-on-accent);
+  --side-border: var(--color-border-on-accent);
+}
+
+.landing__side-eyebrow {
+  @include eyebrow(var(--side-text));
+}
+
+.landing__side-title {
+  max-width: 14ch;
+  color: var(--side-strong);
+  font-family: var(--font-brand);
+  font-size: var(--h2);
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+// Arguments séparés par un filet, sans icônes : le texte porte le message.
+.landing__side-points {
+  display: flex;
+  flex-direction: column;
+  max-width: 42ch;
+  margin: 0;
+  padding: 0;
+}
+
+.landing__side-point {
+  padding-block: var(--espace-s-plus);
+  border-top: 1px solid var(--side-border);
+}
+
+.landing__side-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem; // 44px : cible tactile
+  color: var(--side-strong);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+
+  &:hover {
+    text-decoration-thickness: 2px;
+  }
+}
