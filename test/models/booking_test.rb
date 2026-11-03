@@ -18,6 +18,55 @@ class BookingTest < ActiveSupport::TestCase
     assert_includes booking.errors.full_messages, "Date de début doit être rempli(e)"
   end
 
+  # --- Pas de chevauchement avec une location acceptée -----------------------
+  # Location acceptée de players(:one) du 10 au 20 (bornes incluses).
+
+  def accept_loan_of_player_one
+    Booking.create!(player: players(:one), club: clubs(:two), status: :accepted, total_price: 1,
+                    start_date: Date.current + 10, end_date: Date.current + 20)
+  end
+
+  def request_player_one(from:, to:, club: clubs(:three))
+    Booking.new(player: players(:one), club: club, total_price: 1,
+                start_date: Date.current + from, end_date: Date.current + to)
+  end
+
+  test "une demande qui chevauche une location acceptée est refusée" do
+    accept_loan_of_player_one
+
+    request = request_player_one(from: 18, to: 25)
+
+    assert_not request.valid?
+    assert_includes request.errors[:base], "Ce joueur est déjà loué sur une partie de cette période."
+  end
+
+  test "une demande qui commence le jour où la location se termine chevauche aussi" do
+    accept_loan_of_player_one
+
+    assert_not request_player_one(from: 20, to: 25).valid?
+  end
+
+  test "une demande juste après la location est possible" do
+    accept_loan_of_player_one
+
+    assert request_player_one(from: 21, to: 25).valid?
+  end
+
+  test "deux demandes EN ATTENTE sur les mêmes dates peuvent coexister" do
+    request_player_one(from: 10, to: 20, club: clubs(:two)).save!
+
+    assert request_player_one(from: 10, to: 20).valid?
+  end
+
+  test "on ne peut pas accepter une demande si le joueur est déjà loué sur la période" do
+    first = request_player_one(from: 10, to: 20, club: clubs(:two)).tap(&:save!)
+    second = request_player_one(from: 15, to: 25).tap(&:save!)
+
+    first.accept!
+
+    assert_not second.reload.may_accept?
+  end
+
   # --- Durée et avancement d'un prêt (états dérivés des dates) ---------------
 
   test "la durée est le nombre de jours entre le début et la fin" do

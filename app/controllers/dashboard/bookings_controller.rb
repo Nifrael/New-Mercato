@@ -28,7 +28,7 @@ class Dashboard::BookingsController < Dashboard::BaseController
       @booking.accept!
       redirect_back_or_to dashboard_bookings_path, notice: "Réservation pour « #{@booking.player.name} » acceptée."
     else
-      redirect_back_or_to dashboard_bookings_path, alert: "Cette réservation ne peut plus être acceptée (statut : #{status_label})."
+      redirect_back_or_to dashboard_bookings_path, alert: accept_refusal_message
     end
   end
 
@@ -48,6 +48,14 @@ class Dashboard::BookingsController < Dashboard::BaseController
   # Réservation inexistante : find lève RecordNotFound, que Rails transforme en 404.
   def set_booking
     @booking = Booking.includes(:club, player: :club).find(params[:id])
+  end
+
+  # Une demande encore en attente qu'on ne peut pas accepter : sa période est déjà louée
+  # (garde AASM). Sinon, elle a déjà été traitée.
+  def accept_refusal_message
+    return Booking::PERIOD_UNAVAILABLE if @booking.pending?
+
+    "Cette réservation ne peut plus être acceptée (statut : #{status_label})."
   end
 
   def status_label

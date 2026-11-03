@@ -133,6 +133,18 @@ class Dashboard::BookingsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test "accepter une demande dont la période est déjà louée explique pourquoi" do
+    # Une autre demande sur les mêmes dates a déjà été acceptée.
+    Booking.create!(player: @booking.player, club: clubs(:three), total_price: 1, status: :accepted,
+                    start_date: @booking.start_date, end_date: @booking.end_date)
+    sign_in users(:one)
+
+    patch accept_dashboard_booking_url(@booking)
+
+    assert_equal "Ce joueur est déjà loué sur une partie de cette période.", flash[:alert]
+    assert_predicate @booking.reload, :pending?
+  end
+
   test "une demande déjà refusée ne peut plus être acceptée" do
     @booking.update!(status: :refused)
     sign_in users(:one)

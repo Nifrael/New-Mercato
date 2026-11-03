@@ -4,6 +4,8 @@ class Booking < ApplicationRecord
   belongs_to :player
   belongs_to :club
 
+  PERIOD_UNAVAILABLE = "Ce joueur est déjà loué sur une partie de cette période.".freeze
+
   enum :status, { accepted: 0, pending: 1, refused: 2 }, default: :pending
 
   aasm column: :status, enum: true do
@@ -12,7 +14,9 @@ class Booking < ApplicationRecord
     state :refused
 
     event :accept do
-      transitions from: :pending, to: :accepted, after: :update_player_booked
+      # guard : la transition n'est possible que si la période est encore libre
+      # (sinon may_accept? renvoie false et accept! est refusé).
+      transitions from: :pending, to: :accepted, guard: :period_available?, after: :update_player_booked
     end
 
     event :refuse do
@@ -24,8 +28,21 @@ class Booking < ApplicationRecord
 
   validate :validate_time
   validate :player_already_in_club, on: :create
+  validate :period_must_be_available, on: :create
 
   scope :active, -> { where(status: :accepted).where("start_date <= :today AND end_date >= :today", today: Date.current) }
+
+  # Réservations qui ont au moins un jour en commun avec [from, to] (bornes incluses) :
+  # elles commencent avant la fin de la période ET finissent après son début.
+  scope :overlapping, ->(from, to) { where("start_date <= :to AND end_date >= :from", from: from, to: to) }
+
+  # Vrai si aucune AUTRE location acceptée du même joueur ne chevauche cette période.
+  # Les demandes en attente ne bloquent pas : plusieurs clubs peuvent demander les mêmes dates.
+  def period_available?
+    return true if start_date.blank? || end_date.blank?
+
+    !Booking.accepted.where(player_id: player_id).where.not(id: id).overlapping(start_date, end_date).exists?
+  end
 
   def calculate_total_price(price_per_day)
     return if start_date.blank? || end_date.blank?
@@ -58,6 +75,10 @@ class Booking < ApplicationRecord
     return if start_date.blank? || end_date.blank?
 
     errors.add(:end_date, "doit être postérieure à la date de début.") if start_date >= end_date
+  end
+
+  def period_must_be_available
+    errors.add(:base, PERIOD_UNAVAILABLE) unless period_available?
   end
 
   def player_already_in_club
