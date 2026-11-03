@@ -3,6 +3,29 @@ require "test_helper"
 # players(:one) : Player One, attaquant, France, club one, 100 000 €, 1 000 €/jour
 # players(:two) : Player Two, défenseur, Spain, club two, 200 000 €, 2 000 €/jour
 class PlayerTest < ActiveSupport::TestCase
+  # --- Prix par jour ----------------------------------------------------------
+
+  test "le prix par jour doit être un entier strictement positif" do
+    player = players(:one)
+
+    [ 0, -10, 12.5, nil ].each do |price|
+      player.price_per_day = price
+      assert_not player.valid?, "#{price.inspect} ne devrait pas être accepté"
+    end
+
+    player.price_per_day = 350
+    assert player.valid?
+  end
+
+  test "le prix par jour se déduit de la valeur marchande (un an de location = sa valeur)" do
+    assert_equal 547, Player.price_per_day_for(200_000_000)
+  end
+
+  test "un joueur de faible valeur coûte au moins 1 € par jour (jamais gratuit)" do
+    # 200 000 / 365 000 donne 0 en division entière : le joueur aurait été loué gratuitement.
+    assert_equal 1, Player.price_per_day_for(200_000)
+  end
+
   # --- Recherche -------------------------------------------------------------
 
   test "une recherche vide renvoie tous les joueurs" do

@@ -67,6 +67,17 @@ class BookingTest < ActiveSupport::TestCase
     assert_not second.reload.may_accept?
   end
 
+  # --- Joueur indisponible -----------------------------------------------------
+
+  test "on ne peut pas demander un joueur que son club a rendu indisponible" do
+    players(:one).update!(status: :unavailable)
+
+    request = request_player_one(from: 30, to: 35)
+
+    assert_not request.valid?
+    assert_includes request.errors[:base], "Ce joueur n'est pas proposé à la location pour le moment."
+  end
+
   # --- Durée et avancement d'un prêt (états dérivés des dates) ---------------
 
   test "la durée est le nombre de jours entre le début et la fin" do

@@ -5,6 +5,7 @@ class Booking < ApplicationRecord
   belongs_to :club
 
   PERIOD_UNAVAILABLE = "Ce joueur est déjà loué sur une partie de cette période.".freeze
+  PLAYER_NOT_FOR_LOAN = "Ce joueur n'est pas proposé à la location pour le moment.".freeze
 
   enum :status, { accepted: 0, pending: 1, refused: 2 }, default: :pending
 
@@ -29,6 +30,7 @@ class Booking < ApplicationRecord
   validate :validate_time
   validate :player_already_in_club, on: :create
   validate :period_must_be_available, on: :create
+  validate :player_must_be_for_loan, on: :create
 
   scope :active, -> { where(status: :accepted).where("start_date <= :today AND end_date >= :today", today: Date.current) }
 
@@ -79,6 +81,10 @@ class Booking < ApplicationRecord
 
   def period_must_be_available
     errors.add(:base, PERIOD_UNAVAILABLE) unless period_available?
+  end
+
+  def player_must_be_for_loan
+    errors.add(:base, PLAYER_NOT_FOR_LOAN) if player&.unavailable?
   end
 
   def player_already_in_club

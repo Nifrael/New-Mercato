@@ -5,6 +5,20 @@ class Player < ApplicationRecord
   enum :position, { gardien: 0, defenseur: 1, milieu: 2, attaquant: 3, polyvalent: 4 }, default: :polyvalent
   enum :status, { unavailable: 0, rented: 1, available: 2 }, default: :available
 
+  # Statuts que le club propriétaire peut choisir lui-même. « rented » (loué) n'en fait pas
+  # partie : c'est un état DÉRIVÉ des locations acceptées, jamais choisi à la main.
+  OWNER_SETTABLE_STATUSES = %w[available unavailable].freeze
+
+  # only_integer vérifie la valeur SAISIE (avant conversion) : 12.5 est refusé,
+  # au lieu d'être silencieusement arrondi à 12 par la colonne entière.
+  validates :price_per_day, numericality: { only_integer: true, greater_than: 0 }
+
+  # Prix par jour proposé à l'import : un an de location = la valeur marchande.
+  # Au moins 1 € : en division entière, une petite valeur donnerait 0 (location gratuite).
+  def self.price_per_day_for(market_value)
+    [ market_value / 365_000, 1 ].max
+  end
+
   def self.by_position(requested_position)
     if requested_position == "all"
       all
