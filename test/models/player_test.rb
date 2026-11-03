@@ -24,6 +24,20 @@ class PlayerTest < ActiveSupport::TestCase
     assert_empty Player.search("%")
   end
 
+  # --- Indisponibilités à venir ----------------------------------------------
+
+  test "les indisponibilités sont les locations acceptées non terminées, dans l'ordre" do
+    later = Booking.create!(player: players(:one), club: clubs(:two), total_price: 1, status: :accepted,
+                            start_date: Date.current + 30, end_date: Date.current + 40)
+    current = Booking.create!(player: players(:one), club: clubs(:three), total_price: 1, status: :accepted,
+                              start_date: Date.current - 2, end_date: Date.current + 3)
+    Booking.create!(player: players(:one), club: clubs(:two), total_price: 1, status: :accepted,
+                    start_date: Date.current - 20, end_date: Date.current - 10) # terminée
+    # bookings(:one) est en attente : pas une indisponibilité
+
+    assert_equal [ current, later ], players(:one).upcoming_unavailabilities.to_a
+  end
+
   # --- Tri -------------------------------------------------------------------
 
   test "par défaut, les joueurs sont triés par valeur décroissante" do

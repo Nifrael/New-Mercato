@@ -38,6 +38,12 @@ class Player < ApplicationRecord
     order(SORTS.fetch(key.to_s, SORTS[DEFAULT_SORT]))
   end
 
+  # Périodes où le joueur est déjà loué (locations acceptées pas encore terminées),
+  # de la plus proche à la plus lointaine.
+  def upcoming_unavailabilities
+    bookings.accepted.where(end_date: Date.current..).order(:start_date)
+  end
+
   def update_availability_status!
     today = Date.current
 
