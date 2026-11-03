@@ -72,6 +72,15 @@ class ClubTest < ActiveSupport::TestCase
     assert_not_includes clubs(:three).active_loans, loan
   end
 
+  test "les prêts en cours se séparent en empruntés et prêtés selon le point de vue" do
+    loan = create_active_loan(player: players(:one), borrower: clubs(:two))
+
+    assert_equal [ loan ], clubs(:two).borrowed_loans.to_a # le club two emprunte
+    assert_empty clubs(:two).lent_loans
+    assert_equal [ loan ], clubs(:one).lent_loans.to_a     # le club one prête son joueur
+    assert_empty clubs(:one).borrowed_loans
+  end
+
   test "les demandes en attente et les prêts terminés ne sont pas des prêts en cours" do
     finished = create_active_loan(player: players(:one), borrower: clubs(:two))
     finished.update!(start_date: Date.current - 10, end_date: Date.current - 2)

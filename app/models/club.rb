@@ -42,6 +42,16 @@ class Club < ApplicationRecord
     loans.where(club: self).or(loans.where(players: { club_id: id }))
   end
 
+  # Prêts en cours où NOUS empruntons le joueur d'un autre club.
+  def borrowed_loans
+    active_loans.where(club: self)
+  end
+
+  # Prêts en cours où NOTRE joueur est chez un autre club.
+  def lent_loans
+    active_loans.where.not(club: self)
+  end
+
   def sent_pending_bookings
     self.bookings.where(status: :pending)
   end
