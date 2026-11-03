@@ -1,0 +1,29 @@
+<%# locals: (club:) -%>
+<%# Carte d'un club (liste des clubs). `club.players_count` vient du scope with_players_count. %>
+<%= link_to club_path(club), class: "card card--interactive club-card" do %>
+  <div class="club-card__top">
+    <%= image_tag club.logo, alt: "", class: "club-logo", loading: "lazy" %>
+    <div class="club-card__identity">
+      <h2 class="club-card__name"><%= club.name %></h2>
+      <p class="club-card__meta"><%= club.league %> · <%= club.country %></p>
+    </div>
+  </div>
+
+  <% if club.dirigeant %>
+    <p class="club-card__owner">
+      <span class="avatar avatar--sm avatar--initials" aria-hidden="true"><%= club.dirigeant.initials %></span>
+      Dirigé par <%= club.dirigeant.first_name %> <%= club.dirigeant.last_name %>
+    </p>
+  <% end %>
+
+  <dl class="club-card__figures">
+    <div>
+      <dt class="stat__label">Effectif</dt>
+      <dd class="club-card__players"><%= t("counts.players", count: club.players_count) %></dd>
+    </div>
+    <div class="club-card__budget">
+      <dt class="stat__label">Budget</dt>
+      <dd><%= compact_currency(club.budget) %></dd>
+    </div>
+  </dl>
+<% end %>

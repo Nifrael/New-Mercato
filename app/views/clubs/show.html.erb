@@ -1,3 +1,37 @@
-<div>
-  <h1 class="font-bold text-4xl">Clubs#show</h1>
+<% content_for(:title, "#{@club.name} — New Mercato") %>
+
+<div class="container page">
+  <%= link_to "← Tous les clubs", clubs_path, class: "player-page__back" %>
+
+  <section class="card club-hero">
+    <%= image_tag @club.logo, alt: "Logo de #{@club.name}", class: "club-logo club-logo--lg" %>
+    <div class="club-hero__identity">
+      <p class="page-header__eyebrow"><%= @club.league %> · <%= @club.country %></p>
+      <h1><%= @club.name %></h1>
+      <p class="club-hero__meta">Stade : <%= @club.stadium %></p>
+      <% if @club.dirigeant %>
+        <p class="club-hero__meta">Dirigé par <%= @club.dirigeant.first_name %> <%= @club.dirigeant.last_name %></p>
+      <% end %>
+    </div>
+  </section>
+
+  <section class="grid-auto dashboard__stats" aria-label="Chiffres clés">
+    <div class="card"><%= render "shared/stat", label: "Budget", value: compact_currency(@club.budget) %></div>
+    <div class="card"><%= render "shared/stat", label: "Joueurs", value: @players.size %></div>
+    <div class="card"><%= render "shared/stat", label: "Disponibles", value: @players.count(&:available?), accent: true %></div>
+  </section>
+
+  <section class="stack" aria-labelledby="effectif">
+    <h2 id="effectif" class="section-title">Effectif</h2>
+    <% if @players.any? %>
+      <div class="catalog__grid">
+        <%= render partial: "players/player_card", collection: @players, as: :player %>
+      </div>
+    <% else %>
+      <div class="empty-state">
+        <p class="empty-state__title">Aucun joueur pour l'instant</p>
+        <p>Les joueurs de ce club apparaîtront ici.</p>
+      </div>
+    <% end %>
+  </section>
 </div>

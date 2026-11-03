@@ -19,6 +19,12 @@
 }
 
 // Tailles (helper player_avatar(player, size: :lg / :xl)).
+.avatar--sm {
+  width: 2rem;
+  height: 2rem;
+  font-size: var(--little-text);
+}
+
 .avatar--lg {
   width: 4rem;
   height: 4rem;
