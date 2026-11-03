@@ -1,0 +1,19 @@
+<%# locals: (club:, title:, lead:, counts:) -%>
+<%# En-tête commun aux trois vues de l'effectif, avec les onglets (liens réels, compteurs). %>
+<header class="page-header">
+  <div class="page-header__text">
+    <p class="page-header__eyebrow"><%= club.name %></p>
+    <h1><%= title %></h1>
+    <p class="page-header__lead"><%= lead %></p>
+  </div>
+
+  <nav class="segmented" aria-label="Vues de l'effectif">
+    <% [ [ "Effectif", dashboard_players_path, :squad ],
+         [ "Prêtés", loaned_out_dashboard_players_path, :loaned_out ],
+         [ "Empruntés", loaned_in_dashboard_players_path, :loaned_in ] ].each do |label, path, key| %>
+      <%= link_to path, class: "segmented__item", aria: { current: ("page" if current_page?(path)) } do %>
+        <%= label %> <span class="segmented__count"><%= counts[key] %></span>
+      <% end %>
+    <% end %>
+  </nav>
+</header>

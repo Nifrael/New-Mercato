@@ -1,4 +1,17 @@
-<div class="green-bg shadow-green my-8 mx-auto w-[95%] rounded-xl">
-  <h2 class="text-center">JOUEURS EMPRUNTES</h2>
+<% content_for(:title, "Joueurs empruntés — New Mercato") %>
+
+<div class="container page">
+  <%= render "dashboard/players/header", club: @club, counts: @tab_counts,
+             title: "Joueurs empruntés", lead: "Les joueurs d'autres clubs actuellement chez vous." %>
+
+  <% if @loans.any? %>
+    <div class="grid-auto dashboard__loans">
+      <%= render partial: "dashboards/loan_card", collection: @loans, as: :loan, locals: { club: @club } %>
+    </div>
+  <% else %>
+    <div class="empty-state">
+      <p class="empty-state__title">Aucun joueur emprunté</p>
+      <p>Les joueurs que vous louez apparaîtront ici pendant leur prêt.</p>
+    </div>
+  <% end %>
 </div>
-<%= render partial: "players", collection: @loaned_in_players, as: :player, locals: { context: :loaned_in } %>
