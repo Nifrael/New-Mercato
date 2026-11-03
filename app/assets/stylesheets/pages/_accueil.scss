@@ -7,9 +7,15 @@
   isolation: isolate; // le dégradé et l'image restent sous le texte
   display: flex;
   align-items: flex-end;
-  min-height: 70svh;
+  // Toute la hauteur VISIBLE : l'écran moins l'en-tête et la barre d'onglets (mobile)…
+  min-height: calc(100svh - var(--app-header-height) - var(--app-tabbar-height));
   padding-block: var(--espace-xl) var(--espace-l);
   overflow: hidden;
+
+  // … puis moins l'en-tête seul en desktop, où la barre d'onglets disparaît.
+  @include breakpoint-up($lg) {
+    min-height: calc(100svh - var(--app-header-height));
+  }
 
   // Dégradé vers le fond de la page : le texte reste lisible quelle que soit l'image.
   &::after {

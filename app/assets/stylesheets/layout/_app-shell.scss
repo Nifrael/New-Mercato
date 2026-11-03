@@ -8,6 +8,9 @@
 @use "../config/mixins" as *;
 
 .app-shell {
+  // Hauteurs des barres : déclarées ici pour que le contenu puisse s'y adapter
+  // (ex. l'accroche de /accueil remplit exactement l'écran visible entre les deux).
+  --app-header-height: 4rem;
   --app-tabbar-height: 4.5rem;
 
   display: flex;
@@ -42,6 +45,7 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--espace-m);
+  min-height: var(--app-header-height);
   padding: var(--espace-s) var(--gouttiere);
   background-color: var(--color-bg-primary);
   border-bottom: 1px solid var(--color-border);
