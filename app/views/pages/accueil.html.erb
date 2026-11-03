@@ -9,14 +9,7 @@
       Un attaquant pour trois semaines, un gardien le temps d'une blessure :
       payez à la journée, rendez-le après. Le yacht peut attendre.
     </p>
-    <div class="landing__actions cluster">
-      <%= link_to "Voir les joueurs", players_path, class: "btn btn--primary" %>
-      <% if user_signed_in? %>
-        <%= link_to "Mon tableau de bord", dashboard_path, class: "btn btn--secondary" %>
-      <% else %>
-        <%= link_to "Connexion", new_user_session_path, class: "btn btn--secondary" %>
-      <% end %>
-    </div>
+    <%= render "pages/landing_actions" %>
     <p class="landing__figures">
       <%= t("counts.players", count: @players_count) %> · <%= t("counts.clubs", count: @clubs.size) %>
       <% if @story_booking %>
@@ -135,16 +128,33 @@
     </section>
   <% end %>
 
+  <%# Clubs : liste sur mobile ; en bandes qui s'ouvrent au survol avec une souris (CSS pur). %>
   <section class="stack" aria-labelledby="clubs-participants">
-    <h2 id="clubs-participants" class="section-title">Les clubs participants</h2>
+    <div>
+      <p class="page-header__eyebrow">Ils jouent le jeu</p>
+      <h2 id="clubs-participants" class="section-title">Les clubs participants</h2>
+    </div>
     <ul class="landing__clubs" role="list">
       <% @clubs.each do |club| %>
-        <li>
-          <%= link_to club_path(club), class: "landing__club", title: club.name do %>
-            <%= image_tag club.logo, alt: club.name, class: "club-logo", loading: "lazy" %>
+        <li class="landing__club-item">
+          <%= link_to club_path(club), class: "landing__club" do %>
+            <%# alt vide : le nom du club est déjà écrit dans le lien, inutile de le lire deux fois. %>
+            <%= image_tag club.logo, alt: "", class: "club-logo landing__club-logo", loading: "lazy" %>
+            <span class="landing__club-details">
+              <span class="landing__club-name"><%= club.name %></span>
+              <span class="landing__club-meta">
+                <%= club.league %> · <%= t("counts.players", count: @players_per_club.fetch(club.id, 0)) %>
+              </span>
+            </span>
           <% end %>
         </li>
       <% end %>
     </ul>
+  </section>
+
+  <%# Appel final : on reprend les actions de l'accroche, pour ne pas obliger à remonter. %>
+  <section class="landing__cta" aria-labelledby="cta-titre">
+    <h2 id="cta-titre" class="landing__cta-title">Votre prochain renfort est sans doute déjà dans le catalogue.</h2>
+    <%= render "pages/landing_actions" %>
   </section>
 </div>

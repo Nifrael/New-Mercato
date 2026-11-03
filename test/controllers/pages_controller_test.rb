@@ -18,6 +18,16 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
     assert_select "a.hero__cta[href=?]", accueil_path
   end
 
+  # --- Mentions légales -------------------------------------------------------
+
+  test "les mentions légales sont publiques et nomment l'éditeur" do
+    get mentions_legales_url
+
+    assert_response :success
+    assert_select "h1", text: "Mentions légales"
+    assert_select "#editeur + p", text: /Julien Marchand/
+  end
+
   # --- Page de présentation (/accueil) ---------------------------------------
   # Tout ce que la page affiche vient de l'appli réelle : chiffres en base, vraies étapes.
 
@@ -157,5 +167,22 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
     Club.find_each do |club|
       assert_select ".landing__clubs a[href=?]", club_path(club)
     end
+  end
+
+  test "chaque bande de club affiche son championnat et son nombre de joueurs" do
+    get accueil_url
+
+    club = players(:one).club
+    assert_select ".landing__club-meta", text: /#{club.league}.*#{club.players.count} joueur/m
+  end
+
+  # --- Appel final -------------------------------------------------------------
+
+  test "l'appel final reprend les actions de l'accroche" do
+    get accueil_url
+
+    assert_select ".landing__cta h2", count: 1
+    assert_select ".landing__cta .landing__actions a[href=?]", players_path
+    assert_select ".landing__cta .landing__actions a[href=?]", new_user_session_path
   end
 end

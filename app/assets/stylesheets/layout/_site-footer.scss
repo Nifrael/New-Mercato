@@ -1,0 +1,68 @@
+// Pied de page des pages visiteurs — layouts/_site_footer.
+// MOBILE FIRST : tout empilé ; la présentation et les liens côte à côte dès $md.
+@use "../config/breakpoints" as *;
+@use "../config/mixins" as *;
+
+.site-footer {
+  border-top: 1px solid var(--color-border);
+  background-color: var(--color-bg-surface);
+}
+
+.site-footer__inner {
+  @include container;
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-l);
+  padding-block: var(--espace-l);
+
+  @include breakpoint-up($md) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+}
+
+.site-footer__about {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-s);
+  max-width: 36ch;
+}
+
+.site-footer__tagline {
+  color: var(--color-text-secondary);
+  font-size: var(--little-text);
+}
+
+// Liens : en colonne sur mobile (cibles tactiles confortables), en ligne dès $md.
+.site-footer__nav {
+  display: flex;
+  flex-direction: column;
+
+  @include breakpoint-up($md) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--espace-m);
+  }
+}
+
+.site-footer__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem; // 44px : cible tactile
+  color: var(--color-text-secondary);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--color-text);
+    text-decoration: underline;
+  }
+}
+
+.site-footer__legal {
+  @include container;
+  padding-block: var(--espace-m);
+  border-top: 1px solid var(--color-border-subtle);
+  color: var(--color-text-secondary);
+  font-size: var(--little-text);
+}

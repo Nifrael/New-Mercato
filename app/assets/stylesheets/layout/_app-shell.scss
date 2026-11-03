@@ -16,6 +16,13 @@
   display: flex;
   flex-direction: column;
   min-height: 100svh;
+  // Rien (contenu, footer) ne doit passer sous la barre d'onglets fixe (+ zone sûre iOS).
+  // Posée sur le shell et non sur <main> : elle protège aussi le footer, qui suit <main>.
+  padding-bottom: calc(var(--app-tabbar-height) + env(safe-area-inset-bottom));
+
+  @include breakpoint-up($lg) {
+    padding-bottom: 0; // en desktop, la barre d'onglets n'existe plus
+  }
 }
 
 .app-shell--sidebar {
@@ -27,12 +34,6 @@
 .app-shell__main {
   flex: 1;
   min-width: 0; // empêche un contenu large (tableau) de faire déborder la page
-  // Le contenu ne doit pas passer sous la barre d'onglets fixe (+ zone sûre iOS).
-  padding-bottom: calc(var(--app-tabbar-height) + env(safe-area-inset-bottom));
-
-  @include breakpoint-up($lg) {
-    padding-bottom: 0;
-  }
 }
 
 // --- Conteneur de navigation : en-tête (mobile, et desktop visiteur) -------

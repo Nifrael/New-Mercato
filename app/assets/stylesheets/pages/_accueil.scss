@@ -77,71 +77,6 @@
   text-decoration: none;
 }
 
-.landing__clubs {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--espace-s-plus);
-  margin: 0;
-  padding: 0;
-}
-
-.landing__club {
-  display: block;
-  border-radius: var(--rayon-m);
-  transition: transform var(--transition-rapide);
-
-  &:hover {
-    transform: translateY(-2px);
-  }
-}
-
-// En-tête de section : titre + lien. Empilés sur mobile, sur une ligne dès $md.
-.landing__section-header {
-  display: flex;
-  flex-direction: column;
-  gap: var(--espace-s);
-
-  @include breakpoint-up($md) {
-    flex-direction: row;
-    align-items: flex-end;
-    justify-content: space-between;
-  }
-}
-
-// Vitrine des joueurs.
-// MOBILE : un carrousel horizontal. Chaque carte fait 80 % de la largeur : on voit le bord
-// de la suivante, ce qui indique qu'on peut faire glisser. scroll-snap aligne la carte au lâcher.
-// $md : grille de 2 colonnes, puis 4 sur une ligne en $lg.
-.landing__players {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: 80%;
-  gap: var(--espace-m);
-  // Le carrousel déborde jusqu'aux bords de l'écran (sous la gouttière)…
-  margin-inline: calc(-1 * var(--gouttiere));
-  padding: 0 var(--gouttiere) var(--espace-s);
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  // … mais une carte s'aligne sur le bord du texte, pas sur le bord de l'écran.
-  scroll-padding-inline: var(--gouttiere);
-
-  > * {
-    scroll-snap-align: start;
-  }
-
-  @include breakpoint-up($md) {
-    grid-auto-flow: row;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    margin-inline: 0;
-    padding: 0;
-    overflow-x: visible;
-  }
-
-  @include breakpoint-up($lg) {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-}
-
 // « Vous empruntez / Vous prêtez » : bandeau pleine largeur en deux moitiés.
 // MOBILE : empilées (sombre puis accent) ; côte à côte dès $lg, comme la page de bienvenue.
 .landing__sides {
@@ -294,4 +229,146 @@
 // Le marché en chiffres : 2 colonnes sur mobile, 4 sur une ligne en grand écran.
 .landing__market {
   --grid-min: 9rem;
+}
+
+// --- Clubs participants ------------------------------------------------------
+// MOBILE (et tout écran tactile, où le survol n'existe pas) : une liste de bandes
+// horizontales, tout est lisible sans interaction.
+.landing__clubs {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-s);
+  margin: 0;
+  padding: 0;
+}
+
+.landing__club {
+  display: flex;
+  align-items: center;
+  gap: var(--espace-s-plus);
+  height: 100%;
+  padding: var(--espace-s);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--rayon-l);
+  background-color: var(--color-bg-surface);
+  color: inherit;
+  text-decoration: none;
+  overflow: hidden;
+}
+
+// Complète le composant .club-logo (fond neutre, image jamais déformée) : seulement la taille.
+.landing__club-logo {
+  width: 3rem;
+  height: 3rem;
+}
+
+.landing__club-details {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.landing__club-name {
+  color: var(--color-text-strong);
+  font-weight: 600;
+}
+
+.landing__club-meta {
+  color: var(--color-text-secondary);
+  font-size: var(--little-text);
+}
+
+// AVEC UNE SOURIS, dès $md : un grand rectangle de bandes verticales étroites.
+// La bande survolée (ou atteinte au clavier) s'élargit et repousse les autres.
+// (hover: hover) = l'appareil sait survoler : exclut téléphones et tablettes tactiles.
+@media (hover: hover) and (width >= $md) {
+  .landing__clubs {
+    flex-direction: row;
+    height: 16rem;
+  }
+
+  .landing__club-item {
+    flex: 1 1 0; // toutes les bandes partent de la même largeur…
+    min-width: 0;
+  }
+
+  .landing__club {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .landing__club-logo {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .landing__club-details {
+    align-items: center;
+    opacity: 0; // masqué à l'écran mais toujours lu : c'est le texte du lien
+    white-space: nowrap;
+  }
+
+  // Bande OUVERTE : celle qu'on survole, ou celle qui a le focus clavier (touche Tab).
+  // Au repos, aucune n'est mise en avant : toutes les bandes ont la même largeur.
+  .landing__club-item:hover,
+  .landing__club-item:focus-within {
+    flex-grow: 5; // … et l'ouverte en prend 5 fois plus
+
+    .landing__club {
+      background-color: var(--color-bg-surface-hover);
+      border-color: var(--color-accent-border);
+    }
+
+    .landing__club-logo {
+      width: 7rem;
+      height: 7rem;
+    }
+
+    .landing__club-details {
+      opacity: 1;
+    }
+  }
+
+  // Animation seulement si l'utilisateur n'a pas demandé à réduire les mouvements.
+  @media (prefers-reduced-motion: no-preference) {
+    .landing__club-item {
+      transition: flex-grow var(--transition-lente);
+    }
+
+    .landing__club-logo {
+      transition:
+        width var(--transition-lente),
+        height var(--transition-lente);
+    }
+
+    .landing__club-details {
+      transition: opacity var(--transition-lente);
+    }
+  }
+}
+
+// --- Appel final ---------------------------------------------------------------
+.landing__cta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--espace-m);
+  padding: var(--espace-l) var(--espace-m);
+  border: 1px solid var(--color-accent-border);
+  border-radius: var(--rayon-l);
+  background-color: var(--color-accent-soft);
+
+  @include breakpoint-up($md) {
+    align-items: center;
+    padding: var(--espace-xl) var(--espace-l);
+    text-align: center;
+  }
+}
+
+.landing__cta-title {
+  max-width: 24ch;
+  font-size: var(--h3);
+  line-height: 1.2;
+  text-wrap: balance;
 }

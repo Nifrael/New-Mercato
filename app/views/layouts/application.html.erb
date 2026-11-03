@@ -39,6 +39,8 @@
           <%= render "shared/flash_messages" %>
           <%= yield %>
         </main>
+        <%# Footer : pages visiteurs uniquement. L'espace connecté est un outil, sans footer. %>
+        <%= render "layouts/site_footer" unless app_shell? %>
       </div>
     <% end %>
   </body>

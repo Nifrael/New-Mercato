@@ -1,0 +1,27 @@
+<%# locals: () -%>
+<%# Pied de page des pages visiteurs : signature du projet, liens utiles, mentions légales. %>
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__about">
+      <%= link_to accueil_path, class: "brand" do %>
+        <span class="brand__logo" aria-hidden="true">NM</span>
+        <span class="brand__wordmark">New Mercato</span>
+      <% end %>
+      <p class="site-footer__tagline">
+        La location de joueurs entre clubs. Projet réalisé pendant la formation Le Wagon.
+      </p>
+    </div>
+
+    <nav class="site-footer__nav" aria-label="Liens du pied de page">
+      <%= link_to "Joueurs", players_path, class: "site-footer__link" %>
+      <%= link_to "Clubs", clubs_path, class: "site-footer__link" %>
+      <%= link_to "Mentions légales", mentions_legales_path, class: "site-footer__link" %>
+      <%= link_to "Code source (GitHub)", "https://github.com/Nifrael/New-Mercato", class: "site-footer__link" %>
+    </nav>
+  </div>
+
+  <p class="site-footer__legal">
+    © <%= Date.current.year %> Julien Marchand · NifraDev ·
+    Projet pédagogique, sans lien avec les clubs cités.
+  </p>
+</footer>

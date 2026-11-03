@@ -1,6 +1,10 @@
-# Pages publiques : bienvenue (racine) et présentation de New Mercato.
+# Pages publiques : bienvenue (racine), présentation de New Mercato, mentions légales.
 class PagesController < ApplicationController
   def bienvenue
+  end
+
+  # Page statique obligatoire (loi LCEN) : aucune donnée, donc rien à autoriser.
+  def mentions_legales
   end
 
   # Tout ce que la page affiche vient de l'appli réelle (pas de chiffres inventés).
@@ -17,6 +21,9 @@ class PagesController < ApplicationController
     @average_price = Player.average(:price_per_day)
     @leagues_count = Club.distinct.count(:league)
     @nationalities_count = Player.distinct.count(:nationality)
+    # Joueurs par club en UNE requête (GROUP BY) : { club_id => nombre }.
+    # Évite un club.players.count par bande (N+1).
+    @players_per_club = Player.group(:club_id).count
   end
 
   private
