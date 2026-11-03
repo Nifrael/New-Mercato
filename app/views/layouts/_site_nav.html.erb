@@ -1,0 +1,20 @@
+<%# locals: () -%>
+<%# Navigation des visiteurs (et de la vitrine /accueil, même connecté — cf. app_shell?).
+    Même composant que la navigation de l'application (layout/_app-shell.scss) :
+    barre d'onglets en bas sur mobile ; en desktop, la barre reste en haut (pas de sidebar). %>
+<header class="app-nav app-nav--site">
+  <%= link_to accueil_path, class: "brand" do %>
+    <span class="brand__logo" aria-hidden="true">NM</span>
+    <span class="brand__wordmark">New Mercato</span>
+  <% end %>
+
+  <nav class="app-nav__menu" aria-label="Navigation principale">
+    <%= nav_link "Trouver un joueur", players_path, icon: :search, short_label: "Joueurs" %>
+    <%= nav_link "Clubs", clubs_path, icon: :shield %>
+    <% if user_signed_in? %>
+      <%= nav_link "Mon espace", dashboard_path, icon: :dashboard, short_label: "Espace" %>
+    <% else %>
+      <%= nav_link "Connexion", new_user_session_path, icon: :login %>
+    <% end %>
+  </nav>
+</header>
