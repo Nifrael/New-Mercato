@@ -4,6 +4,11 @@ fr:
     formats:
       compact: "%-d %b"   # « 3 nov. » (pas d'espace devant les jours à un chiffre, contrairement à :short)
 
+  # Surcharges de devise-i18n (les clés de l'app sont prioritaires sur celles de la gem).
+  devise:
+    failure:
+      unauthenticated: "Connectez-vous pour continuer."   # pas d'inscription libre : on n'en parle pas
+
   # Textes des vues (lookup « paresseux » : t(".clé") dans la vue correspondante).
   dashboard:
     bookings:

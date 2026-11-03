@@ -115,6 +115,9 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    devise-i18n (1.15.0)
+      devise (>= 4.9.0)
+      rails-i18n
     dotenv (3.1.8)
     drb (2.2.3)
     ed25519 (1.4.0)
@@ -440,6 +443,7 @@ DEPENDENCIES
   dartsass-rails (~> 0.5.1)
   debug
   devise
+  devise-i18n (~> 1.15)
   htmlbeautifier
   importmap-rails
   jbuilder

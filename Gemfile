@@ -90,3 +90,6 @@ gem "aasm", "~> 5.5"
 
 # Traductions françaises par défaut de Rails (messages de validation, dates, nombres)
 gem "rails-i18n", "~> 8.0"
+
+# Traductions françaises des messages de Devise (connexion, mot de passe oublié…)
+gem "devise-i18n", "~> 1.15"

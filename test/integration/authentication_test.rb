@@ -9,6 +9,20 @@ class AuthenticationTest < ActionDispatch::IntegrationTest
     assert_response :not_found
   end
 
+  test "une connexion ratée explique l'erreur en français, dans un toast" do
+    post user_session_path, params: { user: { email: users(:one).email, password: "mauvais-mot-de-passe" } }
+
+    assert_response :unprocessable_entity
+    assert_select ".toast.toast--danger", text: /mot de passe incorrect/i
+  end
+
+  test "une page réservée invite à se connecter, sans parler d'inscription" do
+    get dashboard_url
+    follow_redirect!
+
+    assert_select ".toast", text: "Connectez-vous pour continuer."
+  end
+
   test "on ne peut pas créer de compte en envoyant directement le formulaire" do
     assert_no_difference "User.count" do
       post "/users", params: { user: { email: "pirate@example.com", password: "password123" } }
