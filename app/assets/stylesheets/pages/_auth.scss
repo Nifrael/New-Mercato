@@ -1,0 +1,56 @@
+// Pages d'authentification (Devise) : une carte centrée, étroite.
+// MOBILE FIRST : la carte prend toute la largeur ; elle est bornée ensuite.
+@use "../config/breakpoints" as *;
+@use "../config/mixins" as *;
+
+.auth {
+  display: grid;
+  place-items: center;
+  min-height: 70svh;
+  padding-block: var(--espace-l);
+}
+
+.auth__card {
+  width: 100%;
+  max-width: 26rem;
+  gap: var(--espace-l);
+
+  @include breakpoint-up($md) {
+    padding: var(--espace-l);
+  }
+}
+
+.auth__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-xs);
+}
+
+.auth__title {
+  font-size: var(--h2);
+}
+
+.auth__lead,
+.auth__footnote {
+  color: var(--color-text-secondary);
+}
+
+.auth__footnote {
+  font-size: var(--base-size);
+}
+
+.auth__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-m);
+}
+
+.auth__link {
+  color: var(--color-accent);
+  font-size: var(--base-size);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

@@ -1,70 +1,60 @@
 class Dashboard::BookingsController < Dashboard::BaseController
-  before_action :find_and_authorize_booking, only: %i[show accept refuse]
-  before_action :authorize_management, only: %i[accept refuse]
+  before_action :set_booking, only: %i[accept refuse]
 
+  # Ordre des colonnes du pipeline.
+  PIPELINE_STATUSES = %w[pending accepted refused].freeze
+
+  # Pipeline des demandes : reçues (par défaut) ou envoyées (?direction=sent),
+  # rangées par statut. Toute autre valeur de direction retombe sur « reçues ».
   def index
     authorize Booking, :index?
-    current_club = current_user.club
-    sent_offers = current_club.sent_pending_bookings
-    received_offers = current_club.received_pending_bookings
-    @pending_bookings = policy_scope(received_offers).includes(:player)
-    @bookings = policy_scope(sent_offers).includes(:player, :club)
-  end
+    @direction = params[:direction] == "sent" ? :sent : :received
 
-  def show
-    authorize @booking
+    club = current_user.club
+    bookings = @direction == :sent ? club.bookings : club.received_bookings
+    bookings = policy_scope(bookings).includes(:club, player: :club).order(:start_date)
+
+    by_status = bookings.group_by(&:status)
+    @columns = PIPELINE_STATUSES.index_with { |status| by_status.fetch(status, []) }
   end
 
   def accept
     authorize @booking, :update?
     if @booking.may_accept?
-      begin
-        @booking.accept!
-        redirect_to dashboard_bookings_path, notice: "Réservation pour '#{@booking.player.name}' acceptée."
-      rescue => e
-        Rails.logger.error "Erreur lors de l'acceptation Booking #{@booking.id}: #{e.message}."
-        redirect_to dashboard_bookings_path, alert: "Une erreur est survenue lors de l'acceptation : #{e.message}"
-      end
+      @booking.accept!
+      redirect_back_or_to dashboard_bookings_path, notice: "Réservation pour « #{@booking.player.name} » acceptée."
     else
-      redirect_to dashboard_bookings_path, alert: "Cette réservation ne peut plus être acceptée (état actuel: #{@booking.status})."
+      redirect_back_or_to dashboard_bookings_path, alert: accept_refusal_message
     end
   end
 
   def refuse
     authorize @booking, :update?
     if @booking.may_refuse?
-      begin
-        @booking.refuse!
-        redirect_to dashboard_bookings_path, notice: "Réservation pour '#{@booking.player.name}' refusée."
-      rescue AASM::InvalidTransition => e
-         redirect_to dashboard_bookings_path, alert: "Erreur de transition d'état: #{e.message}"
-      rescue => e
-        Rails.logger.error "Erreur lors du refus Booking ##{@booking.id}: #{e.message}."
-        redirect_to dashboard_bookings_path, alert: "Une erreur est survenue lors du refus : #{e.message}"
-      end
+      @booking.refuse!
+      redirect_back_or_to dashboard_bookings_path, notice: "Réservation pour « #{@booking.player.name} » refusée."
     else
-      redirect_to dashboard_bookings_path, alert: "Cette réservation ne peut plus être refusée (état actuel: #{@booking.status})."
+      redirect_back_or_to dashboard_bookings_path, alert: "Cette réservation ne peut plus être refusée (statut : #{status_label})."
     end
   end
 
   private
 
-  def find_and_authorize_booking
-    begin
-      @booking = Booking.includes(:player, :club, player: :club).find(params[:id])
-    rescue ActiveRecord::RecordNotFound
-      redirect_to dashboard_bookings_path, alert: "Réservation introuvable."
-    end
-
-    current_club = current_user.club
-    unless current_club == @booking.club || current_club == @booking.player.club
-      redirect_to dashboard_bookings_path, alert: "Vous n'avez pas l'autorisation pour accéder à cette réservation."
-    end
+  # Les droits d'accès sont vérifiés dans chaque action par `authorize` (BookingPolicy).
+  # Réservation inexistante : find lève RecordNotFound, que Rails transforme en 404.
+  def set_booking
+    @booking = Booking.includes(:club, player: :club).find(params[:id])
   end
 
-  def authorize_management
-    unless current_user.club == @booking.player.club
-      redirect_to dashboard_bookings_path(@booking), alert: "Vous n'avez pas le droit de décision sur cette réservation."
-    end
+  # Une demande encore en attente qu'on ne peut pas accepter : sa période est déjà louée
+  # (garde AASM). Sinon, elle a déjà été traitée.
+  def accept_refusal_message
+    return Booking::PERIOD_UNAVAILABLE if @booking.pending?
+
+    "Cette réservation ne peut plus être acceptée (statut : #{status_label})."
+  end
+
+  def status_label
+    t("activerecord.enums.booking.status.#{@booking.status}")
   end
 end

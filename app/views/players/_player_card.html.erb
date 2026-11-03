@@ -1,17 +1,27 @@
-<%= link_to player_path(player) do %>
-  <div class="player-card w-64 xl:w-72 h-96 bg-black rounded-xl shadow-green shadow-lg overflow-hidden p-4 flex flex-col justify-between items-center">
-    <div class="w-full flex justify-center items-center mb-2">
-      <h4 class="text-center"><%= player.name %></h4>
-    </div>
-    <div class="w-full flex-grow flex items-center justify-center">
-      <%= image_tag player.photo, class: "h-full object-contain drop-shadow-md rounded-xl" %>
-    </div>
-    <div class="w-full flex justify-between items-center mt-4">
-      <div class="price-card flex items-center rounded-lg p-2 pr-3">
-        <span class="text-3xl font-extrabold"><%= player.price_per_day %>€</span></div>
-      <div class="w-10 h-10 flex items-center justify-center">
-        <%= image_tag player.club.logo %>
-      </div>
-    </div>
+<%# locals: (player:) -%>
+<%# Carte du catalogue : toute la carte est un lien vers la fiche. Le prix par jour,
+    l'information qui décide une location, est mis en avant en vert. %>
+<%= link_to player_path(player), class: "card card--interactive player-card" do %>
+  <div class="player-card__top">
+    <%= player_avatar(player, size: :lg) %>
+    <%= status_badge(player) %>
   </div>
+
+  <div class="player-card__identity">
+    <h2 class="player-card__name"><%= player.name %></h2>
+    <p class="player-card__meta"><%= player.club.name %> · <%= player.age %> ans</p>
+  </div>
+
+  <span class="player-card__position"><%= t("activerecord.enums.player.position.#{player.position}") %></span>
+
+  <dl class="player-card__figures">
+    <div class="player-card__figure">
+      <dt class="player-card__label">Valeur</dt>
+      <dd class="player-card__value"><%= compact_currency(player.market_value) %></dd>
+    </div>
+    <div class="player-card__figure player-card__figure--price">
+      <dt class="player-card__label">Par jour</dt>
+      <dd class="player-card__value player-card__value--price"><%= number_to_currency(player.price_per_day, precision: 0) %></dd>
+    </div>
+  </dl>
 <% end %>

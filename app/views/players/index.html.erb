@@ -1,31 +1,64 @@
-<div class="container" data-controller="players-filter">
-  <button class="btn-green fixed bottom-7 right-7 z-20 p-6 rounded-full" type="button" data-action="players-filter#toggleSideBar"></button>
-  <div data-players-filter-target="menu" class="hidden sidebar fixed inset-y-0 left-0 p-6 z-40 w-3/4 max-w-xs green-bg shadow-green shadow-xl duration-300 ease-out">
-    <button type="button"
-        class="absolute top-6 right-6 p-1 text-green-100 hover:text-white"
-        data-action="players-filter#toggleSideBar">
-      <span class="text-2xl leading-none">&times;</span>
-    </button>
-    <h3>Filtres</h3>
-    <ul class="list-none flex flex-col gap-y-1">
-      <li>
-        <%= link_to "Tous les joueurs", players_path, id: 'all-players-link',
-      data: {
-        action: "players-filter#filter players-filter#toggleSideBar",
-        filter_position: 'all'} %>
-      </li>
-      <% @positions.each do |position| %>
-        <li>
-          <%= link_to position.capitalize, players_path(position: position),
-          data: {
-            action: "players-filter#filter players-filter#toggleSideBar",
-            filter_position: position } %>
-        </li>
+<% content_for(:title, "Trouver un joueur — New Mercato") %>
+
+<div class="container page catalog">
+  <header class="page-header">
+    <div class="page-header__text">
+      <h1>Trouver un joueur</h1>
+      <p class="page-header__lead">Louez un joueur d'un autre club, à la journée.</p>
+    </div>
+  </header>
+
+  <%# Formulaire GET : fonctionne sans JavaScript (bouton « Filtrer »).
+      Avec JS, Turbo l'envoie dans la frame « players » et le contrôleur auto-submit
+      le soumet tout seul à chaque changement (avec un délai pour la frappe). %>
+  <%= form_with url: players_path, method: :get, class: "catalog__filters",
+                data: { turbo_frame: "players", controller: "auto-submit" } do %>
+    <label class="search-field">
+      <%= icon(:search, size: 18) %>
+      <span class="visually-hidden">Rechercher un joueur</span>
+      <input type="search" name="q" value="<%= @filters[:q] %>" placeholder="Nom, club, nationalité…"
+             class="search-field__input" autocomplete="off"
+             data-action="input->auto-submit#submitLater">
+    </label>
+
+    <fieldset class="chips">
+      <legend class="visually-hidden">Poste</legend>
+      <% ([ "all" ] + @positions).each do |position| %>
+        <label class="chip">
+          <input type="radio" name="position" value="<%= position %>" class="chip__input"
+                 <%= "checked" if @filters[:position] == position %>
+                 data-action="change->auto-submit#submit">
+          <%= position == "all" ? "Tous" : t("activerecord.enums.player.position.#{position}") %>
+        </label>
       <% end %>
-    </ul>
-  </div>
-  <div data-players-filter-target="overlay" class="hidden md:hidden fixed inset-0 bg-black/50 z-30 transition-opacity duration-300 ease-in-out"></div>
-  <div data-players-filter-target="list" class="flex flex-col items-center my-10 gap-12 md:grid md:grid-cols-2 md:gap-20 md:justify-self-center lg:grid-cols-3 2xl:grid-cols-4">
-    <%= render partial: 'player_card', collection: @players, as: :player %>
-  </div>
+    </fieldset>
+
+    <label class="select-field">
+      <span class="select-field__label">Trier par</span>
+      <select name="sort" class="select-field__input" data-action="change->auto-submit#submit">
+        <%= options_for_select([ [ "Valeur marchande", "value" ], [ "Prix par jour", "price" ], [ "Âge", "age" ] ], @filters[:sort]) %>
+      </select>
+    </label>
+
+    <%# Utile seulement sans JavaScript ; masqué visuellement mais accessible au clavier. %>
+    <button type="submit" class="visually-hidden">Filtrer</button>
+  <% end %>
+
+  <%# data-turbo-action="advance" : chaque recherche met à jour l'URL (partageable, bouton Retour).
+      target="_top" : les liens DANS la frame (cartes → fiche joueur) naviguent toute la page ;
+      seul le formulaire de filtres, qui cible la frame, la remplace. %>
+  <%= turbo_frame_tag "players", class: "catalog__results", target: "_top", data: { turbo_action: "advance" } do %>
+    <p class="catalog__count" role="status"><%= t("counts.players", count: @players.size) %></p>
+
+    <% if @players.any? %>
+      <div class="catalog__grid">
+        <%= render partial: "player_card", collection: @players, as: :player %>
+      </div>
+    <% else %>
+      <div class="empty-state">
+        <p class="empty-state__title">Aucun joueur ne correspond</p>
+        <p>Essayez un autre poste ou élargissez votre recherche.</p>
+      </div>
+    <% end %>
+  <% end %>
 </div>

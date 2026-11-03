@@ -1,0 +1,104 @@
+// Toasts (messages flash) — partial shared/_flash_messages + contrôleur Stimulus « toast ».
+// MOBILE FIRST : en haut, pleine largeur (le bas est pris par la barre d'onglets) ;
+// à partir de $md, colonne étroite en haut à droite.
+@use "../config/breakpoints" as *;
+@use "../config/mixins" as *;
+
+.toasts {
+  position: fixed;
+  inset: var(--espace-s) var(--gouttiere) auto; // haut, côtés, pas de bas
+  z-index: 20; // au-dessus de la navigation (10)
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-s);
+  pointer-events: none; // les clics traversent l'espace vide entre les toasts
+
+  @include breakpoint-up($md) {
+    inset: var(--espace-m) var(--espace-m) auto auto;
+    width: min(24rem, calc(100vw - 2 * var(--espace-m)));
+  }
+}
+
+.toast {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--espace-s-plus);
+  padding: var(--espace-s-plus) var(--espace-s) var(--espace-s-plus) var(--espace-m);
+  border: 1px solid var(--color-border);
+  border-radius: var(--rayon-m);
+  background-color: var(--color-bg-surface);
+  box-shadow: var(--shadow-card);
+  color: var(--color-text);
+  pointer-events: auto;
+
+  // Icône : de la couleur de la variante, alignée sur la première ligne du texte.
+  > .icon {
+    margin-top: 0.125rem;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: toast-in 200ms ease-out;
+  }
+}
+
+.toast--success {
+  border-color: var(--color-accent-border);
+
+  > .icon {
+    color: var(--color-accent);
+  }
+}
+
+.toast--danger {
+  border-color: var(--color-danger);
+
+  > .icon {
+    color: var(--color-danger);
+  }
+}
+
+.toast__message {
+  flex: 1;
+  font-size: var(--base-size);
+}
+
+.toast__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2.75rem; // 44px : cible tactile, même si l'icône est petite
+  height: 2.75rem;
+  margin-block: calc(-1 * var(--espace-s)); // ne grossit pas le toast pour autant
+  border: 0;
+  border-radius: var(--rayon-s);
+  background-color: transparent;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--color-bg-surface-hover);
+    color: var(--color-text);
+  }
+}
+
+// Sortie (classe ajoutée par le contrôleur Stimulus avant de retirer l'élément).
+.toast--leaving {
+  @media (prefers-reduced-motion: no-preference) {
+    animation: toast-out 160ms ease-in forwards;
+  }
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(-0.5rem);
+  }
+}
+
+@keyframes toast-out {
+  to {
+    opacity: 0;
+    transform: translateY(-0.5rem);
+  }
+}

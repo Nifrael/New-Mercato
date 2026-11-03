@@ -1,37 +1,51 @@
-<div class="mt-4 gradient"></div>
-<%= image_tag (@player.photo), class:"w-48 h-auto object-cover mx-auto my-4 rounded-2xl" %>
-<h1 class="text-center pb-4"><%= @player.name.upcase %></h1>
-<div class="green-bg w-full rounded-t-2xl rounded-b-2xl py-4 shadow-green my-4 mx-auto grid grid-cols-1 md:w-[95%] lg:grid-cols-4 lg:w-[80%]">
-  <div class="lg:grid lg:col-span-2 lg:col-start-1 w-[95%] mx-auto">
-    <div class="flex flex-col gap-2 justify-center items-center w-[90%] border-b-1 mx-auto border-b-neutral-400 py-4">
-      <h2 id="position"><%= t("activerecord.enums.player.position.#{@player.position}") %></h2>
-      <h5><%= @player.club.name %></h5>
-      <%= image_tag (@player.club.logo), class:"w-14 h-14" %>
-    </div>
-    <div class="flex flex-col gap-4 justify-start align-center w-[95%] mx-auto py-8 px-4 border-b-1 border-b-neutral-400">
-      <div class="infos-player">
-        <h5>Pied</h5>
-        <i class="fa-solid fa-shoe-prints"></i>
-        <p>Pied <%= @player.foot %></p>
-      </div>
-      <div class="infos-player">
-        <h5>Age</h5>
-        <i class="fa-solid fa-cake-candles"></i>
-        <p><%= @player.age %> ans</p>
-      </div>
-      <div class="infos-player">
-        <h5>Taille</h5>
-        <i class="fa-solid fa-ruler"></i>
-        <p><%= @player.height %> cm</p>
-      </div>
-      <div class="infos-player">
-        <h5>Valeur sur le marché</h5>
-        <i class="fa-solid fa-money-check-dollar"></i>
-        <p><%= @player.market_value %> €</p>
+<% content_for(:title, "#{@player.name} — New Mercato") %>
+
+<div class="container page player-page">
+  <%= link_to players_path, class: "player-page__back" do %>
+    ← Tous les joueurs
+  <% end %>
+
+  <section class="card player-hero player-page__hero">
+    <%= player_avatar(@player, size: :xl) %>
+    <div class="player-hero__identity">
+      <p class="page-header__eyebrow"><%= @player.club.name %> · <%= @player.club.league %></p>
+      <h1 class="player-hero__name"><%= @player.name %></h1>
+      <div class="cluster">
+        <span class="player-card__position"><%= t("activerecord.enums.player.position.#{@player.position}") %></span>
+        <%= status_badge(@player) %>
       </div>
     </div>
-  </div>
-  <div class="m-4 lg:col-span-2 lg:col-start-3 w-[90%] md:w-[80%] lg:w-[70%] mx-auto">
-    <%= render "bookings/form", booking: @booking %>
-  </div>
+  </section>
+
+  <aside class="player-page__booking" aria-label="Louer ce joueur">
+    <%= render "players/booking_panel", player: @player, booking: @booking, can_book: @can_book, can_edit: @can_edit %>
+  </aside>
+
+  <section class="grid-auto player-page__stats" aria-label="Caractéristiques">
+    <div class="card"><%= render "shared/stat", label: "Valeur", value: compact_currency(@player.market_value) %></div>
+    <div class="card"><%= render "shared/stat", label: "Prix / jour", value: number_to_currency(@player.price_per_day, precision: 0), accent: true %></div>
+    <div class="card"><%= render "shared/stat", label: "Âge", value: "#{@player.age} ans" %></div>
+    <div class="card"><%= render "shared/stat", label: "Taille", value: "#{@player.height} cm" %></div>
+    <div class="card"><%= render "shared/stat", label: "Pied fort", value: @player.foot %></div>
+    <div class="card"><%= render "shared/stat", label: "Nationalité", value: @player.nationality %></div>
+  </section>
+
+  <section class="card availability player-page__availability" aria-labelledby="disponibilites">
+    <h2 id="disponibilites" class="card__title">Disponibilités</h2>
+    <% if @unavailabilities.any? %>
+      <ul class="availability__list" role="list">
+        <% @unavailabilities.each do |loan| %>
+          <li class="availability__item">
+            <span class="availability__dates">
+              Loué du <%= l(loan.start_date, format: :compact) %> au <%= l(loan.end_date, format: :compact) %>
+            </span>
+            <span class="availability__club"><%= loan.club.name %></span>
+          </li>
+        <% end %>
+      </ul>
+      <p class="availability__hint">Choisissez des dates en dehors de ces périodes.</p>
+    <% else %>
+      <p class="availability__free">Disponible à toutes les dates à venir.</p>
+    <% end %>
+  </section>
 </div>

@@ -1,0 +1,38 @@
+// Mixins partagés — repris du Portfolio.
+@use "breakpoints" as *;
+
+@mixin breakpoint-up($size) {
+  @media (width >= $size) {
+    @content;
+  }
+}
+
+@mixin focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+// `--largeur-max` borne le contenu : les gouttières s'ajoutent autour.
+@mixin container {
+  width: 100%;
+  max-width: calc(var(--largeur-max) + 2 * var(--gouttiere));
+  margin-inline: auto;
+  padding-inline: var(--gouttiere);
+}
+
+// Sur-titre : petit texte gras, espacé, en capitales
+// (libellés de statistiques : « VALEUR MARCHANDE », en-têtes de colonnes…).
+@mixin eyebrow($color: var(--color-text-secondary)) {
+  font-size: var(--little-text);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: $color;
+}
+
+// Chiffres alignés : montants, statistiques, dates dans un tableau.
+// tabular-nums donne la même largeur à chaque chiffre → les colonnes ne « dansent » pas.
+@mixin numeric {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}

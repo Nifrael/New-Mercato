@@ -6,7 +6,7 @@ one:
   league: Ligue 1
   budget: 1000000
   stadium: Stadium One
-  logo: MyString
+  logo: Logos/Paris.png
 
 two:
   name: Club Two
@@ -14,4 +14,14 @@ two:
   league: La Liga
   budget: 2000000
   stadium: Stadium Two
-  logo: MyString
+  logo: Logos/Paris.png
+
+# Club sans lien avec les bookings des fixtures : sert à tester
+# qu'un club étranger à une réservation n'y a pas accès.
+three:
+  name: Club Three
+  country: Italie
+  league: Serie A
+  budget: 3000000
+  stadium: Stadium Three
+  logo: Logos/Paris.png

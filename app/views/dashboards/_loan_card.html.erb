@@ -1,0 +1,26 @@
+<%# locals: (loan:, club:) -%>
+<%# Prêt en cours, vu par `club` : emprunté (club = emprunteur) ou prêté (club = propriétaire). %>
+<article class="card loan-card">
+  <header class="loan-card__header">
+    <%= player_avatar(loan.player) %>
+    <div class="loan-card__who">
+      <h3 class="loan-card__player"><%= loan.player.name %></h3>
+      <p class="loan-card__direction">
+        <% if loan.club_id == club.id %>
+          Emprunté à <%= loan.player.club.name %>
+        <% else %>
+          Prêté à <%= loan.club.name %>
+        <% end %>
+      </p>
+    </div>
+    <%= days_left_badge(loan) %>
+  </header>
+
+  <progress class="progress" value="<%= loan.progress_percent %>" max="100"
+            aria-label="Avancement du prêt de <%= loan.player.name %>"><%= loan.progress_percent %> %</progress>
+
+  <footer class="loan-card__footer">
+    <span><%= l(loan.start_date, format: :compact) %> → <%= l(loan.end_date, format: :compact) %></span>
+    <span class="loan-card__total"><%= number_to_currency(loan.total_price, precision: 0) %></span>
+  </footer>
+</article>

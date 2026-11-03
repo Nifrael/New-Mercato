@@ -1,49 +1,115 @@
-@use "../config/colors";
-@use "../config/breakpoints";
+// Page de présentation (/accueil). MOBILE FIRST : tout empilé, l'image en fond de l'accroche.
+@use "../config/breakpoints" as *;
+@use "../config/mixins" as *;
 
-.accueil-block {
-  h3 {
-    color: colors.$tertiary-color;
-  }
+.landing__hero {
+  position: relative;
+  isolation: isolate; // le dégradé et l'image restent sous le texte
+  display: flex;
+  align-items: flex-end;
+  min-height: 70svh;
+  padding-block: var(--espace-xl) var(--espace-l);
+  overflow: hidden;
 
-  h4 {
-    color: colors.$text-primary-color;
-    margin: 1% 0;
-  }
-
-  h3,
-  h4 {
-    font-weight: 500;
-  }
-
-  h1 {
-    font-weight: 900;
-    font-size: 3rem;
-    color: colors.$text-primary-color;
-    margin: 1% 0;
-  }
-}
-
-@media (width >= breakpoints.$md) {
-  .accueil-block {
-    h1 {
-      font-size: 3.5rem;
-    }
+  // Dégradé vers le fond de la page : le texte reste lisible quelle que soit l'image.
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(
+      to top,
+      var(--color-bg-primary) 15%,
+      color-mix(in srgb, var(--color-bg-primary) 55%, transparent)
+    );
   }
 }
 
-@media (width >= breakpoints.$lg) {
-  .accueil-block {
-    h1 {
-      font-size: 4rem;
-    }
+.landing__image {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.landing__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-m);
+}
+
+.landing__title {
+  max-width: 16ch;
+  font-size: var(--h1);
+  line-height: 1.1;
+
+  @include breakpoint-up($lg) {
+    font-size: calc(var(--h1) * var(--scale));
   }
 }
 
-@media (width >= breakpoints.$lg) {
-  .accueil-block {
-    h1 {
-      font-size: 4.5rem;
-    }
+.landing__accent {
+  color: var(--color-accent);
+}
+
+.landing__lead {
+  max-width: 50ch;
+  color: var(--color-text);
+}
+
+.landing__figures {
+  @include numeric;
+  color: var(--color-text-secondary);
+  font-size: var(--base-size);
+}
+
+.landing__anchor {
+  color: var(--color-accent);
+  font-family: var(--font-text);
+  text-decoration: none;
+}
+
+// Étapes : 1 colonne sur mobile, côte à côte quand la place le permet.
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr));
+  gap: var(--espace-m);
+  margin: 0;
+  padding: 0;
+}
+
+.steps__item p {
+  color: var(--color-text-secondary);
+  font-size: var(--base-size);
+}
+
+.steps__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: var(--rayon-m);
+  background-color: var(--color-accent-soft);
+  color: var(--color-accent);
+}
+
+.landing__clubs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espace-s-plus);
+  margin: 0;
+  padding: 0;
+}
+
+.landing__club {
+  display: block;
+  border-radius: var(--rayon-m);
+  transition: transform var(--transition-rapide);
+
+  &:hover {
+    transform: translateY(-2px);
   }
 }

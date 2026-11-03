@@ -7,12 +7,9 @@ class PlayerPolicy < ApplicationPolicy
     true
   end
 
-  def edit?
-    user.present? && record.club.present? && user.club_id == record.club_id
-  end
-
+  # edit? est hérité d'ApplicationPolicy : il renvoie update?.
   def update?
-    edit?
+    user.present? && record.club_id.present? && user.club_id == record.club_id
   end
 
   class Scope < ApplicationPolicy::Scope

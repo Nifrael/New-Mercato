@@ -1,0 +1,41 @@
+<%# locals: (booking:, direction:, actions: false) -%>
+<%# Carte d'une réservation, vue par un club :
+    - direction :received → c'est NOTRE joueur qu'un autre club demande ;
+    - direction :sent     → c'est NOUS qui demandons le joueur d'un autre club ;
+    - actions: true       → boutons Accepter / Refuser (demande reçue en attente).
+    id = dom_id(booking) : identifiant stable, utile à Turbo pour le morphing. %>
+<article id="<%= dom_id(booking) %>" class="<%= class_names("card", "booking-card", "booking-card--closed": booking.refused?) %>">
+  <header class="booking-card__header">
+    <%= player_avatar(booking.player) %>
+    <div class="booking-card__who">
+      <h3 class="booking-card__player"><%= booking.player.name %></h3>
+      <p class="booking-card__counterpart">
+        <%= direction == :received ? "Demandé par #{booking.club.name}" : "Chez #{booking.player.club.name}" %>
+      </p>
+    </div>
+  </header>
+
+  <dl class="booking-card__details">
+    <div>
+      <dt class="visually-hidden">Période</dt>
+      <dd>
+        <%= l(booking.start_date, format: :compact) %> → <%= l(booking.end_date, format: :compact) %>
+        · <%= booking.duration_in_days %> j
+      </dd>
+    </div>
+    <div>
+      <dt class="visually-hidden">Total</dt>
+      <dd class="booking-card__total"><%= number_to_currency(booking.total_price, precision: 0) %></dd>
+    </div>
+  </dl>
+
+  <% if actions %>
+    <div class="booking-card__actions">
+      <%= button_to "Accepter", accept_dashboard_booking_path(booking), method: :patch,
+                    class: "btn btn--primary btn--block" %>
+      <%= button_to "Refuser", refuse_dashboard_booking_path(booking), method: :patch,
+                    class: "btn btn--danger btn--block",
+                    form: { data: { turbo_confirm: "Refuser la demande de #{booking.club.name} ?" } } %>
+    </div>
+  <% end %>
+</article>

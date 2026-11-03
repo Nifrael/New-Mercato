@@ -1,4 +1,36 @@
-<div>
-  <h1 class="font-bold text-4xl">Players#edit</h1>
-  <p>Find me in app/views/players/edit.html.erb</p>
+<% content_for(:title, "Modifier #{@player.name} — New Mercato") %>
+
+<div class="container auth">
+  <div class="card auth__card">
+    <header class="auth__header">
+      <%= link_to "← Retour à la fiche", player_path(@player), class: "auth__link" %>
+      <h1 class="auth__title"><%= @player.name %></h1>
+      <p class="auth__lead">Réglez les conditions de location de votre joueur.</p>
+    </header>
+
+    <%= form_with model: @player, class: "auth__form" do |f| %>
+      <%= render "shared/form_errors", record: @player %>
+
+      <div class="field">
+        <%= f.label :price_per_day, "Prix par jour (€)", class: "field__label" %>
+        <%= f.number_field :price_per_day, min: 1, step: 1, required: true, class: "field__input" %>
+      </div>
+
+      <% if @player.rented? %>
+        <p class="auth__lead">Actuellement loué : la disponibilité est gérée automatiquement jusqu'à la fin du prêt.</p>
+      <% else %>
+        <fieldset class="chips">
+          <legend class="field__label">Location</legend>
+          <% Player::OWNER_SETTABLE_STATUSES.each do |status| %>
+            <label class="chip">
+              <%= f.radio_button :status, status, class: "chip__input" %>
+              <%= status == "available" ? "Proposé à la location" : "Non proposé" %>
+            </label>
+          <% end %>
+        </fieldset>
+      <% end %>
+
+      <%= f.submit "Enregistrer", class: "btn btn--primary btn--block" %>
+    <% end %>
+  </div>
 </div>

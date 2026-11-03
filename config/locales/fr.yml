@@ -1,4 +1,36 @@
 fr:
+  # Formats de date propres à l'app (les autres viennent de rails-i18n).
+  date:
+    formats:
+      compact: "%-d %b"   # « 3 nov. » (pas d'espace devant les jours à un chiffre, contrairement à :short)
+
+  # Surcharges de devise-i18n (les clés de l'app sont prioritaires sur celles de la gem).
+  devise:
+    failure:
+      unauthenticated: "Connectez-vous pour continuer."   # pas d'inscription libre : on n'en parle pas
+
+  # Nombres + mot au bon nombre : t("counts.players", count: n) → « 0 joueur », « 2 joueurs ».
+  # (pluralize de Rails suit la règle anglaise ; ici, la règle française vient de rails-i18n.)
+  counts:
+    players:
+      one: "%{count} joueur"
+      other: "%{count} joueurs"
+    clubs:
+      one: "%{count} club"
+      other: "%{count} clubs"
+    pending_requests:
+      one: "%{count} demande attend"
+      other: "%{count} demandes attendent"
+
+  # Textes des vues (lookup « paresseux » : t(".clé") dans la vue correspondante).
+  dashboard:
+    bookings:
+      index:
+        columns:
+          pending: "En attente"
+          accepted: "Acceptées"
+          refused: "Refusées"
+
   activerecord:
     models:
       player: Joueur
@@ -26,8 +58,9 @@ fr:
         position:
           gardien: "Gardien"
           defenseur: "Défenseur"
-          milieu: Milieu
-          polyvalent: Polyvalent
+          milieu: "Milieu"
+          attaquant: "Attaquant"
+          polyvalent: "Polyvalent"
       booking: 
         status: 
           accepted: "Accepté"

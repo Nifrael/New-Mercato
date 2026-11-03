@@ -64,11 +64,6 @@ group :test do
   gem "selenium-webdriver"
 end
 
-# TailwindCSS
-gem "tailwindcss-ruby", "~> 4.1"
-
-gem "tailwindcss-rails", "~> 4.2"
-
 # Authentification
 gem "devise"
 
@@ -83,7 +78,12 @@ gem "dartsass-rails", "~> 0.5.1"
 gem "sass-embedded", "~> 1.89"
 
 # Simple_form
-gem "simple_form"
 
 # State machines
 gem "aasm", "~> 5.5"
+
+# Traductions françaises par défaut de Rails (messages de validation, dates, nombres)
+gem "rails-i18n", "~> 8.0"
+
+# Traductions françaises des messages de Devise (connexion, mot de passe oublié…)
+gem "devise-i18n", "~> 1.15"

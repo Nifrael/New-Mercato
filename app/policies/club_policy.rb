@@ -1,4 +1,7 @@
 class ClubPolicy < ApplicationPolicy
+  # Les clubs sont publics en lecture.
+  # Création, modification et suppression : interdites à tous
+  # (héritées d'ApplicationPolicy, qui refuse tout par défaut).
   def index?
     true
   end
@@ -7,25 +10,6 @@ class ClubPolicy < ApplicationPolicy
     true
   end
 
-  def new?
-    false
-  end
-
-  def create?
-    false
-  end
-
-  def edit?
-    false
-  end
-
-  def update?
-    false
-  end
-
-  def destroy?
-    false
-  end
   class Scope < ApplicationPolicy::Scope
     def resolve
       scope.all

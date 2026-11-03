@@ -1,0 +1,54 @@
+// Mise en page de la page /styleguide uniquement (outil de développement).
+@use "../config/mixins" as *;
+
+.styleguide {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-section);
+  padding-block: var(--espace-l);
+}
+
+.styleguide__intro p {
+  color: var(--color-text-secondary);
+}
+
+.styleguide__section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-m);
+}
+
+.styleguide__heading {
+  @include eyebrow(var(--color-accent));
+  padding-bottom: var(--espace-s);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.styleguide__swatches {
+  --grid-min: 10rem;
+}
+
+.styleguide__stats {
+  --grid-min: 8rem;
+}
+
+.styleguide__swatch {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-s);
+  font-size: var(--little-text);
+  color: var(--color-text-secondary);
+}
+
+.styleguide__swatch-color {
+  height: 4rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--rayon-m);
+}
+
+// Une pastille par token : la boucle évite d'écrire 9 règles à la main.
+@each $token in (bg-primary, bg-surface, bg-surface-hover, border, text, text-secondary, accent, warning, danger) {
+  .styleguide__swatch-color--#{$token} {
+    background-color: var(--color-#{$token});
+  }
+}

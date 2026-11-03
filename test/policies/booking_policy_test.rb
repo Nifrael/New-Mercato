@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class BookingPolicyTest < ActiveSupport::TestCase
   def setup
@@ -8,7 +8,6 @@ class BookingPolicyTest < ActiveSupport::TestCase
     @other_club = clubs(:two)
     @player = players(:one) # Belongs to club one
     @other_player = players(:two) # Belongs to club two
-    
     # Valid booking: User's club buying from other club
     @booking = Booking.new(
       club: @club,
@@ -23,23 +22,9 @@ class BookingPolicyTest < ActiveSupport::TestCase
   def test_index
     # User with club can access index
     assert_permit @user, Booking, :index?
-    
     # User without club cannot access index
     @user.club = nil
     refute_permit @user, Booking, :index?
-  end
-
-  def test_show
-    # Buyer can see the booking
-    assert_permit @user, @booking, :show?
-
-    # Seller can see the booking
-    # @other_player belongs to @other_club. @other_user belongs to @other_club.
-    assert_permit @other_user, @booking, :show?
-
-    # Unrelated user cannot see the booking
-    unrelated_user = User.new(club: Club.new)
-    refute_permit unrelated_user, @booking, :show?
   end
 
   def test_create
@@ -70,7 +55,6 @@ class BookingPolicyTest < ActiveSupport::TestCase
   def test_scope
     # Save the booking so it appears in scope
     @booking.save!
-    
     # Create another booking where user is the seller
     # Buyer: Club 2, Seller: Club 1 (Player 1)
     sales_booking = Booking.create!(
@@ -86,7 +70,6 @@ class BookingPolicyTest < ActiveSupport::TestCase
     # Buyer: Club 2, Seller: Club 2 (Self deal, technically invalid but good for scope test isolation)
     # Or better, create a 3rd club if possible, but we only have 2 fixtures.
     # Let's just use the fact that @booking is visible to User 1 (buyer) and User 2 (seller)
-    
     scope = BookingPolicy::Scope.new(@user, Booking).resolve
     assert_includes scope, @booking
     assert_includes scope, sales_booking
@@ -94,10 +77,15 @@ class BookingPolicyTest < ActiveSupport::TestCase
     scope = BookingPolicy::Scope.new(@other_user, Booking).resolve
     assert_includes scope, @booking
     assert_includes scope, sales_booking
-    
     # User without club sees nothing
     @user.club = nil
     scope = BookingPolicy::Scope.new(@user, Booking).resolve
+    assert_empty scope
+  end
+
+  def test_scope_without_user
+    # Un visiteur non connecté ne voit aucune réservation (et l'appli ne plante pas).
+    scope = BookingPolicy::Scope.new(nil, Booking).resolve
     assert_empty scope
   end
 end

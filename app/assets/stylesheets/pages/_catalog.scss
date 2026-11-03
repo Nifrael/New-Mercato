@@ -1,0 +1,51 @@
+// Mise en page du catalogue des joueurs (players#index).
+// MOBILE FIRST : filtres empilés ; sur grand écran, recherche et tri sur une ligne,
+// pastilles en dessous.
+@use "../config/breakpoints" as *;
+@use "../config/mixins" as *;
+
+.catalog__filters {
+  display: grid;
+  gap: var(--espace-m);
+
+  @include breakpoint-up($md) {
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "search sort"
+      "chips chips";
+
+    .search-field {
+      grid-area: search;
+    }
+
+    .select-field {
+      grid-area: sort;
+    }
+
+    .chips {
+      grid-area: chips;
+    }
+  }
+}
+
+.catalog__results {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-m);
+
+  // Turbo met aria-busy="true" sur la frame pendant le chargement : retour visuel gratuit.
+  &[aria-busy="true"] {
+    opacity: 0.6;
+    transition: opacity var(--transition-rapide);
+  }
+}
+
+.catalog__count {
+  color: var(--color-text-secondary);
+}
+
+.catalog__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(15rem, 100%), 1fr));
+  gap: var(--espace-m);
+}

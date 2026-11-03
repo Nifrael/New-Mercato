@@ -1,0 +1,119 @@
+// Champs du design system : recherche et menu déroulant.
+@use "../config/breakpoints" as *;
+
+.search-field {
+  display: flex;
+  align-items: center;
+  gap: var(--espace-s);
+  min-height: 2.75rem;
+  padding-inline: var(--espace-s-plus);
+  border: 1px solid var(--color-border);
+  border-radius: var(--rayon-m);
+  background-color: var(--color-bg-surface);
+  color: var(--color-text-secondary);
+
+  // Le focus est sur l'input ; c'est tout le champ qui s'éclaire.
+  &:focus-within {
+    border-color: var(--color-accent);
+  }
+}
+
+.search-field__input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0; // remplacé par la bordure du champ (:focus-within)
+  background-color: transparent;
+  color: var(--color-text);
+
+  &::placeholder {
+    color: var(--color-text-secondary);
+  }
+}
+
+.select-field {
+  display: flex;
+  align-items: center;
+  gap: var(--espace-s);
+  color: var(--color-text-secondary);
+}
+
+.select-field__input {
+  min-height: 2.75rem;
+  padding-inline: var(--espace-s-plus);
+  border: 1px solid var(--color-border);
+  border-radius: var(--rayon-m);
+  background-color: var(--color-bg-surface);
+  color: var(--color-text);
+}
+
+// Champ classique : libellé au-dessus, saisie en dessous.
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-xs);
+}
+
+.field__label {
+  color: var(--color-text-secondary);
+  font-size: var(--little-text);
+  font-weight: 600;
+}
+
+.field__input {
+  min-height: 2.75rem;
+  padding-inline: var(--espace-s-plus);
+  border: 1px solid var(--color-border);
+  border-radius: var(--rayon-m);
+  background-color: var(--color-bg-primary);
+  color: var(--color-text);
+  color-scheme: dark; // sélecteur de date natif en thème sombre
+
+  &:focus {
+    border-color: var(--color-accent);
+    outline: 0;
+  }
+}
+
+// Libellé et lien sur une même ligne (« Mot de passe » … « Mot de passe oublié ? »).
+.field__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--espace-s);
+}
+
+// Case à cocher : la case native (accessible) teintée à la couleur de la marque.
+.checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espace-s);
+  min-height: 2.75rem; // toute la ligne est cliquable (cible tactile)
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.checkbox__input {
+  width: 1.125rem;
+  height: 1.125rem;
+  accent-color: var(--color-accent);
+}
+
+// Erreurs de formulaire (role="alert").
+.form-errors {
+  padding: var(--espace-s-plus) var(--espace-m);
+  border: 1px solid var(--color-danger);
+  border-radius: var(--rayon-m);
+  background-color: var(--color-danger-soft);
+}
+
+.form-errors__title {
+  color: var(--color-danger);
+  font-weight: 600;
+}
+
+.form-errors__list {
+  margin: var(--espace-xs) 0 0;
+  padding-left: var(--espace-m);
+}

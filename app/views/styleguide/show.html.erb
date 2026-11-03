@@ -1,0 +1,190 @@
+<% content_for(:title, "Styleguide — New Mercato") %>
+
+<div class="container styleguide">
+  <header class="styleguide__intro">
+    <h1>Styleguide</h1>
+    <p>Tous les composants du design system. Vérifier à 375px de large avant le desktop (mobile first).</p>
+  </header>
+
+  <section class="styleguide__section">
+    <h2 class="styleguide__heading">Couleurs</h2>
+    <div class="grid-auto styleguide__swatches">
+      <% %w[bg-primary bg-surface bg-surface-hover border text text-secondary accent warning danger].each do |token| %>
+        <div class="styleguide__swatch">
+          <span class="styleguide__swatch-color styleguide__swatch-color--<%= token %>"></span>
+          <code>--color-<%= token %></code>
+        </div>
+      <% end %>
+    </div>
+  </section>
+
+  <section class="styleguide__section">
+    <h2 class="styleguide__heading">Typographie</h2>
+    <div class="stack">
+      <h1>h1 — Caoimhín Kelleher</h1>
+      <h2>h2 — Demandes reçues</h2>
+      <h3>h3 — Répartition salariale</h3>
+      <h4>h4 — Clause de rappel</h4>
+      <h5>h5 — Titre de carte</h5>
+      <p>p — Le club propriétaire accepte ou refuse la demande de location sur la période choisie.</p>
+      <span>Texte de base (--base-size) — libellés, texte secondaire</span>
+      <small>small (--little-text) — mentions</small>
+    </div>
+  </section>
+
+  <section class="styleguide__section">
+    <h2 class="styleguide__heading">Boutons</h2>
+    <div class="cluster">
+      <button type="button" class="btn btn--primary">Envoyer la demande</button>
+      <button type="button" class="btn btn--secondary">Voir la fiche</button>
+      <button type="button" class="btn btn--danger">Refuser</button>
+      <button type="button" class="btn btn--primary" disabled>Désactivé</button>
+    </div>
+    <button type="button" class="btn btn--primary btn--block">Pleine largeur (.btn--block)</button>
+  </section>
+
+  <section class="styleguide__section">
+    <h2 class="styleguide__heading">Badges de statut</h2>
+    <div class="cluster">
+      <% (@booking_statuses + @player_statuses).each do |record| %>
+        <%= status_badge(record) %>
+      <% end %>
+    </div>
+  </section>
+
+  <section class="styleguide__section">
+    <h2 class="styleguide__heading">Statistiques</h2>
+    <div class="grid-auto styleguide__stats">
+      <%= render "shared/stat", label: "Valeur marchande", value: number_to_currency(18_000_000, precision: 0) %>
+      <%= render "shared/stat", label: "Prix / jour", value: number_to_currency(1_000, precision: 0) %>
+      <%= render "shared/stat", label: "Âge", value: "25 ans" %>
+      <%= render "shared/stat", label: "Marge", value: "+14,2 %", accent: true %>
+    </div>
+  </section>
+
+  <section class="styleguide__section">
+    <h2 class="styleguide__heading">En-tête de page</h2>
+    <header class="page-header">
+      <div class="page-header__text">
+        <p class="page-header__eyebrow">Liverpool FC · Premier League</p>
+        <h1>Bonjour Julien</h1>
+        <p class="page-header__lead">Mardi 3 novembre — <strong class="page-header__highlight">2 demandes attendent</strong> votre réponse.</p>
+      </div>
+      <button type="button" class="btn btn--primary"><%= icon(:search, size: 18) %> Trouver un joueur</button>
+    </header>
+    <h2 class="section-title">.section-title — À traiter</h2>
+  </section>
+
+  <section class="styleguide__section">
+    <h2 class="styleguide__heading">Avatars, progression, jours restants</h2>
+    <div class="cluster">
+      <%= player_avatar(Player.new(name: "Pedri", photo: nil)) %>
+      <%= player_avatar(Player.new(name: "Pedri", photo: nil), size: :lg) %>
+      <%= player_avatar(Player.new(name: "Pedri", photo: nil), size: :xl) %>
+      <%= days_left_badge(@sample_loan) %>
+    </div>
+    <progress class="progress" value="43" max="100" aria-label="Exemple de progression">43 %</progress>
+  </section>
+
+  <section class="styleguide__section">
+    <h2 class="styleguide__heading">Champs et pastilles de filtre</h2>
+    <label class="search-field">
+      <%= icon(:search, size: 18) %>
+      <span class="visually-hidden">Rechercher</span>
+      <input type="search" class="search-field__input" placeholder="Nom, club, nationalité…">
+    </label>
+    <fieldset class="chips">
+      <legend class="visually-hidden">Poste</legend>
+      <label class="chip"><input type="radio" name="styleguide_position" class="chip__input" checked> Tous</label>
+      <label class="chip"><input type="radio" name="styleguide_position" class="chip__input"> Gardien</label>
+      <label class="chip"><input type="radio" name="styleguide_position" class="chip__input"> Attaquant</label>
+    </fieldset>
+    <div class="field">
+      <label class="field__label" for="styleguide_date">Du</label>
+      <input type="date" id="styleguide_date" class="field__input">
+    </div>
+    <label class="checkbox"><input type="checkbox" class="checkbox__input" checked> Se souvenir de moi</label>
+    <div class="form-errors" role="alert">
+      <p class="form-errors__title">1 erreur a empêché l'enregistrement :</p>
+      <ul class="form-errors__list"><li>Mot de passe trop court (au moins 6 caractères)</li></ul>
+    </div>
+    <label class="select-field">
+      <span class="select-field__label">Trier par</span>
+      <select class="select-field__input"><option>Valeur marchande</option><option>Prix par jour</option></select>
+    </label>
+  </section>
+
+  <section class="styleguide__section">
+    <h2 class="styleguide__heading">Onglets segmentés et colonnes de pipeline</h2>
+    <nav class="segmented" aria-label="Exemple d'onglets">
+      <a href="#" class="segmented__item" aria-current="page">Reçues</a>
+      <a href="#" class="segmented__item">Envoyées</a>
+    </nav>
+    <div class="pipeline">
+      <% %w[pending accepted refused].each do |status| %>
+        <section class="pipeline__column">
+          <header class="pipeline__header">
+            <span class="<%= class_names("pipeline__dot", "pipeline__dot--#{status_variant(:booking, status)}") %>" aria-hidden="true"></span>
+            <h3 class="pipeline__title"><%= t("dashboard.bookings.index.columns.#{status}") %></h3>
+            <span class="pipeline__count">0</span>
+          </header>
+          <p class="pipeline__empty">Aucune demande</p>
+        </section>
+      <% end %>
+    </div>
+  </section>
+
+  <section class="styleguide__section">
+    <h2 class="styleguide__heading">Toasts (messages flash)</h2>
+    <p>Affichés ici sans le contrôleur Stimulus pour rester visibles ; dans l'app, ils se ferment seuls après 5 s.</p>
+    <div class="stack">
+      <div class="toast toast--success" role="status">
+        <%= icon(:check) %>
+        <p class="toast__message">Réservation pour « Pedri » acceptée.</p>
+        <button type="button" class="toast__close" aria-label="Fermer"><%= icon(:close, size: 18) %></button>
+      </div>
+      <div class="toast toast--danger" role="alert">
+        <%= icon(:alert) %>
+        <p class="toast__message">Cette réservation ne peut plus être acceptée (statut : Rejeté).</p>
+        <button type="button" class="toast__close" aria-label="Fermer"><%= icon(:close, size: 18) %></button>
+      </div>
+    </div>
+  </section>
+
+  <section class="styleguide__section">
+    <h2 class="styleguide__heading">État vide</h2>
+    <div class="empty-state">
+      <p class="empty-state__title">Rien à traiter pour l'instant</p>
+      <p>Les demandes de location de vos joueurs apparaîtront ici.</p>
+    </div>
+  </section>
+
+  <section class="styleguide__section">
+    <h2 class="styleguide__heading">Cartes</h2>
+    <div class="grid-auto">
+      <article class="card">
+        <header class="card__header">
+          <h3 class="card__title">Demande de location</h3>
+          <%= status_badge(@booking_statuses.find(&:pending?)) %>
+        </header>
+        <div class="grid-auto styleguide__stats">
+          <%= render "shared/stat", label: "Du", value: l(Date.current, format: :short) %>
+          <%= render "shared/stat", label: "Au", value: l(Date.current + 14, format: :short) %>
+          <%= render "shared/stat", label: "Total", value: number_to_currency(14_000, precision: 0), accent: true %>
+        </div>
+        <div class="cluster">
+          <button type="button" class="btn btn--primary">Accepter</button>
+          <button type="button" class="btn btn--danger">Refuser</button>
+        </div>
+      </article>
+
+      <a href="#" class="card card--interactive">
+        <header class="card__header">
+          <h3 class="card__title">Carte cliquable</h3>
+          <%= status_badge(@player_statuses.find(&:available?)) %>
+        </header>
+        <p>.card--interactive : toute la carte est un lien, la bordure s'éclaire au survol.</p>
+      </a>
+    </div>
+  </section>
+</div>

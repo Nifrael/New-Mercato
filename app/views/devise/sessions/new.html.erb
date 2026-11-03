@@ -1,30 +1,37 @@
-<div class="form-container">
-  <h1>CONNEXION</h1>
-  <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-    <div class="form-inputs">
-      <%= f.input :email,
-                label: false,
-                placeholder: "EMAIL",
-                required: false,
-                autofocus: true,
-                input_html: { autocomplete: "email", class: "form-input" },
-                label_html: { class: "form-label" } %>
-      <%= f.input :password,
-                label: false,
-                placeholder: "MOT DE PASSE",
-                required: false,
-                input_html: { autocomplete: "current-password", class: "form-input" },
-                label_html: { class: "form-label" } %>
-      <% if devise_mapping.rememberable? %>
-        <div class="form-check">
-          <%= f.check_box :remember_me, id:"checkbox" %>
-          <%= f.label :remember_me, label: "Se souvenir de moi" %>
+<% content_for(:title, "Connexion — New Mercato") %>
+
+<div class="container auth">
+  <div class="card auth__card">
+    <header class="auth__header">
+      <p class="page-header__eyebrow">Espace clubs</p>
+      <h1 class="auth__title">Connexion</h1>
+      <p class="auth__lead">Accédez aux demandes et à l'effectif de votre club.</p>
+    </header>
+
+    <%= form_with model: resource, scope: resource_name, url: session_path(resource_name), class: "auth__form" do |f| %>
+      <div class="field">
+        <%= f.label :email, "Adresse e-mail", class: "field__label" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", required: true, class: "field__input" %>
+      </div>
+
+      <div class="field">
+        <div class="field__row">
+          <%= f.label :password, "Mot de passe", class: "field__label" %>
+          <%= link_to "Mot de passe oublié ?", new_password_path(resource_name), class: "auth__link" %>
         </div>
-      <% end %>
-    </div>
-    <div class="form-actions mb-4">
-      <%= f.button :submit, "Connexion", class: "button btn-black" %>
-    </div>
-  <% end %>
-  <%= render "devise/shared/links" %>
+        <%= f.password_field :password, autocomplete: "current-password", required: true, class: "field__input" %>
+      </div>
+
+      <label class="checkbox">
+        <%= f.check_box :remember_me, class: "checkbox__input" %>
+        Se souvenir de moi
+      </label>
+
+      <%= f.submit "Se connecter", class: "btn btn--primary btn--block" %>
+    <% end %>
+
+    <p class="auth__footnote">
+      Pas encore de compte ? Les comptes sont créés pour chaque club par l'équipe New Mercato.
+    </p>
+  </div>
 </div>

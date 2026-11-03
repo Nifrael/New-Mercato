@@ -1,0 +1,36 @@
+// En-tête de page : sur-titre + titre + phrase d'introduction, action à droite.
+// Mobile first : l'action passe sous le texte, puis à droite quand la place le permet.
+@use "../config/mixins" as *;
+
+.page-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--espace-m);
+}
+
+.page-header__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-xs);
+}
+
+.page-header__eyebrow {
+  @include eyebrow;
+}
+
+.page-header__lead {
+  color: var(--color-text-secondary);
+}
+
+.page-header__highlight {
+  color: var(--color-warning);
+  font-weight: 600;
+}
+
+// Titre de section à l'intérieur d'une page.
+.section-title {
+  font-size: var(--h4);
+  font-weight: 600;
+}

@@ -1,0 +1,118 @@
+// =============================================================================
+// Design tokens — SEULE source de vérité pour les valeurs de design.
+// Même architecture que le Portfolio :
+//   1. une PALETTE en variables SCSS (nommée par teinte), qui ne sort jamais de ce fichier ;
+//   2. des TOKENS sémantiques sur :root (nommés par rôle), seuls utilisés ailleurs.
+// Besoin d'une variante transparente → nouveau token calculé ici avec rgba($palette, alpha).
+// =============================================================================
+
+@use "sass:color";
+@use "breakpoints" as *;
+
+// Début de la palette
+
+$noir-profond: #0f1113;
+$anthracite: #181b1f;
+$ardoise: #1f2328;
+$graphite: #2a2f36;
+$gris: #9aa1ab;
+$blanc-casse: #e8eaed;
+$blanc: #ffffff;
+
+$vert-menthe: #2ee683; // vert de la marque, adouci (ancien : #2bff00)
+$vert-nuit: #0b130e;
+$ambre: #f5b544;
+$brun-nuit: #1a1305;
+$corail: #f0565b;
+
+// Fin de la palette
+
+:root {
+  // Fonds
+  --color-bg-primary: #{$noir-profond};
+  --color-bg-surface: #{$anthracite};      // cartes, panneaux
+  --color-bg-surface-hover: #{$ardoise};   // survol d'une surface cliquable
+
+  // Textes
+  --color-text: #{$blanc-casse};
+  --color-text-secondary: #{$gris};
+  --color-text-strong: #{$blanc};
+  --color-text-on-accent: #{$vert-nuit};   // texte posé sur un fond accent
+
+  // Traits et accents
+  --color-accent: #{$vert-menthe};
+  --color-accent-hover: #{color.adjust($vert-menthe, $lightness: 10%)};
+  --color-accent-soft: #{rgba($vert-menthe, 0.14)};   // fond de badge, halo
+  --color-accent-border: #{rgba($vert-menthe, 0.3)};
+  --color-border: #{$graphite};
+  --color-border-subtle: #{rgba($blanc, 0.05)};
+
+  // États
+  --color-warning: #{$ambre};
+  --color-warning-soft: #{rgba($ambre, 0.14)};
+  --color-text-on-warning: #{$brun-nuit};
+  --color-danger: #{$corail};
+  --color-danger-hover: #{color.adjust($corail, $lightness: 8%)};
+  --color-danger-soft: #{rgba($corail, 0.14)};
+  --color-text-on-danger: #{$blanc};
+
+  // Ombres et halos
+  --shadow-card: 0 1px 2px #{rgba($noir-profond, 0.4)}, 0 8px 24px #{rgba($noir-profond, 0.25)};
+  --glow-accent: 0 0 0 1px var(--color-accent-border), 0 0 24px var(--color-accent-soft);
+
+  // Polices (chargées dans le layout)
+  --font-text: "Geist", system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, monospace;   // chiffres, montants, identifiants
+  --font-brand: "Mina", var(--font-text);              // logo uniquement
+
+  // Échelle typographique (même formule que le Portfolio, base et ratio
+  // resserrés : un dashboard est plus dense qu'un portfolio).
+  --base-size: 0.875rem;                               // 14px — libellés, texte secondaire
+  --scale: 1.15;                                       // augmente aux breakpoints (plus bas)
+  --little-text: calc(var(--base-size) * 0.857);       // 12px — badges, mentions
+  --p: calc(var(--base-size) * var(--scale));
+  --h5: calc(var(--p) * var(--scale));
+  --h4: calc(var(--h5) * var(--scale));
+  --h3: calc(var(--h4) * var(--scale));
+  --h2: calc(var(--h3) * var(--scale));
+  --h1: calc(var(--h2) * var(--scale));
+
+  // Espacements (identiques au Portfolio)
+  --espace-xs: 0.25rem;
+  --espace-s: 0.5rem;
+  --espace-s-plus: 0.75rem;
+  --espace-m: 1rem;
+  --espace-m-plus: 1.5rem;
+  --espace-l: 2rem;
+  --espace-l-plus: 3rem;
+  --espace-xl: 4rem;
+  --espace-xl-plus: 5rem;
+  --espace-xxl: 6rem;
+  --espace-section: var(--espace-l);
+
+  // Rayons (mêmes noms que le Portfolio, valeurs d'interface d'application)
+  --rayon-xs: 2px;
+  --rayon-s: 6px;      // badges, petits boutons
+  --rayon-m: 12px;     // boutons, champs, cartes internes
+  --rayon-l: 16px;     // cartes
+  --rayon-pilule: 100px;
+  --rayon-rond: 50%;
+
+  // Conteneur et shell de l'application
+  --largeur-max: 90rem;
+  --gouttiere: var(--espace-m);
+  --sidebar-width: 15rem;
+
+  // Animations
+  --transition-rapide: 150ms ease;
+}
+
+// Typographie et gouttières plus généreuses sur grand écran :
+// on ne change que les réglages, toute l'échelle suit.
+@media (width >= $lg) {
+  :root {
+    --scale: 1.2;
+    --gouttiere: var(--espace-l);
+    --espace-section: var(--espace-l-plus);
+  }
+}

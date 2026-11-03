@@ -1,0 +1,69 @@
+// Logo de club et carte de club (clubs/_club_card), complète .card.card--interactive.
+@use "../config/mixins" as *;
+
+// Logo : l'image entière, jamais déformée (object-fit: contain), sur un fond neutre.
+.club-logo {
+  flex-shrink: 0;
+  width: 3.5rem;
+  height: 3.5rem;
+  padding: var(--espace-xs);
+  border-radius: var(--rayon-m);
+  background-color: var(--color-bg-surface-hover);
+  object-fit: contain;
+}
+
+.club-logo--lg {
+  width: 6rem;
+  height: 6rem;
+  padding: var(--espace-s);
+}
+
+.club-card__top {
+  display: flex;
+  align-items: center;
+  gap: var(--espace-s-plus);
+}
+
+.club-card__identity {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.club-card__name {
+  font-size: var(--h5);
+  font-weight: 600;
+}
+
+.club-card__meta {
+  color: var(--color-text-secondary);
+  font-size: var(--base-size);
+}
+
+.club-card__owner {
+  display: flex;
+  align-items: center;
+  gap: var(--espace-s);
+  color: var(--color-text-secondary);
+  font-size: var(--base-size);
+}
+
+.club-card__figures {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--espace-s);
+  margin: 0;
+  margin-top: auto; // aligné en bas : les cartes d'une ligne s'alignent
+  padding-top: var(--espace-s-plus);
+  border-top: 1px solid var(--color-border);
+
+  dd {
+    @include numeric;
+    margin: 0;
+    color: var(--color-text-strong);
+  }
+}
+
+.club-card__budget {
+  text-align: right;
+}

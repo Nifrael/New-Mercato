@@ -1,20 +1,104 @@
-@use "../config/colors";
+// Page de bienvenue (racine) — mobile first.
+// Deux moitiés empilées (sombre / accent) et le bouton à cheval sur la jointure.
+@use "../config/breakpoints" as *;
+@use "../config/mixins" as *;
 
-.black-bg .title,
-.black-bg h1 {
-  color: colors.$text-primary-color;
+.hero {
+  --hero-cta-height: 3.25rem; // réutilisée pour faire chevaucher la jointure
+
+  display: grid;
+  grid-template-rows: 1fr auto 1fr; // moitié sombre / bouton / moitié accent
+  // svh = hauteur VISIBLE sur mobile (sans la barre d'adresse qui se replie),
+  // alors que 100vh déborderait sous cette barre.
+  min-height: 100svh;
 }
 
-.green-bg .title,
-.green-bg h1 {
-  color: colors.$text-secondary-color;
-}
-
-.half-div {
-  flex: 1;
+.hero__half {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 3%;
-  gap: 3vh;
+  gap: var(--espace-m);
+  // Le padding vertical laisse la place à la moitié du bouton qui déborde.
+  padding: calc(var(--espace-l) + var(--hero-cta-height) / 2) var(--gouttiere);
+
+  @include breakpoint-up($lg) {
+    padding-inline: var(--espace-xl);
+  }
+}
+
+.hero__half--dark {
+  background-color: var(--color-bg-primary);
+}
+
+.hero__half--accent {
+  align-items: flex-end;
+  text-align: right;
+  background-color: var(--color-accent);
+  color: var(--color-text-on-accent);
+}
+
+// Slogan de marque : police du logo, en capitales.
+.hero__slogan {
+  font-family: var(--font-brand);
+  font-size: var(--h2);
+  font-weight: 700;
+  line-height: 1.1;
+  text-transform: uppercase;
+  color: var(--color-accent);
+
+  .hero__half--accent & {
+    color: var(--color-text-on-accent);
+  }
+
+  @include breakpoint-up($lg) {
+    font-size: calc(var(--h1) * var(--scale));
+  }
+}
+
+// Phrase d'accroche : le h1 de la page (et son pendant dans la moitié accent).
+.hero__title {
+  max-width: 20ch; // ligne courte = lecture confortable, quelle que soit la largeur d'écran
+  font-size: var(--h3);
+  font-weight: 700;
+  line-height: 1.2;
+  text-wrap: balance;
+  color: var(--color-text-strong);
+
+  .hero__half--accent & {
+    color: var(--color-text-on-accent);
+  }
+
+  @include breakpoint-up($lg) {
+    font-size: var(--h1);
+  }
+}
+
+// Bouton d'entrée, à cheval sur les deux moitiés.
+.hero__cta {
+  position: relative;
+  z-index: 1;
+  justify-self: center;
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--hero-cta-height);
+  margin-block: calc(var(--hero-cta-height) / -2); // remonte et descend de moitié : chevauche la jointure
+  padding-inline: var(--espace-l);
+  border: 2px solid var(--color-accent);
+  border-radius: var(--rayon-pilule);
+  background-color: var(--color-bg-primary);
+  color: var(--color-accent);
+  font-family: var(--font-brand);
+  font-size: var(--h5);
+  font-weight: 700;
+  text-decoration: none;
+  text-transform: uppercase;
+  box-shadow: var(--glow-accent);
+  transition:
+    background-color var(--transition-rapide),
+    color var(--transition-rapide);
+
+  &:hover {
+    background-color: var(--color-accent);
+    color: var(--color-text-on-accent);
+  }
 }
