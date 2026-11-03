@@ -32,7 +32,7 @@ Rails.application.routes.draw do
         get :loaned_in
       end
     end
-    resources :bookings, only: %i[index show] do
+    resources :bookings, only: %i[index] do
       member do
         patch :accept
         patch :refuse

@@ -27,19 +27,6 @@ class BookingPolicyTest < ActiveSupport::TestCase
     refute_permit @user, Booking, :index?
   end
 
-  def test_show
-    # Buyer can see the booking
-    assert_permit @user, @booking, :show?
-
-    # Seller can see the booking
-    # @other_player belongs to @other_club. @other_user belongs to @other_club.
-    assert_permit @other_user, @booking, :show?
-
-    # Unrelated user cannot see the booking
-    unrelated_user = User.new(club: Club.new)
-    refute_permit unrelated_user, @booking, :show?
-  end
-
   def test_create
     # Valid creation: Buying from another club
     assert_permit @user, @booking, :create?

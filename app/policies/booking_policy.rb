@@ -3,12 +3,6 @@ class BookingPolicy < ApplicationPolicy
     user.present? && user.club.present?
   end
 
-  def show?
-    user.present? && user.club.present? &&
-    record.club.present? && record.player&.club.present? &&
-    (user.club_id == record.club_id || user.club_id == record.player.club_id)
-  end
-
   def create?
     user.present? && user.club.present? &&
     record.club.present? && record.player&.club.present? &&

@@ -1,5 +1,5 @@
 class Dashboard::BookingsController < Dashboard::BaseController
-  before_action :set_booking, only: %i[show accept refuse]
+  before_action :set_booking, only: %i[accept refuse]
 
   # Ordre des colonnes du pipeline.
   PIPELINE_STATUSES = %w[pending accepted refused].freeze
@@ -16,10 +16,6 @@ class Dashboard::BookingsController < Dashboard::BaseController
 
     by_status = bookings.group_by(&:status)
     @columns = PIPELINE_STATUSES.index_with { |status| by_status.fetch(status, []) }
-  end
-
-  def show
-    authorize @booking
   end
 
   def accept

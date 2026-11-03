@@ -62,31 +62,12 @@ class Dashboard::BookingsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".segmented__item[aria-current=page][href=?]", dashboard_bookings_path
   end
 
-  # --- Détail ----------------------------------------------------------------
+  # --- Réservation inexistante ---------------------------------------------
 
-  test "le propriétaire et l'emprunteur peuvent voir la réservation" do
-    [ users(:one), users(:two) ].each do |user|
-      sign_in user
-
-      get dashboard_booking_url(@booking)
-
-      assert_response :success
-    end
-  end
-
-  test "un club étranger à la réservation ne peut pas la voir" do
-    sign_in users(:three)
-
-    get dashboard_booking_url(@booking)
-
-    assert_response :redirect
-    assert flash[:alert].present?
-  end
-
-  test "une réservation inexistante renvoie une page 404" do
+  test "accepter une réservation inexistante renvoie une page 404" do
     sign_in users(:one)
 
-    get dashboard_booking_url(id: 0)
+    patch accept_dashboard_booking_url(id: 0)
 
     assert_response :not_found
   end
