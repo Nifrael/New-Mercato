@@ -83,7 +83,6 @@ gem "dartsass-rails", "~> 0.5.1"
 gem "sass-embedded", "~> 1.89"
 
 # Simple_form
-gem "simple_form"
 
 # State machines
 gem "aasm", "~> 5.5"

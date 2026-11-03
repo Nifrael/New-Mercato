@@ -10,6 +10,12 @@ class ApplicationController < ActionController::Base
 
   private
 
+  # Après connexion (Devise) : la page réservée demandée au départ s'il y en a une,
+  # sinon le tableau de bord du club (pas la page de bienvenue publique).
+  def after_sign_in_path_for(resource)
+    stored_location_for(resource) || dashboard_path
+  end
+
   # Demandes reçues en attente pour le club de l'utilisateur (0 pour un visiteur).
   # Mémorisé : une seule requête COUNT par page, même si la vue l'appelle plusieurs fois.
   def pending_requests_count

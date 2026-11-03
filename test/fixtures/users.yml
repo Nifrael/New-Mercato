@@ -1,4 +1,7 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+#
+# Mot de passe de tous les utilisateurs de test : "password123"
+# (hash calculé par Devise, comme en base : on ne stocke jamais un mot de passe en clair).
 
 one:
   first_name: UserOne
@@ -6,6 +9,7 @@ one:
   email: user_one@example.com
   photo: Avatar.png
   role: dirigeant
+  encrypted_password: <%= Devise::Encryptor.digest(User, "password123") %>
   club: one
 
 two:
@@ -14,6 +18,7 @@ two:
   email: user_two@example.com
   photo: Avatar.png
   role: dirigeant
+  encrypted_password: <%= Devise::Encryptor.digest(User, "password123") %>
   club: two
 
 # Un employé dans le club one : un club peut avoir plusieurs membres,
@@ -24,6 +29,7 @@ employe_one:
   email: employe_one@example.com
   photo: Avatar.png
   role: employe
+  encrypted_password: <%= Devise::Encryptor.digest(User, "password123") %>
   club: one
 
 three:
@@ -32,4 +38,5 @@ three:
   email: user_three@example.com
   photo: Avatar.png
   role: dirigeant
+  encrypted_password: <%= Devise::Encryptor.digest(User, "password123") %>
   club: three

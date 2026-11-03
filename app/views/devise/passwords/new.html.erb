@@ -1,19 +1,23 @@
-<div class="form-container">
-  <h2>MOT DE PASSE OUBLIE?</h2>
-  <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-    <%= f.error_notification %>
-    <div class="form-inputs">
-      <%= f.input :email,
-                required: true,
-                label: false,
-                placeholder: "EMAIL",
-                label_html: { class: "form-label" },
-                autofocus: true,
-                input_html: { autocomplete: "email", class: "form-input" } %>
-    </div>
-    <div class="form-actions mb-4">
-      <%= f.button :submit, "Changer de mot de passe", class: "button btn-black" %>
-    </div>
-  <% end %>
-  <%= render "devise/shared/links" %>
+<% content_for(:title, "Mot de passe oublié — New Mercato") %>
+
+<div class="container auth">
+  <div class="card auth__card">
+    <header class="auth__header">
+      <h1 class="auth__title">Mot de passe oublié</h1>
+      <p class="auth__lead">Indiquez votre adresse e-mail : vous recevrez un lien pour choisir un nouveau mot de passe.</p>
+    </header>
+
+    <%= form_with model: resource, scope: resource_name, url: password_path(resource_name), method: :post, class: "auth__form" do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+
+      <div class="field">
+        <%= f.label :email, "Adresse e-mail", class: "field__label" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", required: true, class: "field__input" %>
+      </div>
+
+      <%= f.submit "Recevoir le lien", class: "btn btn--primary btn--block" %>
+    <% end %>
+
+    <p class="auth__footnote"><%= link_to "← Retour à la connexion", new_session_path(resource_name), class: "auth__link" %></p>
+  </div>
 </div>
