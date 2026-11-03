@@ -14,10 +14,12 @@ class Booking < ApplicationRecord
     state :accepted
     state :refused
 
-    event :accept do
+    # after sur l'ÉVÉNEMENT (et non sur la transition) : exécuté APRÈS l'enregistrement du
+    # nouveau statut, donc la location est bien vue comme acceptée lors du recalcul.
+    event :accept, after: :refresh_player_status do
       # guard : la transition n'est possible que si la période est encore libre
       # (sinon may_accept? renvoie false et accept! est refusé).
-      transitions from: :pending, to: :accepted, guard: :period_available?, after: :update_player_booked
+      transitions from: :pending, to: :accepted, guard: :period_available?
     end
 
     event :refuse do
@@ -93,11 +95,8 @@ class Booking < ApplicationRecord
     end
   end
 
-  def update_player_booked
-    if player.present?
-      player.rented!
-    else
-      raise ActiveRecord::RecordNotFound, "Erreur lors de la mise à jour du statut du joueur."
-    end
+  # Le joueur n'est « Loué » que si le prêt a déjà commencé (sinon le job le fera le jour J).
+  def refresh_player_status
+    player.update_availability_status!
   end
 end

@@ -67,6 +67,24 @@ class BookingTest < ActiveSupport::TestCase
     assert_not second.reload.may_accept?
   end
 
+  # --- Acceptation et statut du joueur ----------------------------------------
+
+  test "accepter un prêt qui commence plus tard ne rend pas le joueur Loué tout de suite" do
+    loan = request_player_one(from: 10, to: 20, club: clubs(:two)).tap(&:save!)
+
+    loan.accept!
+
+    assert_predicate players(:one).reload, :available?
+  end
+
+  test "accepter un prêt qui commence aujourd'hui rend le joueur Loué" do
+    loan = request_player_one(from: 0, to: 5, club: clubs(:two)).tap(&:save!)
+
+    loan.accept!
+
+    assert_predicate players(:one).reload, :rented?
+  end
+
   # --- Joueur indisponible -----------------------------------------------------
 
   test "on ne peut pas demander un joueur que son club a rendu indisponible" do

@@ -80,7 +80,8 @@ class Dashboard::BookingsControllerTest < ActionDispatch::IntegrationTest
     patch accept_dashboard_booking_url(@booking)
 
     assert_predicate @booking.reload, :accepted?
-    assert_predicate @booking.player.reload, :rented?
+    # Le prêt commence demain : le joueur ne passe « Loué » que le jour J (job quotidien).
+    assert_predicate @booking.player.reload, :available?
     assert_redirected_to dashboard_bookings_url
     assert flash[:notice].present?
   end

@@ -26,6 +26,40 @@ class PlayerTest < ActiveSupport::TestCase
     assert_equal 1, Player.price_per_day_for(200_000)
   end
 
+  # --- Statut dérivé des locations -------------------------------------------
+
+  def accepted_loan(from:, to:)
+    Booking.create!(player: players(:one), club: clubs(:two), total_price: 1, status: :pending,
+                    start_date: Date.current + from, end_date: Date.current + to).tap do |loan|
+      loan.update_column(:status, Booking.statuses[:accepted]) # sans déclencher le callback d'acceptation
+    end
+  end
+
+  test "un joueur en prêt aujourd'hui devient Loué" do
+    accepted_loan(from: -1, to: 3)
+
+    players(:one).update_availability_status!
+
+    assert_predicate players(:one).reload, :rented?
+  end
+
+  test "à la fin du prêt, un joueur Loué redevient Disponible" do
+    accepted_loan(from: -10, to: -1)
+    players(:one).update_column(:status, Player.statuses[:rented])
+
+    players(:one).update_availability_status!
+
+    assert_predicate players(:one).reload, :available?
+  end
+
+  test "un joueur que son club a rendu indisponible le reste" do
+    players(:one).update!(status: :unavailable)
+
+    players(:one).update_availability_status!
+
+    assert_predicate players(:one).reload, :unavailable?
+  end
+
   # --- Recherche -------------------------------------------------------------
 
   test "une recherche vide renvoie tous les joueurs" do

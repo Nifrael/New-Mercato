@@ -58,22 +58,14 @@ class Player < ApplicationRecord
     bookings.accepted.where(end_date: Date.current..).order(:start_date)
   end
 
+  # Statut DÉRIVÉ des locations : « Loué » pendant un prêt accepté en cours (Booking.active).
+  # À la fin du prêt, un joueur Loué redevient Disponible ; un joueur que son club a rendu
+  # indisponible le reste (on ne remplace jamais un choix du club).
   def update_availability_status!
-    today = Date.current
-
-    is_player_on_loan = Booking.where(player_id: self.id, status: :accepted)
-                                .where(start_date: ..today)
-                                .where(end_date: today..)
-                                .exists?
-
-    if is_player_on_loan
-      unless self.rented?
-        self.rented!
-      end
-    else
-      unless self.available?
-        self.available!
-      end
+    if bookings.active.exists?
+      rented! unless rented?
+    elsif rented?
+      available!
     end
   end
 end
