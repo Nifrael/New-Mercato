@@ -1,4 +1,4 @@
-// Nouveaux composants (design system)
+// Composants du design system : un fichier par composant (BEM).
 @forward "button";
 @forward "badge";
 @forward "card";
@@ -16,7 +16,3 @@
 @forward "form-controls";
 @forward "booking-panel";
 @forward "club-card";
-
-// Anciens composants — à supprimer au fil de la migration des pages
-@forward "buttons";
-@forward "containers";
