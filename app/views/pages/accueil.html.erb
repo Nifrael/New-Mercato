@@ -25,6 +25,25 @@
 </section>
 
 <div class="container page">
+  <%# Vitrine : de vrais joueurs plutôt qu'une description du produit. Masquée s'il n'y en a aucun. %>
+  <% if @featured_players.any? %>
+    <section class="stack" aria-labelledby="vitrine-titre">
+      <div class="landing__section-header">
+        <div>
+          <p class="page-header__eyebrow">Disponibles maintenant</p>
+          <h2 id="vitrine-titre" class="section-title">Ils n'attendent que votre demande</h2>
+        </div>
+        <%= link_to "Tout le catalogue →", players_path, class: "landing__anchor" %>
+      </div>
+
+      <div class="landing__players">
+        <% @featured_players.each do |player| %>
+          <%= render "players/player_card", player:, heading: :h3 %>
+        <% end %>
+      </div>
+    </section>
+  <% end %>
+
   <section id="comment-ca-marche" class="stack" aria-labelledby="comment-ca-marche-titre">
     <h2 id="comment-ca-marche-titre" class="section-title">Comment ça marche</h2>
     <ol class="steps" role="list">

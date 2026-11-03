@@ -119,3 +119,50 @@
     transform: translateY(-2px);
   }
 }
+
+// En-tête de section : titre + lien. Empilés sur mobile, sur une ligne dès $md.
+.landing__section-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-s);
+
+  @include breakpoint-up($md) {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+}
+
+// Vitrine des joueurs.
+// MOBILE : un carrousel horizontal. Chaque carte fait 80 % de la largeur : on voit le bord
+// de la suivante, ce qui indique qu'on peut faire glisser. scroll-snap aligne la carte au lâcher.
+// $md : grille de 2 colonnes, puis 4 sur une ligne en $lg.
+.landing__players {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 80%;
+  gap: var(--espace-m);
+  // Le carrousel déborde jusqu'aux bords de l'écran (sous la gouttière)…
+  margin-inline: calc(-1 * var(--gouttiere));
+  padding: 0 var(--gouttiere) var(--espace-s);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  // … mais une carte s'aligne sur le bord du texte, pas sur le bord de l'écran.
+  scroll-padding-inline: var(--gouttiere);
+
+  > * {
+    scroll-snap-align: start;
+  }
+
+  @include breakpoint-up($md) {
+    grid-auto-flow: row;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-inline: 0;
+    padding: 0;
+    overflow-x: visible;
+  }
+
+  @include breakpoint-up($lg) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
