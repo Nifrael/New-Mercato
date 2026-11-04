@@ -1,0 +1,15 @@
+<%# locals: (record:) -%>
+<%# Erreurs de validation d'un formulaire (connexion, mot de passe, édition d'un joueur…).
+    role="alert" : annoncé immédiatement par les lecteurs d'écran. %>
+<% if record.errors.any? %>
+  <div class="form-errors" role="alert">
+    <p class="form-errors__title">
+      <%= t("errors.messages.not_saved", count: record.errors.count, resource: record.class.model_name.human.downcase) %>
+    </p>
+    <ul class="form-errors__list">
+      <% record.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

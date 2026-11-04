@@ -1,0 +1,110 @@
+// Fiche joueur (players#show).
+// MOBILE FIRST : une colonne, dans l'ordre de priorité → identité, RÉSERVATION,
+// chiffres, disponibilités. À partir de $lg : la réservation passe dans une colonne
+// à droite, qui reste visible au défilement (sticky).
+@use "../config/breakpoints" as *;
+@use "../config/mixins" as *;
+
+.player-page {
+  display: grid;
+  grid-template-areas:
+    "back"
+    "hero"
+    "booking"
+    "stats"
+    "availability";
+  align-items: start;
+
+  @include breakpoint-up($lg) {
+    grid-template-columns: minmax(0, 2fr) minmax(20rem, 1fr);
+    grid-template-areas:
+      "back back"
+      "hero booking"
+      "stats booking"
+      "availability booking";
+  }
+}
+
+.player-page__back {
+  grid-area: back;
+  justify-self: start;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--color-text);
+  }
+}
+
+.player-page__hero {
+  grid-area: hero;
+}
+
+.player-page__booking {
+  grid-area: booking;
+
+  @include breakpoint-up($lg) {
+    position: sticky;
+    top: var(--espace-l);
+  }
+}
+
+.player-page__stats {
+  --grid-min: 9rem;
+  grid-area: stats;
+}
+
+.player-page__availability {
+  grid-area: availability;
+}
+
+// En-tête du joueur : avatar + identité (côte à côte dès que la place le permet).
+.player-hero {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--espace-m-plus);
+}
+
+.player-hero__identity {
+  display: flex;
+  flex: 1 1 14rem;
+  flex-direction: column;
+  gap: var(--espace-s);
+}
+
+.player-hero__name {
+  font-size: var(--h1);
+}
+
+.availability__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-s);
+}
+
+.availability__item {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--espace-s);
+  padding: var(--espace-s-plus);
+  border-radius: var(--rayon-m);
+  background-color: var(--color-bg-surface-hover);
+}
+
+.availability__dates {
+  @include numeric;
+  text-decoration: line-through;
+  text-decoration-color: var(--color-text-secondary);
+}
+
+.availability__club,
+.availability__hint {
+  color: var(--color-text-secondary);
+}
+
+.availability__free {
+  color: var(--color-accent);
+  font-weight: 600;
+}

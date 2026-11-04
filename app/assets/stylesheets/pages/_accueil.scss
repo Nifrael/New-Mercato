@@ -1,49 +1,423 @@
-@use "../config/colors";
-@use "../config/breakpoints";
+// Page de présentation (/accueil). MOBILE FIRST : tout empilé, l'image en fond de l'accroche.
+@use "../config/breakpoints" as *;
+@use "../config/mixins" as *;
 
-.accueil-block {
-  h3 {
-    color: colors.$tertiary-color;
+.landing__hero {
+  position: relative;
+  isolation: isolate; // le dégradé et l'image restent sous le texte
+  display: flex;
+  align-items: flex-end;
+  // Toute la hauteur VISIBLE : l'écran moins l'en-tête et la barre d'onglets (mobile)…
+  min-height: calc(100svh - var(--app-header-height) - var(--app-tabbar-height));
+  padding-block: var(--espace-xl) var(--espace-l);
+  overflow: hidden;
+
+  // … puis moins l'en-tête seul en desktop, où la barre d'onglets disparaît.
+  @include breakpoint-up($lg) {
+    min-height: calc(100svh - var(--app-header-height));
   }
 
-  h4 {
-    color: colors.$text-primary-color;
-    margin: 1% 0;
-  }
-
-  h3,
-  h4 {
-    font-weight: 500;
-  }
-
-  h1 {
-    font-weight: 900;
-    font-size: 3rem;
-    color: colors.$text-primary-color;
-    margin: 1% 0;
+  // Dégradé vers le fond de la page : le texte reste lisible quelle que soit l'image.
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(
+      to top,
+      var(--color-bg-primary) 15%,
+      color-mix(in srgb, var(--color-bg-primary) 55%, transparent)
+    );
   }
 }
 
-@media (width >= breakpoints.$md) {
-  .accueil-block {
-    h1 {
-      font-size: 3.5rem;
+.landing__image {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.landing__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-m);
+}
+
+.landing__title {
+  max-width: 16ch;
+  font-size: var(--h1);
+  line-height: 1.1;
+
+  @include breakpoint-up($lg) {
+    font-size: calc(var(--h1) * var(--scale));
+  }
+}
+
+.landing__accent {
+  color: var(--color-accent);
+}
+
+.landing__lead {
+  max-width: 50ch;
+  color: var(--color-text);
+}
+
+.landing__figures {
+  @include numeric;
+  color: var(--color-text-secondary);
+  font-size: var(--base-size);
+}
+
+.landing__anchor {
+  color: var(--color-accent);
+  font-family: var(--font-text);
+  text-decoration: none;
+}
+
+// En-tête de section : titre + lien. Empilés sur mobile, sur une ligne dès $md.
+.landing__section-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-s);
+
+  @include breakpoint-up($md) {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+}
+
+// Vitrine des joueurs.
+// MOBILE : un carrousel horizontal. Chaque carte fait 80 % de la largeur : on voit le bord
+// de la suivante, ce qui indique qu'on peut faire glisser. scroll-snap aligne la carte au lâcher.
+// $md : grille de 3 colonnes (2 lignes de 3), puis les 6 sur une seule ligne en $xl.
+.landing__players {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 80%;
+  gap: var(--espace-l);
+  // Le carrousel déborde jusqu'aux bords de l'écran (sous la gouttière)…
+  margin-inline: calc(-1 * var(--gouttiere));
+  padding: 0 var(--gouttiere) var(--espace-s);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  // … mais une carte s'aligne sur le bord du texte, pas sur le bord de l'écran.
+  scroll-padding-inline: var(--gouttiere);
+
+  > * {
+    scroll-snap-align: start;
+  }
+
+  @include breakpoint-up($md) {
+    grid-auto-flow: row;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-inline: 0;
+    padding: 0;
+    overflow-x: visible;
+  }
+
+  // 6 sur une ligne : écart resserré, sinon les cartes deviennent trop étroites pour leurs chiffres.
+  @include breakpoint-up($xl) {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: var(--espace-m);
+  }
+}
+
+// « Vous empruntez / Vous prêtez » : bandeau pleine largeur en deux moitiés.
+// MOBILE : empilées (sombre puis accent) ; côte à côte dès $lg, comme la page de bienvenue.
+.landing__sides {
+  display: grid;
+
+  @include breakpoint-up($lg) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.landing__side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--espace-m);
+  padding: var(--espace-xl) var(--gouttiere);
+  background-color: var(--color-bg-surface);
+  // Les variables locales évitent de répéter chaque règle dans la variante accent :
+  // la variante ne change QUE ces trois couleurs.
+  --side-text: var(--color-text-secondary);
+  --side-strong: var(--color-text-strong);
+  --side-border: var(--color-border);
+  color: var(--side-text);
+
+  @include breakpoint-up($lg) {
+    padding: var(--espace-xxl) var(--espace-xl);
+  }
+}
+
+.landing__side--accent {
+  background-color: var(--color-accent);
+  --side-text: var(--color-text-on-accent);
+  --side-strong: var(--color-text-on-accent);
+  --side-border: var(--color-border-on-accent);
+}
+
+.landing__side-eyebrow {
+  @include eyebrow(var(--side-text));
+}
+
+.landing__side-title {
+  max-width: 14ch;
+  color: var(--side-strong);
+  font-family: var(--font-brand);
+  font-size: var(--h2);
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+// Arguments séparés par un filet, sans icônes : le texte porte le message.
+.landing__side-points {
+  display: flex;
+  flex-direction: column;
+  max-width: 42ch;
+  margin: 0;
+  padding: 0;
+}
+
+.landing__side-point {
+  padding-block: var(--espace-s-plus);
+  border-top: 1px solid var(--side-border);
+}
+
+.landing__side-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem; // 44px : cible tactile
+  color: var(--side-strong);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+
+  &:hover {
+    text-decoration-thickness: 2px;
+  }
+}
+
+// « Comment ça marche » : une location racontée sur une frise.
+// MOBILE : intro puis frise, empilées. $lg : intro à gauche (reste visible en défilant), frise à droite.
+.landing__story {
+  display: grid;
+  gap: var(--espace-l);
+
+  @include breakpoint-up($lg) {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    align-items: start;
+  }
+}
+
+.landing__story-intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-s);
+
+  @include breakpoint-up($lg) {
+    position: sticky;
+    top: calc(var(--app-header-height) + var(--espace-l));
+  }
+}
+
+// Texte d'introduction sous un titre de section.
+.landing__section-lead {
+  max-width: 40ch;
+  color: var(--color-text-secondary);
+}
+
+.landing__story-steps {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+}
+
+// Chaque moment : un trait vertical à gauche (la frise) et un point sur l'heure.
+.landing__story-step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-s-plus);
+  padding: 0 0 var(--espace-l) var(--espace-l);
+  border-left: 2px solid var(--color-border);
+
+  &:last-child {
+    padding-bottom: 0;
+    border-left-color: transparent; // la frise s'arrête au dernier point
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0.35em;
+    left: calc(-0.4375rem - 1px); // centré sur le trait de 2px
+    width: 0.875rem;
+    height: 0.875rem;
+    border-radius: var(--rayon-rond);
+    background-color: var(--color-accent);
+    box-shadow: 0 0 0 4px var(--color-bg-primary); // détache le point du trait
+  }
+}
+
+.landing__story-time {
+  @include numeric;
+  display: flex;
+  align-items: center;
+  gap: var(--espace-s);
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+// Le marché en chiffres : 2 colonnes sur mobile, 4 sur une ligne en grand écran.
+.landing__market {
+  --grid-min: 9rem;
+}
+
+// --- Clubs participants ------------------------------------------------------
+// MOBILE (et tout écran tactile, où le survol n'existe pas) : une liste de bandes
+// horizontales, tout est lisible sans interaction.
+.landing__clubs {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-s);
+  margin: 0;
+  padding: 0;
+}
+
+.landing__club {
+  display: flex;
+  align-items: center;
+  gap: var(--espace-s-plus);
+  height: 100%;
+  padding: var(--espace-s);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--rayon-l);
+  background-color: var(--color-bg-surface);
+  color: inherit;
+  text-decoration: none;
+  overflow: hidden;
+}
+
+// Complète le composant .club-logo (fond neutre, image jamais déformée) : seulement la taille.
+.landing__club-logo {
+  width: 3rem;
+  height: 3rem;
+}
+
+.landing__club-details {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.landing__club-name {
+  color: var(--color-text-strong);
+  font-weight: 600;
+}
+
+.landing__club-meta {
+  color: var(--color-text-secondary);
+  font-size: var(--little-text);
+}
+
+// AVEC UNE SOURIS, dès $md : un grand rectangle de bandes verticales étroites.
+// La bande survolée (ou atteinte au clavier) s'élargit et repousse les autres.
+// (hover: hover) = l'appareil sait survoler : exclut téléphones et tablettes tactiles.
+@media (hover: hover) and (width >= $md) {
+  .landing__clubs {
+    flex-direction: row;
+    height: 16rem;
+  }
+
+  .landing__club-item {
+    flex: 1 1 0; // toutes les bandes partent de la même largeur…
+    min-width: 0;
+  }
+
+  .landing__club {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .landing__club-logo {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .landing__club-details {
+    align-items: center;
+    opacity: 0; // masqué à l'écran mais toujours lu : c'est le texte du lien
+    white-space: nowrap;
+  }
+
+  // Bande OUVERTE : celle qu'on survole, ou celle qui a le focus clavier (touche Tab).
+  // Au repos, aucune n'est mise en avant : toutes les bandes ont la même largeur.
+  .landing__club-item:hover,
+  .landing__club-item:focus-within {
+    flex-grow: 5; // … et l'ouverte en prend 5 fois plus
+
+    .landing__club {
+      background-color: var(--color-bg-surface-hover);
+      border-color: var(--color-accent-border);
+    }
+
+    .landing__club-logo {
+      width: 7rem;
+      height: 7rem;
+    }
+
+    .landing__club-details {
+      opacity: 1;
+    }
+  }
+
+  // Animation seulement si l'utilisateur n'a pas demandé à réduire les mouvements.
+  @media (prefers-reduced-motion: no-preference) {
+    .landing__club-item {
+      transition: flex-grow var(--transition-lente);
+    }
+
+    .landing__club-logo {
+      transition:
+        width var(--transition-lente),
+        height var(--transition-lente);
+    }
+
+    .landing__club-details {
+      transition: opacity var(--transition-lente);
     }
   }
 }
 
-@media (width >= breakpoints.$lg) {
-  .accueil-block {
-    h1 {
-      font-size: 4rem;
-    }
+// --- Appel final ---------------------------------------------------------------
+.landing__cta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--espace-m);
+  padding: var(--espace-l) var(--espace-m);
+  border: 1px solid var(--color-accent-border);
+  border-radius: var(--rayon-l);
+  background-color: var(--color-accent-soft);
+
+  @include breakpoint-up($md) {
+    align-items: center;
+    padding: var(--espace-xl) var(--espace-l);
+    text-align: center;
   }
 }
 
-@media (width >= breakpoints.$lg) {
-  .accueil-block {
-    h1 {
-      font-size: 4.5rem;
-    }
-  }
+.landing__cta-title {
+  max-width: 24ch;
+  font-size: var(--h3);
+  line-height: 1.2;
+  text-wrap: balance;
 }

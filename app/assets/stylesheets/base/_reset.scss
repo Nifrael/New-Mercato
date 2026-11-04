@@ -1,0 +1,110 @@
+// Reset et règles globales — repris du _base.scss du Portfolio.
+@use "../config/breakpoints" as *;
+@use "../config/mixins" as *;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+figure,
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+}
+
+// Repris du reset de Tailwind (preflight) au moment de son retrait : seulement ce dont
+// nos composants dépendent. Chaque composant précise ensuite ses propres styles.
+dl,
+dd,
+blockquote {
+  margin: 0;
+}
+
+fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+legend {
+  padding: 0;
+}
+
+button {
+  background-color: transparent; // pas de fond gris par défaut
+  color: inherit;
+}
+
+// L'attribut hidden doit toujours masquer, même si une classe définit un display.
+[hidden] {
+  display: none !important;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--color-bg-primary);
+}
+
+main {
+  flex: 1;
+}
+
+img,
+picture,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+// Les champs de formulaire n'héritent pas de la police par défaut.
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+:focus-visible {
+  @include focus-visible;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+.container {
+  @include container;
+}
+
+// Texte lu par les lecteurs d'écran, invisible à l'écran.
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

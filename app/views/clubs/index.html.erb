@@ -1,9 +1,12 @@
-<div>
-  <h1 class="font-bold text-4xl">Clubs#index</h1>
-  <p><% @clubs.each do |club| %>
-      <%= club.name %>
-      <%= image_tag club.logo %>
-      <%= club.users.first.first_name %>
-      <%= image_tag club.users.first.photo %> </p>
-  <% end %>
+<% content_for(:title, "Clubs — New Mercato") %>
+<div class="container page">
+  <header class="page-header">
+    <div class="page-header__text">
+      <h1>Clubs participants</h1>
+      <p class="page-header__lead"><%= t("counts.clubs", count: @clubs.size) %> prêtent et louent leurs joueurs sur New Mercato.</p>
+    </div>
+  </header>
+  <div class="clubs__grid">
+    <%= render partial: "clubs/club_card", collection: @clubs, as: :club %>
+  </div>
 </div>

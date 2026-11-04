@@ -1,17 +1,24 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+#
+# Les fixtures sont insérées SANS passer par les validations : on veille donc
+# à ce qu'elles respectent les règles métier (club emprunteur ≠ club propriétaire,
+# fin après début). Dates relatives à Date.current pour que les tests ne
+# dépendent pas du jour où on les lance.
 
+# Le club two demande à louer le joueur du club one.
 one:
   player: one
-  club: one
-  total_price: 1
-  status: 1
-  start_date: 2025-04-13
-  end_date: 2025-04-13
+  club: two
+  total_price: 3000
+  status: pending
+  start_date: <%= Date.current + 1 %>
+  end_date: <%= Date.current + 4 %>
 
+# Le club one demande à louer le joueur du club two.
 two:
   player: two
-  club: two
-  total_price: 1
-  status: 1
-  start_date: 2025-04-13
-  end_date: 2025-04-13
+  club: one
+  total_price: 6000
+  status: pending
+  start_date: <%= Date.current + 1 %>
+  end_date: <%= Date.current + 4 %>

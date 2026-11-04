@@ -11,5 +11,21 @@ module ActiveSupport
     fixtures :all
 
     # Add more helper methods to be used by all tests here...
+    def assert_permit(user, record, action)
+      msg = "User #{user.inspect} should be permitted to #{action} #{record}, but isn't."
+      assert Pundit.policy!(user, record).public_send(action), msg
+    end
+
+    def refute_permit(user, record, action)
+      msg = "User #{user.inspect} should NOT be permitted to #{action} #{record}, but is."
+      refute Pundit.policy!(user, record).public_send(action), msg
+    end
+  end
+end
+
+module ActionDispatch
+  class IntegrationTest
+    # Donne accès à sign_in(user) / sign_out(user) dans les tests de contrôleur.
+    include Devise::Test::IntegrationHelpers
   end
 end

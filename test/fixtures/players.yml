@@ -1,29 +1,32 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+#
+# Les enums (position, status) s'écrivent avec leur CLÉ (ex. attaquant),
+# jamais avec l'entier ni un libellé libre : une valeur inconnue est enregistrée à nil.
 
 one:
-  name: MyString
-  nationality: MyString
-  height: 1
-  foot: MyString
-  position: MyString
-  age: 1
-  market_value: 1
-  price_per_day: 1
-  jersey_number: MyString
-  status: 1
-  photo: MyString
+  name: Player One
+  nationality: France
+  height: 180
+  foot: Droit
+  position: attaquant
+  age: 25
+  market_value: 100000
+  price_per_day: 1000
+  jersey_number: 10
+  status: available
+  photo: https://example.com/player_one.png
   club: one
 
 two:
-  name: MyString
-  nationality: MyString
-  height: 1
-  foot: MyString
-  position: MyString
-  age: 1
-  market_value: 1
-  price_per_day: 1
-  jersey_number: MyString
-  status: 1
-  photo: MyString
+  name: Player Two
+  nationality: Spain
+  height: 185
+  foot: Gauche
+  position: defenseur
+  age: 28
+  market_value: 200000
+  price_per_day: 2000
+  jersey_number: 4
+  status: available
+  photo: https://example.com/player_two.png
   club: two

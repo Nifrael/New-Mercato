@@ -2,33 +2,46 @@
 <html lang="fr">
   <head>
     <title><%= content_for(:title) || "New Mercato" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%# viewport-fit=cover : permet de respecter les zones sûres (encoche, barre d'accueil iOS) via env(safe-area-inset-*). %>
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <%# Turbo 8 : revenir sur la même page (ex. après « Accepter ») ne recharge pas tout :
+        Turbo compare l'ancienne et la nouvelle page et ne modifie que ce qui a changé,
+        en gardant la position de défilement. %>
+    <%= turbo_refresh_method_tag :morph %>
+    <%= turbo_refresh_scroll_tag :preserve %>
     <%= yield :head %>
     <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
     <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <link href="https://cdn.jsdelivr.net/npm/vanilla-calendar-pro/styles/index.css" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/5ae925a9ee.js" crossorigin="anonymous"></script>
+    <%# Polices : preconnect pour ouvrir la connexion au plus tôt, puis une seule feuille Google Fonts. %>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&family=Mina:wght@700&display=swap" rel="stylesheet">
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-  <body class="w-full min-h-screen flex flex-col overflow-auto m-0 p-0">
-    <% unless current_page?(root_path) %>
-      <%= render "layouts/navbar" %>
-    <% end %>
-    <main class="flex-1">
-      <%= render "shared/flash_messages" %>
-      <%= yield %>
-    </main>
-    <% unless current_page?(root_path) %>
-      <%= render "layouts/footer" %>
+  <body>
+    <% if current_page?(root_path) %>
+      <%# Page de bienvenue : plein écran, sans navigation. %>
+      <main><%= yield %></main>
+    <% else %>
+      <%# Partout ailleurs : barre d'onglets en bas sur mobile, pour tout le monde.
+          En desktop : sidebar si connecté, barre en haut sinon (cf. NavigationHelper#app_shell?). %>
+      <div class="<%= class_names("app-shell", "app-shell--sidebar": app_shell?) %>">
+        <%= render(app_shell? ? "layouts/app_nav" : "layouts/site_nav") %>
+        <main class="app-shell__main">
+          <%= render "shared/flash_messages" %>
+          <%= yield %>
+        </main>
+        <%# Footer : pages visiteurs uniquement. L'espace connecté est un outil, sans footer. %>
+        <%= render "layouts/site_footer" unless app_shell? %>
+      </div>
     <% end %>
   </body>
 </html>

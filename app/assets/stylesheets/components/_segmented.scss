@@ -1,0 +1,40 @@
+// Contrôle segmenté : petits onglets sous forme de liens (aria-current="page" = actif).
+.segmented {
+  display: inline-flex;
+  gap: var(--espace-xs);
+  padding: var(--espace-xs);
+  border: 1px solid var(--color-border);
+  border-radius: var(--rayon-m);
+  background-color: var(--color-bg-surface);
+}
+
+.segmented__item {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem; // cible tactile (mobile first)
+  padding-inline: var(--espace-m);
+  border-radius: var(--rayon-s);
+  color: var(--color-text-secondary);
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    background-color var(--transition-rapide),
+    color var(--transition-rapide);
+
+  &:hover {
+    color: var(--color-text);
+  }
+
+  &[aria-current="page"] {
+    background-color: var(--color-accent);
+    color: var(--color-text-on-accent);
+  }
+}
+
+// Compteur dans un onglet (« Prêtés 2 »).
+.segmented__count {
+  margin-left: var(--espace-xs);
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  opacity: 0.8;
+}

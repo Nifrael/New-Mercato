@@ -13,14 +13,15 @@ Rails.application.routes.draw do
   root to: "pages#bienvenue"
 
   get "/accueil", to: "pages#accueil"
+  get "/mentions-legales", to: "pages#mentions_legales", as: :mentions_legales
+
+  # Catalogue des composants du design system : développement et test uniquement.
+  get "/styleguide", to: "styleguide#show" if Rails.env.local?
 
   resources :clubs, only: %i[index show]
 
   resources :players, only: %i[index show edit update] do
-    collection do
-      get "filter_by_position"
-    end
-    resources :bookings, only: %i[show new create]
+    resources :bookings, only: %i[create]
   end
 
   resource :dashboard, only: %i[show]
@@ -32,7 +33,7 @@ Rails.application.routes.draw do
         get :loaned_in
       end
     end
-    resources :bookings, only: %i[index show] do
+    resources :bookings, only: %i[index] do
       member do
         patch :accept
         patch :refuse

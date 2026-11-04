@@ -1,0 +1,30 @@
+// Statistique — partial shared/_stat : libellé en sur-titre + valeur chiffrée.
+@use "../config/mixins" as *;
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-xs);
+}
+
+.stat__label {
+  @include eyebrow;
+}
+
+.stat__value {
+  @include numeric;
+  font-size: var(--h4);
+  font-weight: 500;
+  color: var(--color-text-strong);
+}
+
+.stat--accent .stat__value {
+  color: var(--color-accent);
+}
+
+// Grande valeur : chiffres mis en scène (page d'accueil).
+.stat--large .stat__value {
+  font-size: var(--h2);
+  font-weight: 600;
+  line-height: 1.1;
+}

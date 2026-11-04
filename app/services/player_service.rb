@@ -37,7 +37,7 @@ class PlayerService
         else
           market_value = 10_000_000
         end
-      price_per_day = market_value / 365_000
+      price_per_day = Player.price_per_day_for(market_value)
 
       player = Player.find_or_initialize_by(id: player_data["id"])
       player.assign_attributes(

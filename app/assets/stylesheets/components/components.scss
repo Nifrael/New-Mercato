@@ -1,5 +1,19 @@
-@forward "buttons";
-@forward "navbar";
-@forward "footer";
-@forward "containers";
-@forward "inputs";
+// Composants du design system : un fichier par composant (BEM).
+@forward "brand";
+@forward "button";
+@forward "badge";
+@forward "card";
+@forward "stat";
+@forward "page-header";
+@forward "avatar";
+@forward "progress";
+@forward "empty-state";
+@forward "booking-cards";
+@forward "toast";
+@forward "segmented";
+@forward "pipeline";
+@forward "player-card";
+@forward "chips";
+@forward "form-controls";
+@forward "booking-panel";
+@forward "club-card";

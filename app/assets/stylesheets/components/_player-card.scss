@@ -1,0 +1,70 @@
+// Carte joueur du catalogue (players/_player_card), complète .card.card--interactive.
+@use "../config/mixins" as *;
+
+.player-card__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--espace-s);
+}
+
+.player-card__identity {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.player-card__name {
+  font-size: var(--h5);
+  font-weight: 600;
+}
+
+.player-card__meta {
+  color: var(--color-text-secondary);
+  font-size: var(--base-size);
+}
+
+.player-card__position {
+  align-self: flex-start;
+  padding: var(--espace-xs) var(--espace-s);
+  border-radius: var(--rayon-s);
+  background-color: var(--color-bg-surface-hover);
+  font-size: var(--little-text);
+  font-weight: 600;
+}
+
+.player-card__figures {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--espace-s);
+  margin: 0;
+  margin-top: auto; // collé en bas : les cartes d'une même ligne s'alignent
+  padding-top: var(--espace-s-plus);
+  border-top: 1px solid var(--color-border);
+}
+
+.player-card__figure {
+  display: flex;
+  flex-direction: column;
+}
+
+.player-card__figure--price {
+  align-items: flex-end;
+}
+
+.player-card__label {
+  @include eyebrow;
+}
+
+.player-card__value {
+  @include numeric;
+  margin: 0;
+  color: var(--color-text);
+}
+
+.player-card__value--price {
+  color: var(--color-accent);
+  font-size: var(--h4);
+  font-weight: 600;
+}

@@ -7,7 +7,7 @@ gem "rails", "~> 8.0.2"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
 # Use postgresql as the database for Active Record
-gem "pg", "~> 1.1"
+gem "pg", "~> 1.7"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
@@ -64,11 +64,6 @@ group :test do
   gem "selenium-webdriver"
 end
 
-# TailwindCSS
-gem "tailwindcss-ruby", "~> 4.1"
-
-gem "tailwindcss-rails", "~> 4.4"
-
 # Authentification
 gem "devise"
 
@@ -80,10 +75,15 @@ gem "htmlbeautifier"
 
 # SASS
 gem "dartsass-rails", "~> 0.5.1"
-gem "sass-embedded", "~> 1.89"
+gem "sass-embedded", "~> 1.93"
 
 # Simple_form
-gem "simple_form"
 
 # State machines
 gem "aasm", "~> 5.5"
+
+# Traductions françaises par défaut de Rails (messages de validation, dates, nombres)
+gem "rails-i18n", "~> 8.0"
+
+# Traductions françaises des messages de Devise (connexion, mot de passe oublié…)
+gem "devise-i18n", "~> 1.15"

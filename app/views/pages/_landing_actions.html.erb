@@ -1,0 +1,10 @@
+<%# locals: () -%>
+<%# Boutons d'action de l'accueil : dans l'accroche ET dans l'appel final (même markup → partial). %>
+<div class="landing__actions cluster">
+  <%= link_to "Voir les joueurs", players_path, class: "btn btn--primary" %>
+  <% if user_signed_in? %>
+    <%= link_to "Mon tableau de bord", dashboard_path, class: "btn btn--secondary" %>
+  <% else %>
+    <%= link_to "Connexion", new_user_session_path, class: "btn btn--secondary" %>
+  <% end %>
+</div>

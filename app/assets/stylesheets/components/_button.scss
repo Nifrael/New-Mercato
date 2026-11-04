@@ -1,0 +1,75 @@
+// Bouton — classe posée sur link_to / button_to / submit :
+//   link_to "Voir", player_path(p), class: "btn btn--secondary"
+// Ancien système (.button, .btn-green…) dans _buttons.scss : supprimé à la fin de la migration.
+@use "../config/breakpoints" as *;
+@use "../config/mixins" as *;
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--espace-s);
+  min-height: 2.75rem; // 44px : cible tactile confortable au doigt (mobile first)
+  padding: var(--espace-s) var(--espace-m);
+  border: 1px solid transparent;
+  border-radius: var(--rayon-m);
+  font-family: var(--font-text);
+  font-size: var(--base-size);
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--transition-rapide),
+    border-color var(--transition-rapide),
+    color var(--transition-rapide);
+
+  &:disabled,
+  &[aria-disabled="true"] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  // Au pointeur précis (souris), le bouton peut être plus compact.
+  @include breakpoint-up($md) {
+    min-height: 2.5rem;
+  }
+}
+
+// Action principale : une seule par écran idéalement (le vert reste rare).
+.btn--primary {
+  background-color: var(--color-accent);
+  color: var(--color-text-on-accent);
+
+  &:hover {
+    background-color: var(--color-accent-hover);
+  }
+}
+
+.btn--secondary {
+  background-color: transparent;
+  border-color: var(--color-border);
+  color: var(--color-text);
+
+  &:hover {
+    background-color: var(--color-bg-surface-hover);
+    border-color: var(--color-accent-border);
+  }
+}
+
+// Action destructive (refuser) : discrète au repos, franche au survol.
+.btn--danger {
+  background-color: var(--color-danger-soft);
+  color: var(--color-danger);
+
+  &:hover {
+    background-color: var(--color-danger-hover);
+    color: var(--color-text-on-danger);
+  }
+}
+
+// Pleine largeur (formulaires et actions sur mobile).
+.btn--block {
+  width: 100%;
+}

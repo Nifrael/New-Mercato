@@ -23,9 +23,11 @@ module NewMercato
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
     #
-    # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
     #
+    # Fuseau de l'application : Date.current / Time.current l'utilisent,
+    # quel que soit le fuseau du serveur qui fait tourner le code.
+    config.time_zone = "Paris"
     config.action_cable.mount_path = nil # Désactive Action Cable (le temps de...)
   end
 end

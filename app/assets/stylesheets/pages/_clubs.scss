@@ -1,0 +1,25 @@
+// Liste des clubs et page d'un club.
+.clubs__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(17rem, 100%), 1fr));
+  gap: var(--espace-m);
+}
+
+// En-tête de la page d'un club : logo + identité, côte à côte dès que la place le permet.
+.club-hero {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--espace-m-plus);
+}
+
+.club-hero__identity {
+  display: flex;
+  flex: 1 1 14rem;
+  flex-direction: column;
+  gap: var(--espace-xs);
+}
+
+.club-hero__meta {
+  color: var(--color-text-secondary);
+}

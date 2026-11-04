@@ -1,0 +1,40 @@
+// Marque New Mercato : carré « NM » + nom, posés sur un link_to.
+//   link_to accueil_path, class: "brand" do … <span class="brand__logo">NM</span> …
+// Utilisée par la barre du site (layouts/_site_nav) et la sidebar (layouts/_app_nav).
+@use "../config/mixins" as *;
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--espace-s);
+  min-height: 2.75rem; // 44px : cible tactile
+  color: var(--color-text-strong);
+  text-decoration: none;
+
+  &:focus-visible {
+    @include focus-visible;
+  }
+}
+
+.brand__logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--rayon-s);
+  background-color: var(--color-accent);
+  color: var(--color-text-on-accent);
+  font-family: var(--font-brand);
+  font-size: var(--little-text);
+  font-weight: 700;
+}
+
+.brand__wordmark {
+  font-family: var(--font-brand);
+  font-size: var(--h5);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
