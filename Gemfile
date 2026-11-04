@@ -3,7 +3,7 @@ source "https://rubygems.org"
 ruby "3.3.4"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 8.0.2"
+gem "rails", "~> 8.1.4"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
 # Use postgresql as the database for Active Record
@@ -80,7 +80,7 @@ gem "htmlbeautifier"
 
 # SASS
 gem "dartsass-rails", "~> 0.5.1"
-gem "sass-embedded", "~> 1.93"
+gem "sass-embedded", "~> 1.107"
 
 # Simple_form
 
@@ -91,4 +91,4 @@ gem "aasm", "~> 5.5"
 gem "rails-i18n", "~> 8.0"
 
 # Traductions françaises des messages de Devise (connexion, mot de passe oublié…)
-gem "devise-i18n", "~> 1.15"
+gem "devise-i18n", "~> 1.16"
