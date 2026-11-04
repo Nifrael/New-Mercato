@@ -1,14 +1,21 @@
-# Recalcule chaque jour le statut des joueurs dont un prêt COMMENCE aujourd'hui (→ Loué)
-# ou s'est TERMINÉ hier (→ Disponible). Planifié dans config/recurring.yml.
+# Recalcule chaque jour le statut Loué / Disponible des joueurs (planifié dans config/recurring.yml).
+#
+# On ne regarde PAS seulement « les prêts qui commencent aujourd'hui ou ont fini hier » :
+# si le job ne tourne pas un jour (serveur arrêté, environnement de dev…), ces joueurs
+# resteraient « Loué » pour toujours. On compare plutôt l'état stocké à la réalité :
+# tout joueur marqué Loué OU ayant un prêt en cours est recalculé. Le job est donc
+# auto-réparateur : le relancer n'importe quand remet tout d'aplomb.
 class UpdatePlayerAvailabilityJob < ApplicationJob
   queue_as :default
 
   def perform
-    today = Date.current
-    loans = Booking.accepted.where(start_date: today).or(Booking.accepted.where(end_date: today - 1))
-    player_ids = loans.distinct.pluck(:player_id)
+    players = Player.rented.or(Player.where(id: Booking.active.select(:player_id)))
+    count = 0
 
-    Player.where(id: player_ids).find_each(&:update_availability_status!)
-    Rails.logger.info "UpdatePlayerAvailabilityJob : statut recalculé pour #{player_ids.size} joueur(s)"
+    players.find_each do |player|
+      player.update_availability_status!
+      count += 1
+    end
+    Rails.logger.info "UpdatePlayerAvailabilityJob : statut vérifié pour #{count} joueur(s)"
   end
 end
