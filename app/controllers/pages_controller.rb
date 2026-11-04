@@ -13,7 +13,7 @@ class PagesController < ApplicationController
     @players_count = Player.count
     # Vitrine : les joueurs disponibles les plus cotés, comme le tri par défaut du catalogue.
     @featured_players = policy_scope(Player).available.includes(:club)
-                                            .sorted_by(Player::DEFAULT_SORT).limit(4)
+                                            .sorted_by(Player::DEFAULT_SORT).limit(6)
     @story_booking = story_booking(@featured_players.first)
     # Chiffres du marché : calculés PAR LA BASE (SUM, AVG, COUNT DISTINCT), une requête chacun,
     # sans charger un seul joueur en mémoire.

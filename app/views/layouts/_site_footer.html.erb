@@ -16,12 +16,15 @@
       <%= link_to "Joueurs", players_path, class: "site-footer__link" %>
       <%= link_to "Clubs", clubs_path, class: "site-footer__link" %>
       <%= link_to "Mentions légales", mentions_legales_path, class: "site-footer__link" %>
-      <%= link_to "Code source (GitHub)", "https://github.com/Nifrael/New-Mercato", class: "site-footer__link" %>
+      <%= link_to "https://github.com/Nifrael/New-Mercato", class: "site-footer__link" do %>
+        <%= icon(:github, size: 18) %> Code source
+      <% end %>
     </nav>
   </div>
 
   <p class="site-footer__legal">
-    © <%= Date.current.year %> Julien Marchand · NifraDev ·
+    © <%= Date.current.year %>
+    <%= link_to "Julien Marchand · NifraDev", "https://nifradev.fr", class: "site-footer__credit" %> ·
     Projet pédagogique, sans lien avec les clubs cités.
   </p>
 </footer>

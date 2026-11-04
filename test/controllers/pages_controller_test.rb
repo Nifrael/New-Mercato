@@ -109,14 +109,14 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
     assert_select ".landing__players", count: 0 # aucun disponible : la section disparaît
   end
 
-  test "la vitrine se limite aux 4 joueurs disponibles les plus cotés" do
-    3.times do |i|
+  test "la vitrine se limite aux 6 joueurs disponibles les plus cotés" do
+    5.times do |i|
       players(:one).dup.update!(name: "Recrue #{i}", market_value: 1_000_000 + i)
     end
 
     get accueil_url
 
-    assert_select ".landing__players .player-card", count: 4
+    assert_select ".landing__players .player-card", count: 6
     assert_select ".landing__players .player-card__name", text: players(:one).name, count: 0 # le moins coté sort
   end
 

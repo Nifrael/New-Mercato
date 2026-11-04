@@ -103,7 +103,8 @@ class NavigationTest < ActionDispatch::IntegrationTest
     get players_url
 
     assert_select "footer.site-footer a[href=?]", mentions_legales_path
-    assert_select "footer.site-footer a[href=?]", "https://github.com/Nifrael/New-Mercato"
+    assert_select "footer.site-footer a[href=?] svg.icon", "https://github.com/Nifrael/New-Mercato"
+    assert_select "footer.site-footer a[href=?]", "https://nifradev.fr", text: "Julien Marchand · NifraDev"
   end
 
   test "connecté, l'espace club n'a pas de footer" do
