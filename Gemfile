@@ -59,6 +59,11 @@ group :development do
 end
 
 group :test do
+  # Minitest 6 n'est pas compatible avec Rails 8.0 (bin/rails test plante :
+  # « wrong number of arguments » dans rails/test_unit/line_filtering.rb).
+  # À retirer en passant à une version de Rails qui le supporte.
+  gem "minitest", "< 6"
+
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
