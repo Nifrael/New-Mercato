@@ -15,6 +15,15 @@
   }
 }
 
+// Page de présentation (accueil) : des sections plus aérées qu'une page d'outil.
+.page--spacious {
+  gap: var(--espace-xl);
+
+  @include breakpoint-up($lg) {
+    gap: var(--espace-xxl);
+  }
+}
+
 .dashboard__stats {
   --grid-min: 9rem; // 2 colonnes sur mobile, 5 sur grand écran
 }

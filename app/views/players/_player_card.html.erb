@@ -1,6 +1,8 @@
-<%# locals: (player:) -%>
+<%# locals: (player:, heading: :h2) -%>
 <%# Carte du catalogue : toute la carte est un lien vers la fiche. Le prix par jour,
-    l'information qui décide une location, est mis en avant en vert. %>
+    l'information qui décide une location, est mis en avant en vert.
+    heading : niveau de titre du nom. h2 dans le catalogue (directement sous le h1 de la page),
+    h3 sur l'accueil (la carte y est rangée sous le titre h2 d'une section). %>
 <%= link_to player_path(player), class: "card card--interactive player-card" do %>
   <div class="player-card__top">
     <%= player_avatar(player, size: :lg) %>
@@ -8,7 +10,7 @@
   </div>
 
   <div class="player-card__identity">
-    <h2 class="player-card__name"><%= player.name %></h2>
+    <%= content_tag heading, player.name, class: "player-card__name" %>
     <p class="player-card__meta"><%= player.club.name %> · <%= player.age %> ans</p>
   </div>
 

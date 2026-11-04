@@ -6,56 +6,155 @@
     <p class="page-header__eyebrow">La location de joueurs entre clubs</p>
     <h1 class="landing__title">N'achetez plus les joueurs.<br> <span class="landing__accent">Louez-les.</span></h1>
     <p class="landing__lead">
-      New Mercato met les clubs en relation : trouvez un joueur, demandez-le pour une période,
-      et suivez la réponse de son club.
+      Un attaquant pour trois semaines, un gardien le temps d'une blessure :
+      payez à la journée, rendez-le après. Le yacht peut attendre.
     </p>
-    <div class="landing__actions cluster">
-      <%= link_to "Voir les joueurs", players_path, class: "btn btn--primary" %>
-      <% if user_signed_in? %>
-        <%= link_to "Mon tableau de bord", dashboard_path, class: "btn btn--secondary" %>
-      <% else %>
-        <%= link_to "Connexion", new_user_session_path, class: "btn btn--secondary" %>
-      <% end %>
-    </div>
+    <%= render "pages/landing_actions" %>
     <p class="landing__figures">
       <%= t("counts.players", count: @players_count) %> · <%= t("counts.clubs", count: @clubs.size) %>
-      · <a href="#comment-ca-marche" class="landing__anchor">Comment ça marche ↓</a>
+      <% if @story_booking %>
+        · <a href="#comment-ca-marche" class="landing__anchor">Comment ça marche ↓</a>
+      <% end %>
     </p>
   </div>
 </section>
 
-<div class="container page">
-  <section id="comment-ca-marche" class="stack" aria-labelledby="comment-ca-marche-titre">
-    <h2 id="comment-ca-marche-titre" class="section-title">Comment ça marche</h2>
-    <ol class="steps" role="list">
-      <li class="card steps__item">
-        <span class="steps__icon"><%= icon(:search, size: 22) %></span>
-        <h3 class="card__title">1. Trouvez</h3>
-        <p>Parcourez le catalogue, filtrez par poste et comparez les prix à la journée.</p>
-      </li>
-      <li class="card steps__item">
-        <span class="steps__icon"><%= icon(:inbox, size: 22) %></span>
-        <h3 class="card__title">2. Demandez</h3>
-        <p>Choisissez vos dates : le total est calculé, et le club du joueur accepte ou refuse.</p>
-      </li>
-      <li class="card steps__item">
-        <span class="steps__icon"><%= icon(:dashboard, size: 22) %></span>
-        <h3 class="card__title">3. Suivez</h3>
-        <p>Vos demandes, vos prêts en cours et votre effectif, au même endroit.</p>
-      </li>
-    </ol>
-  </section>
+<div class="container page page--spacious">
+  <%# Vitrine : de vrais joueurs plutôt qu'une description du produit. Masquée s'il n'y en a aucun. %>
+  <% if @featured_players.any? %>
+    <section class="stack" aria-labelledby="vitrine-titre">
+      <div class="landing__section-header">
+        <div>
+          <p class="page-header__eyebrow">Disponibles maintenant</p>
+          <h2 id="vitrine-titre" class="section-title">Ils n'attendent que votre demande</h2>
+        </div>
+        <%= link_to "Tout le catalogue →", players_path, class: "landing__anchor" %>
+      </div>
 
+      <div class="landing__players">
+        <% @featured_players.each do |player| %>
+          <%= render "players/player_card", player:, heading: :h3 %>
+        <% end %>
+      </div>
+    </section>
+  <% end %>
+</div>
+
+<%# Les deux côtés d'une location : bandeau pleine largeur, d'où la sortie du .container.
+    Même coupure sombre / accent que la page de bienvenue. %>
+<section class="landing__sides" aria-labelledby="cotes-titre">
+  <h2 id="cotes-titre" class="visually-hidden">Emprunter ou prêter un joueur</h2>
+
+  <div class="landing__side">
+    <p class="landing__side-eyebrow">Vous empruntez</p>
+    <h3 class="landing__side-title">Un renfort, pas une dette.</h3>
+    <ul class="landing__side-points" role="list">
+      <li class="landing__side-point">Un joueur pour la durée exacte du besoin : une blessure, une fin de saison, une coupe.</li>
+      <li class="landing__side-point">Le prix à la journée est affiché d'avance, le total se calcule avec vos dates.</li>
+      <li class="landing__side-point">La réponse du club arrive dans votre tableau de bord.</li>
+    </ul>
+    <%= link_to "Trouver un joueur →", players_path, class: "landing__side-link" %>
+  </div>
+
+  <div class="landing__side landing__side--accent">
+    <p class="landing__side-eyebrow">Vous prêtez</p>
+    <h3 class="landing__side-title">Vos remplaçants rapportent.</h3>
+    <ul class="landing__side-points" role="list">
+      <li class="landing__side-point">Un joueur qui ne joue pas chez vous joue ailleurs, et reste à vous.</li>
+      <li class="landing__side-point">Vous fixez son prix par jour et décidez s'il est disponible.</li>
+      <li class="landing__side-point">Chaque demande vous attend : vous acceptez ou vous refusez.</li>
+    </ul>
+    <% if user_signed_in? %>
+      <%= link_to "Gérer mon effectif →", dashboard_players_path, class: "landing__side-link" %>
+    <% else %>
+      <%= link_to "Se connecter →", new_user_session_path, class: "landing__side-link" %>
+    <% end %>
+  </div>
+</section>
+
+<div class="container page page--spacious">
+  <%# Le fonctionnement raconté sur UNE location d'exemple (vraies données, jamais enregistrée),
+      illustrée par les vrais composants de l'appli plutôt que par des pictogrammes. %>
+  <% if @story_booking %>
+    <% player = @story_booking.player %>
+    <section id="comment-ca-marche" class="landing__story" aria-labelledby="comment-ca-marche-titre">
+      <div class="landing__story-intro">
+        <p class="page-header__eyebrow">Comment ça marche</p>
+        <h2 id="comment-ca-marche-titre" class="section-title">Une location, de la blessure à la réponse</h2>
+        <p class="landing__section-lead">Une demande d'exemple, construite avec les vrais joueurs et les vrais prix du site.</p>
+      </div>
+
+      <ol class="landing__story-steps" role="list">
+        <li class="landing__story-step">
+          <p class="landing__story-time">Lundi, 9 h</p>
+          <p>
+            <strong><%= @story_booking.club.name %></strong> perd un
+            <%= t("activerecord.enums.player.position.#{player.position}").downcase %> sur blessure.
+            Il lui en faut un pour trois semaines, pas pour cinq ans.
+          </p>
+        </li>
+        <li class="landing__story-step">
+          <p class="landing__story-time">9 h 10 <%= status_badge(@story_booking) %></p>
+          <p>Il trouve <strong><%= player.name %></strong> dans le catalogue et choisit ses dates : le total se calcule tout seul.</p>
+          <%= render "bookings/booking_card", booking: @story_booking, direction: :sent %>
+        </li>
+        <li class="landing__story-step">
+          <p class="landing__story-time">14 h <%= status_badge(@story_booking, status: :accepted) %></p>
+          <p>
+            <strong><%= player.club.name %></strong> accepte. Pendant ces trois semaines,
+            <%= player.name %> apparaît « Loué » dans le catalogue : personne d'autre ne peut le réserver.
+          </p>
+        </li>
+      </ol>
+    </section>
+  <% end %>
+
+  <%# Le marché en chiffres : tout est calculé en direct depuis la base. %>
+  <% if @players_count.positive? %>
+    <section class="stack" aria-labelledby="chiffres-titre">
+      <div>
+        <p class="page-header__eyebrow">Le marché</p>
+        <h2 id="chiffres-titre" class="section-title">Des milliards sur le terrain, à la journée</h2>
+        <p class="landing__section-lead">Calculés en direct depuis la base de données, comme tout le reste de cette page.</p>
+      </div>
+
+      <div class="grid-auto landing__market">
+        <%= render "shared/stat", label: "Valeur des joueurs", value: compact_currency(@market_value), large: true %>
+        <%= render "shared/stat", label: "Prix moyen / jour", value: number_to_currency(@average_price, precision: 0),
+                                  accent: true, large: true %>
+        <%= render "shared/stat", label: "Championnats", value: @leagues_count, large: true %>
+        <%= render "shared/stat", label: "Nationalités", value: @nationalities_count, large: true %>
+      </div>
+    </section>
+  <% end %>
+
+  <%# Clubs : liste sur mobile ; en bandes qui s'ouvrent au survol avec une souris (CSS pur). %>
   <section class="stack" aria-labelledby="clubs-participants">
-    <h2 id="clubs-participants" class="section-title">Les clubs participants</h2>
+    <div>
+      <p class="page-header__eyebrow">Ils jouent le jeu</p>
+      <h2 id="clubs-participants" class="section-title">Les clubs participants</h2>
+    </div>
     <ul class="landing__clubs" role="list">
       <% @clubs.each do |club| %>
-        <li>
-          <%= link_to club_path(club), class: "landing__club", title: club.name do %>
-            <%= image_tag club.logo, alt: club.name, class: "club-logo", loading: "lazy" %>
+        <li class="landing__club-item">
+          <%= link_to club_path(club), class: "landing__club" do %>
+            <%# alt vide : le nom du club est déjà écrit dans le lien, inutile de le lire deux fois. %>
+            <%= image_tag club.logo, alt: "", class: "club-logo landing__club-logo", loading: "lazy" %>
+            <span class="landing__club-details">
+              <span class="landing__club-name"><%= club.name %></span>
+              <span class="landing__club-meta">
+                <%= club.league %> · <%= t("counts.players", count: @players_per_club.fetch(club.id, 0)) %>
+              </span>
+            </span>
           <% end %>
         </li>
       <% end %>
     </ul>
+  </section>
+
+  <%# Appel final : on reprend les actions de l'accroche, pour ne pas obliger à remonter. %>
+  <section class="landing__cta" aria-labelledby="cta-titre">
+    <h2 id="cta-titre" class="landing__cta-title">Votre prochain renfort est sans doute déjà dans le catalogue.</h2>
+    <%= render "pages/landing_actions" %>
   </section>
 </div>

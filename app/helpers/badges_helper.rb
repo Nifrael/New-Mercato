@@ -14,11 +14,13 @@ module BadgesHelper
     STATUS_VARIANTS.dig(model, status.to_sym)
   end
 
-  def status_badge(record)
+  # status: affiche un autre statut que celui de l'enregistrement
+  # (ex. l'accueil raconte la suite d'une demande : status_badge(booking, status: :accepted)).
+  def status_badge(record, status: record.status)
     model = record.model_name.i18n_key
-    variant = status_variant(model, record.status)
+    variant = status_variant(model, status)
 
-    tag.span t("activerecord.enums.#{model}.status.#{record.status}"),
+    tag.span t("activerecord.enums.#{model}.status.#{status}"),
              class: [ "badge", ("badge--#{variant}" if variant) ]
   end
 

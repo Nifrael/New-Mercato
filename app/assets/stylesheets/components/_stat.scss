@@ -21,3 +21,10 @@
 .stat--accent .stat__value {
   color: var(--color-accent);
 }
+
+// Grande valeur : chiffres mis en scène (page d'accueil).
+.stat--large .stat__value {
+  font-size: var(--h2);
+  font-weight: 600;
+  line-height: 1.1;
+}
