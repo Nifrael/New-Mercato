@@ -24,6 +24,13 @@ class BadgesHelperTest < ActionView::TestCase
     )
   end
 
+  test "on peut afficher un autre statut que celui de l'enregistrement" do
+    assert_dom_equal(
+      '<span class="badge badge--success">Accepté</span>',
+      status_badge(Booking.new(status: :pending), status: :accepted)
+    )
+  end
+
   # --- Jours restants d'un prêt ----------------------------------------------
 
   test "le badge des jours restants passe en avertissement à 3 jours ou moins" do

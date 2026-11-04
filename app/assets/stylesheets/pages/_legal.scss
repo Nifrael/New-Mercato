@@ -1,0 +1,13 @@
+// Mentions légales : texte courant, lignes courtes pour la lecture.
+.legal {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-l);
+  max-width: 70ch;
+}
+
+.legal__section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-s);
+}

@@ -1,11 +1,42 @@
-# Pages publiques : bienvenue (racine) et présentation de New Mercato.
+# Pages publiques : bienvenue (racine), présentation de New Mercato, mentions légales.
 class PagesController < ApplicationController
   def bienvenue
+  end
+
+  # Page statique obligatoire (loi LCEN) : aucune donnée, donc rien à autoriser.
+  def mentions_legales
   end
 
   # Tout ce que la page affiche vient de l'appli réelle (pas de chiffres inventés).
   def accueil
     @clubs = policy_scope(Club).order(:name)
     @players_count = Player.count
+    # Vitrine : les joueurs disponibles les plus cotés, comme le tri par défaut du catalogue.
+    @featured_players = policy_scope(Player).available.includes(:club)
+                                            .sorted_by(Player::DEFAULT_SORT).limit(6)
+    @story_booking = story_booking(@featured_players.first)
+    # Chiffres du marché : calculés PAR LA BASE (SUM, AVG, COUNT DISTINCT), une requête chacun,
+    # sans charger un seul joueur en mémoire.
+    @market_value = Player.sum(:market_value)
+    @average_price = Player.average(:price_per_day)
+    @leagues_count = Club.distinct.count(:league)
+    @nationalities_count = Player.distinct.count(:nationality)
+    # Joueurs par club en UNE requête (GROUP BY) : { club_id => nombre }.
+    # Évite un club.players.count par bande (N+1).
+    @players_per_club = Player.group(:club_id).count
+  end
+
+  private
+
+  # Location racontée sur l'accueil : construite en mémoire, JAMAIS enregistrée (pas de save).
+  # Vrai joueur, vrai club emprunteur, vrai calcul du total : l'exemple ne peut pas mentir.
+  def story_booking(player)
+    borrower = player && @clubs.detect { |club| club.id != player.club_id }
+    return unless borrower
+
+    start_date = Date.current.next_occurring(:monday)
+    booking = Booking.new(player:, club: borrower, start_date:, end_date: start_date + 21)
+    booking.total_price = booking.calculate_total_price(player.price_per_day)
+    booking
   end
 end

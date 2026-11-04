@@ -97,11 +97,38 @@ class NavigationTest < ActionDispatch::IntegrationTest
     assert_select ".app-nav__badge", count: 0
   end
 
+  # --- Footer (pages visiteurs uniquement) -----------------------------------
+
+  test "un visiteur a le footer, avec les mentions légales et le code source" do
+    get players_url
+
+    assert_select "footer.site-footer a[href=?]", mentions_legales_path
+    assert_select "footer.site-footer a[href=?] svg.icon", "https://github.com/Nifrael/New-Mercato"
+    assert_select "footer.site-footer a[href=?]", "https://nifradev.fr", text: "Julien Marchand · NifraDev"
+  end
+
+  test "connecté, l'espace club n'a pas de footer" do
+    sign_in users(:one)
+
+    get players_url
+
+    assert_select "footer.site-footer", count: 0
+  end
+
+  test "connecté, la vitrine /accueil garde le footer" do
+    sign_in users(:one)
+
+    get accueil_url
+
+    assert_select "footer.site-footer", count: 1
+  end
+
   # --- Page de bienvenue -----------------------------------------------------
 
   test "la page de bienvenue s'affiche en plein écran, sans navigation" do
     get root_url
 
     assert_select ".app-nav", count: 0
+    assert_select "footer.site-footer", count: 0
   end
 end

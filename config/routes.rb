@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   root to: "pages#bienvenue"
 
   get "/accueil", to: "pages#accueil"
+  get "/mentions-legales", to: "pages#mentions_legales", as: :mentions_legales
 
   # Catalogue des composants du design system : développement et test uniquement.
   get "/styleguide", to: "styleguide#show" if Rails.env.local?
