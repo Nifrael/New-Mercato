@@ -85,7 +85,7 @@ gem "sass-embedded", "~> 1.107"
 # Simple_form
 
 # State machines
-gem "aasm", "~> 5.5"
+gem "aasm", "~> 6.0"
 
 # Traductions françaises par défaut de Rails (messages de validation, dates, nombres)
 gem "rails-i18n", "~> 8.0"
