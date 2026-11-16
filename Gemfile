@@ -80,7 +80,7 @@ gem "htmlbeautifier"
 
 # SASS
 gem "dartsass-rails", "~> 0.5.1"
-gem "sass-embedded", "~> 1.107"
+gem "sass-embedded", "~> 1.108"
 
 # Simple_form
 
