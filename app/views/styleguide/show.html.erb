@@ -88,6 +88,14 @@
   </section>
 
   <section class="styleguide__section">
+    <h2 class="styleguide__heading">Disponibilités d'un joueur</h2>
+    <div class="grid-auto">
+      <%= render "players/availability", loans: [ @sample_loan ] %>
+      <%= render "players/availability", loans: [] %>
+    </div>
+  </section>
+
+  <section class="styleguide__section">
     <h2 class="styleguide__heading">Champs et pastilles de filtre</h2>
     <label class="search-field">
       <%= icon(:search, size: 18) %>

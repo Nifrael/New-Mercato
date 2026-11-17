@@ -1,7 +1,7 @@
 // Fiche joueur (players#show).
-// MOBILE FIRST : une colonne, dans l'ordre de priorité → identité, RÉSERVATION,
-// chiffres, disponibilités. À partir de $lg : la réservation passe dans une colonne
-// à droite, qui reste visible au défilement (sticky).
+// MOBILE FIRST : une colonne, dans l'ordre de priorité → identité, RÉSERVATION
+// (avec les périodes déjà prises), chiffres. À partir de $lg : la réservation passe
+// dans une colonne à droite, qui reste visible au défilement (sticky).
 @use "../config/breakpoints" as *;
 @use "../config/mixins" as *;
 
@@ -11,17 +11,18 @@
     "back"
     "hero"
     "booking"
-    "stats"
-    "availability";
+    "stats";
   align-items: start;
 
   @include breakpoint-up($lg) {
     grid-template-columns: minmax(0, 2fr) minmax(20rem, 1fr);
+    // Dernière ligne en 1fr : si le panneau est plus haut que l'identité + les chiffres,
+    // la place en trop va sous les chiffres, au lieu d'écarter l'identité des chiffres.
+    grid-template-rows: auto auto 1fr;
     grid-template-areas:
       "back back"
       "hero booking"
-      "stats booking"
-      "availability booking";
+      "stats booking";
   }
 }
 
@@ -54,10 +55,6 @@
   grid-area: stats;
 }
 
-.player-page__availability {
-  grid-area: availability;
-}
-
 // En-tête du joueur : avatar + identité (côte à côte dès que la place le permet).
 .player-hero {
   flex-direction: row;
@@ -75,36 +72,4 @@
 
 .player-hero__name {
   font-size: var(--h1);
-}
-
-.availability__list {
-  display: flex;
-  flex-direction: column;
-  gap: var(--espace-s);
-}
-
-.availability__item {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: var(--espace-s);
-  padding: var(--espace-s-plus);
-  border-radius: var(--rayon-m);
-  background-color: var(--color-bg-surface-hover);
-}
-
-.availability__dates {
-  @include numeric;
-  text-decoration: line-through;
-  text-decoration-color: var(--color-text-secondary);
-}
-
-.availability__club,
-.availability__hint {
-  color: var(--color-text-secondary);
-}
-
-.availability__free {
-  color: var(--color-accent);
-  font-weight: 600;
 }

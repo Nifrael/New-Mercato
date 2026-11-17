@@ -18,7 +18,8 @@
   </section>
 
   <aside class="player-page__booking" aria-label="Louer ce joueur">
-    <%= render "players/booking_panel", player: @player, booking: @booking, can_book: @can_book, can_edit: @can_edit %>
+    <%= render "players/booking_panel", player: @player, booking: @booking, unavailabilities: @unavailabilities,
+                                        can_book: @can_book, can_edit: @can_edit %>
   </aside>
 
   <section class="grid-auto player-page__stats" aria-label="Caractéristiques">
@@ -28,24 +29,5 @@
     <div class="card"><%= render "shared/stat", label: "Taille", value: "#{@player.height} cm" %></div>
     <div class="card"><%= render "shared/stat", label: "Pied fort", value: @player.foot %></div>
     <div class="card"><%= render "shared/stat", label: "Nationalité", value: @player.nationality %></div>
-  </section>
-
-  <section class="card availability player-page__availability" aria-labelledby="disponibilites">
-    <h2 id="disponibilites" class="card__title">Disponibilités</h2>
-    <% if @unavailabilities.any? %>
-      <ul class="availability__list" role="list">
-        <% @unavailabilities.each do |loan| %>
-          <li class="availability__item">
-            <span class="availability__dates">
-              Loué du <%= l(loan.start_date, format: :compact) %> au <%= l(loan.end_date, format: :compact) %>
-            </span>
-            <span class="availability__club"><%= loan.club.name %></span>
-          </li>
-        <% end %>
-      </ul>
-      <p class="availability__hint">Choisissez des dates en dehors de ces périodes.</p>
-    <% else %>
-      <p class="availability__free">Disponible à toutes les dates à venir.</p>
-    <% end %>
   </section>
 </div>

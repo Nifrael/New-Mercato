@@ -1,10 +1,11 @@
 <%# locals: (record:) -%>
-<%# Erreurs de validation d'un formulaire (connexion, mot de passe, édition d'un joueur…).
-    role="alert" : annoncé immédiatement par les lecteurs d'écran. %>
+<%# Erreurs de validation d'un formulaire (demande de location, mot de passe, édition d'un joueur…).
+    role="alert" : annoncé immédiatement par les lecteurs d'écran.
+    Elles restent affichées DANS le formulaire jusqu'à la correction (jamais dans un toast qui disparaît). %>
 <% if record.errors.any? %>
   <div class="form-errors" role="alert">
     <p class="form-errors__title">
-      <%= t("errors.messages.not_saved", count: record.errors.count, resource: record.class.model_name.human.downcase) %>
+      <%= t("errors.messages.not_saved", count: record.errors.count) %>
     </p>
     <ul class="form-errors__list">
       <% record.errors.full_messages.each do |message| %>

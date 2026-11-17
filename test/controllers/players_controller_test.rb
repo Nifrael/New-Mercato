@@ -79,6 +79,22 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
                   players(:one).price_per_day.to_s
   end
 
+  test "le formulaire transmet à Stimulus les périodes louées et le message de chevauchement" do
+    from = Date.current + 30
+    to = Date.current + 40
+    Booking.create!(player: players(:one), club: clubs(:three), total_price: 1, status: :accepted,
+                    start_date: from, end_date: to)
+    sign_in users(:two)
+
+    get player_url(players(:one))
+
+    # Le JS reçoit les dates en JSON (« AAAA-MM-JJ »), et le texte de la validation du modèle :
+    # une seule source pour la phrase d'erreur.
+    assert_select "form[data-booking-total-taken-value=?]", [ [ from.iso8601, to.iso8601 ] ].to_json
+    assert_select "form[data-booking-total-conflict-message-value=?]", Booking::PERIOD_UNAVAILABLE
+    assert_select "#booking-conflict[aria-live=polite][data-booking-total-target=conflict]"
+  end
+
   test "un membre du club propriétaire ne peut pas réserver son propre joueur" do
     sign_in users(:one)
 
@@ -88,19 +104,28 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
     assert_select ".booking-panel", text: /joueur de votre club/
   end
 
-  test "les périodes déjà louées sont affichées" do
+  test "les périodes déjà louées sont affichées dans le panneau de location" do
     Booking.create!(player: players(:one), club: clubs(:three), total_price: 1, status: :accepted,
                     start_date: Date.current + 30, end_date: Date.current + 40)
 
     get player_url(players(:one))
 
-    assert_select ".availability__item", text: /#{I18n.l(Date.current + 30, format: :compact)}/
+    # Dans le panneau, là où l'on choisit ses dates (et plus dans une section en bas de page).
+    assert_select ".booking-panel .availability__item", text: /#{I18n.l(Date.current + 30, format: :compact)}/
   end
 
   test "sans location à venir, le joueur est annoncé disponible" do
     get player_url(players(:one))
 
-    assert_select ".availability", text: /Disponible/
+    assert_select ".booking-panel .availability", text: /Disponible/
+  end
+
+  test "un joueur non proposé à la location n'est pas annoncé disponible" do
+    players(:one).update!(status: :unavailable)
+
+    get player_url(players(:one))
+
+    assert_select ".availability", count: 0
   end
 
   # --- Modification : réservée au club du joueur -----------------------------

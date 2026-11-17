@@ -9,6 +9,15 @@ fr:
     failure:
       unauthenticated: "Connectez-vous pour continuer."   # pas d'inscription libre : on n'en parle pas
 
+  # Titre des erreurs de formulaire (shared/_form_errors). La phrase de rails-i18n
+  # (« ce (cet ou cette) joueur … enregistré(e) ») ne peut pas connaître le genre du mot :
+  # formulation neutre, valable pour tous les modèles.
+  errors:
+    messages:
+      not_saved:
+        one: "Une erreur a empêché l'enregistrement :"
+        other: "%{count} erreurs ont empêché l'enregistrement :"
+
   # Nombres + mot au bon nombre : t("counts.players", count: n) → « 0 joueur », « 2 joueurs ».
   # (pluralize de Rails suit la règle anglaise ; ici, la règle française vient de rails-i18n.)
   counts:

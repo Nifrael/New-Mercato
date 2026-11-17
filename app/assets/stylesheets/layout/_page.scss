@@ -1,0 +1,27 @@
+// Page générique de l'app : marges verticales et espacement entre sections.
+// Rangée dans layout/ (et non dans pages/) : c'est la mise en page de BASE de presque toutes
+// les pages. Chargée avant pages/, elle peut être enrichie par une page précise
+// (ex. .player-page passe en grille) sans que l'ordre des fichiers ne l'écrase.
+@use "../config/breakpoints" as *;
+@use "../config/mixins" as *;
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-l);
+  padding-block: var(--espace-m-plus) var(--espace-l);
+
+  @include breakpoint-up($lg) {
+    gap: var(--espace-l-plus);
+    padding-block: var(--espace-l) var(--espace-xl);
+  }
+}
+
+// Page de présentation (accueil) : des sections plus aérées qu'une page d'outil.
+.page--spacious {
+  gap: var(--espace-xl);
+
+  @include breakpoint-up($lg) {
+    gap: var(--espace-xxl);
+  }
+}

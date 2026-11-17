@@ -2,28 +2,6 @@
 @use "../config/breakpoints" as *;
 @use "../config/mixins" as *;
 
-// Page générique de l'app : marges verticales et espacement entre sections.
-.page {
-  display: flex;
-  flex-direction: column;
-  gap: var(--espace-l);
-  padding-block: var(--espace-m-plus) var(--espace-l);
-
-  @include breakpoint-up($lg) {
-    gap: var(--espace-l-plus);
-    padding-block: var(--espace-l) var(--espace-xl);
-  }
-}
-
-// Page de présentation (accueil) : des sections plus aérées qu'une page d'outil.
-.page--spacious {
-  gap: var(--espace-xl);
-
-  @include breakpoint-up($lg) {
-    gap: var(--espace-xxl);
-  }
-}
-
 .dashboard__stats {
   --grid-min: 9rem; // 2 colonnes sur mobile, 5 sur grand écran
 }
