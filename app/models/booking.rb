@@ -14,11 +14,7 @@ class Booking < ApplicationRecord
     state :accepted
     state :refused
 
-    # after sur l'ÉVÉNEMENT (et non sur la transition) : exécuté APRÈS l'enregistrement du
-    # nouveau statut, donc la location est bien vue comme acceptée lors du recalcul.
     event :accept, after: :refresh_player_status do
-      # guard : la transition n'est possible que si la période est encore libre
-      # (sinon may_accept? renvoie false et accept! est refusé).
       transitions from: :pending, to: :accepted, guard: :period_available?
     end
 
