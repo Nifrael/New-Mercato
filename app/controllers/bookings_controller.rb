@@ -14,7 +14,8 @@ class BookingsController < ApplicationController
       redirect_to dashboard_bookings_path(direction: "sent"),
                   notice: "Demande envoyée à #{@player.club.name}. Suivez sa réponse ici."
     else
-      flash.now[:alert] = @booking.errors.full_messages.to_sentence
+      # Pas de flash : les erreurs s'affichent dans le panneau de location (shared/_form_errors),
+      # à côté des dates à corriger, et y restent tant qu'elles ne sont pas corrigées.
       load_player_page(@player, booking: @booking) # garde la saisie pour la corriger
       render "players/show", status: :unprocessable_entity
     end

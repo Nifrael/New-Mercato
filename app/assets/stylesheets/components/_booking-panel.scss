@@ -38,6 +38,19 @@
   gap: var(--espace-s);
 }
 
+// Dates qui chevauchent une période déjà louée (rempli par Stimulus, booking-total).
+// Toujours affiché (jamais display: none) : une zone aria-live masquée n'est pas toujours
+// annoncée par les lecteurs d'écran. Vide, il mesure 0 px : la marge n'apparaît qu'avec un texte.
+.booking-form__conflict {
+  color: var(--color-danger);
+  font-size: var(--base-size);
+  font-weight: 500;
+
+  &:not(:empty) {
+    margin-top: var(--espace-s);
+  }
+}
+
 .booking-form__summary {
   margin: 0;
   padding-block: var(--espace-s-plus);

@@ -47,7 +47,25 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_response :unprocessable_entity
-    assert_equal "Date de fin doit être postérieure à la date de début.", flash[:alert]
+    # L'erreur est DANS le panneau (elle y reste), pas dans un toast qui disparaît.
+    assert_select ".booking-panel .form-errors[role=alert]", text: /Date de fin doit être postérieure à la date de début/
+    assert_nil flash[:alert]
+  end
+
+  test "une période déjà louée ré-affiche la fiche avec l'erreur et les dates saisies" do
+    Booking.create!(player: @player, club: clubs(:three), total_price: 1, status: :accepted,
+                    start_date: Date.current + 10, end_date: Date.current + 20)
+    sign_in users(:two)
+    overlapping = { booking: { start_date: Date.current + 15, end_date: Date.current + 25 } }
+
+    assert_no_difference "Booking.count" do
+      post player_bookings_url(@player), params: overlapping
+    end
+
+    assert_response :unprocessable_entity
+    assert_select ".booking-panel .form-errors", text: /#{Booking::PERIOD_UNAVAILABLE}/
+    # La saisie est conservée : on corrige au lieu de tout recommencer.
+    assert_select "input[name=?][value=?]", "booking[start_date]", (Date.current + 15).iso8601
   end
 
   test "une demande sans dates est refusée sans faire planter l'application" do

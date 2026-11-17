@@ -1,5 +1,6 @@
-<%# locals: (player:, booking:, can_book:, can_edit:) -%>
-<%# Panneau « Louer ce joueur » : formulaire pour un autre club, sinon un message adapté.
+<%# locals: (player:, booking:, unavailabilities:, can_book:, can_edit:) -%>
+<%# Panneau « Louer ce joueur » : prix, périodes déjà prises, puis formulaire pour un autre club
+    (sinon un message adapté).
     Le total affiché est calculé en direct par Stimulus (booking-total) pour information ;
     le VRAI total est recalculé côté serveur (calculate_total_price) : on ne fait jamais
     confiance à un montant venu du navigateur. %>
@@ -11,25 +12,42 @@
     </p>
   </div>
 
+  <%# Joueur non proposé à la location : « Disponible à toutes les dates » serait contradictoire. %>
+  <%= render "players/availability", loans: unavailabilities unless player.unavailable? %>
+
   <% if can_edit %>
     <p class="booking-panel__note">C'est un joueur de votre club : réglez ici son prix et sa disponibilité.</p>
     <%= link_to "Modifier la fiche", edit_player_path(player), class: "btn btn--secondary btn--block" %>
   <% elsif player.unavailable? %>
     <p class="booking-panel__note">Ce joueur n'est pas proposé à la location pour le moment.</p>
   <% elsif can_book %>
+    <%# taken : les périodes déjà louées, pour prévenir d'un chevauchement dès la saisie.
+        Rails convertit le tableau en JSON : [["2026-11-16","2026-11-22"]]. %>
     <%= form_with model: [ player, booking ], class: "booking-form",
-                  data: { controller: "booking-total", booking_total_price_value: player.price_per_day } do |f| %>
-      <div class="booking-form__dates">
-        <div class="field">
-          <%= f.label :start_date, "Du", class: "field__label" %>
-          <%= f.date_field :start_date, min: Date.current, required: true, class: "field__input",
-                           data: { booking_total_target: "start", action: "change->booking-total#update" } %>
+                  data: { controller: "booking-total",
+                          booking_total_price_value: player.price_per_day,
+                          booking_total_taken_value: unavailabilities.map { |loan| [ loan.start_date, loan.end_date ] },
+                          booking_total_conflict_message_value: Booking::PERIOD_UNAVAILABLE } do |f| %>
+      <%= render "shared/form_errors", record: booking %>
+
+      <%# Dates + message de chevauchement dans un même bloc : le message vide ne crée pas d'espace. %>
+      <div>
+        <div class="booking-form__dates">
+          <div class="field">
+            <%= f.label :start_date, "Du", class: "field__label" %>
+            <%= f.date_field :start_date, min: Date.current, required: true, class: "field__input",
+                             aria: { describedby: "booking-conflict" },
+                             data: { booking_total_target: "start", action: "change->booking-total#update" } %>
+          </div>
+          <div class="field">
+            <%= f.label :end_date, "Au", class: "field__label" %>
+            <%= f.date_field :end_date, min: Date.current + 1, required: true, class: "field__input",
+                             data: { booking_total_target: "end", action: "change->booking-total#update" } %>
+          </div>
         </div>
-        <div class="field">
-          <%= f.label :end_date, "Au", class: "field__label" %>
-          <%= f.date_field :end_date, min: Date.current + 1, required: true, class: "field__input",
-                           data: { booking_total_target: "end", action: "change->booking-total#update" } %>
-        </div>
+
+        <%# Rempli par Stimulus en cas de chevauchement (vide sinon). aria-live : annoncé aux lecteurs d'écran. %>
+        <p id="booking-conflict" class="booking-form__conflict" data-booking-total-target="conflict" aria-live="polite"></p>
       </div>
 
       <dl class="booking-form__summary">
