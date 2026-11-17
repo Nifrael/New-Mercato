@@ -1,0 +1,45 @@
+// Disponibilités d'un joueur (players/_availability), posées dans le panneau de location.
+// Les périodes prises ne sont PAS barrées : un texte barré se lit « annulé, ne compte plus »,
+// c'est-à-dire l'inverse du message (« cette période est prise »).
+@use "../config/mixins" as *;
+
+.availability {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-s);
+}
+
+.availability__title {
+  @include eyebrow;
+}
+
+.availability__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-xs);
+}
+
+.availability__item {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--espace-s);
+  padding: var(--espace-s) var(--espace-s-plus);
+  border-left: 2px solid var(--color-warning); // même couleur que le badge « Loué »
+  border-radius: var(--rayon-s);
+  background-color: var(--color-bg-surface-hover);
+}
+
+.availability__dates {
+  @include numeric;
+  color: var(--color-text-strong);
+}
+
+.availability__club {
+  color: var(--color-text-secondary);
+}
+
+.availability__free {
+  color: var(--color-accent);
+  font-weight: 600;
+}

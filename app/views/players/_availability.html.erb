@@ -1,0 +1,21 @@
+<%# locals: (loans:) -%>
+<%# Disponibilités d'un joueur : ses prêts acceptés à venir (ou en cours).
+    Affiché dans le panneau de location, JUSTE AVANT les dates : on voit les périodes prises
+    au moment de choisir les siennes. %>
+<div class="availability">
+  <% if loans.any? %>
+    <p class="availability__title">Déjà loué sur ces périodes</p>
+    <ul class="availability__list" role="list">
+      <% loans.each do |loan| %>
+        <li class="availability__item">
+          <span class="availability__dates">
+            <%= l(loan.start_date, format: :compact) %> → <%= l(loan.end_date, format: :compact) %>
+          </span>
+          <span class="availability__club"><%= loan.club.name %></span>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p class="availability__free">Disponible à toutes les dates à venir.</p>
+  <% end %>
+</div>
